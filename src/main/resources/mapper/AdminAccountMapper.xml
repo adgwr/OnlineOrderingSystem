@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adgwr.online.ordering.system.mapper.AdminAccountMapper">
+  <resultMap id="BaseResultMap" type="com.adgwr.online.ordering.system.domain.AdminAccount">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="ad_tel" jdbcType="VARCHAR" property="adTel" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="issuper" jdbcType="TINYINT" property="issuper" />
+  </resultMap>
+</mapper>

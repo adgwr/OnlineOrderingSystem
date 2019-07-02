@@ -14,5 +14,13 @@ jsp放在templates
 
 # 环境
 
-如果用mysql8见注解
+如果用mysql8见相关注解
 springboot 2.0.2
+
+# 其他
+
+我在application.yml中暴露的端口为9090
+
+如果有人想尝试thymeleaf，直接用，相关配置齐全。
+
+mybaits二级缓存打算用Redis,先了解一下。

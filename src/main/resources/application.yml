@@ -16,6 +16,10 @@ spring:
             test-on-borrow: true
             # MySQL 8.x: com.mysql.cj.jdbc.Driver
             driver-class-name: com.mysql.jdbc.Driver
+#    mvc: #用来兼容jsp
+#        view:
+#            prefix: /WEB-INF/views/
+#            suffix: .jsp
 
 server:
     port: 9090

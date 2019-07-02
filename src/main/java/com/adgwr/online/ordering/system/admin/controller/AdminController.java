@@ -7,14 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 测试thymeleaf的类
  * @author Administrator
  */
 @Controller
-@RequestMapping(value = "admin")
+//@RequestMapping(value = "admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
@@ -44,5 +43,14 @@ public class AdminController {
             }
         }
         return null;
+    }
+
+    /**
+     * 子目录html访问
+     * @return
+     */
+    @RequestMapping(value = "/demo")
+    public String demo(){
+        return "admin/demo";
     }
 }

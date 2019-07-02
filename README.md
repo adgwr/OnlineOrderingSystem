@@ -1,3 +1,18 @@
-# springboot  <version>2.0.2.RELEASE</version>
-jsp过时，Vue不会，使用thymeleaf
-mybatis整合完了（二级缓存打算用Redis做，还没做）
+# 要修改的文件配置
+
+application.yml   jdbc.properties主要是mysql配置
+
+# 要点
+
+静态资源文件放在static
+
+jsp放在templates
+
+#成功标志
+
+运行AdminServiceTest 结果成功即可
+
+# 环境
+
+如果用mysql8单独问我
+springboot 2.0.2

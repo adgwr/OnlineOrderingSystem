@@ -8,5 +8,6 @@
     <id column="admin_id" jdbcType="VARCHAR" property="adminId" />
     <result column="ad_tel" jdbcType="VARCHAR" property="adTel" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="issuper" jdbcType="TINYINT" property="issuper" />
   </resultMap>
 </mapper>

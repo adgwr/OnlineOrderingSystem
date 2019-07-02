@@ -14,6 +14,8 @@ public class AdminAccount {
 
     private String password;
 
+    private Byte issuper;
+
     /**
      * @return admin_id
      */
@@ -54,5 +56,19 @@ public class AdminAccount {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return issuper
+     */
+    public Byte getIssuper() {
+        return issuper;
+    }
+
+    /**
+     * @param issuper
+     */
+    public void setIssuper(Byte issuper) {
+        this.issuper = issuper;
     }
 }

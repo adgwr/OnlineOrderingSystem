@@ -16,6 +16,7 @@ import tk.mybatis.mapper.entity.Example;
 @Transactional(readOnly = true)
 public class AdminServiceImpl implements AdminService {
 
+    //dao层注入
     @Autowired
     private AdminAccountMapper adminAccountMapper;
 
@@ -31,9 +32,10 @@ public class AdminServiceImpl implements AdminService {
         example.createCriteria().andEqualTo("adTel",adTel);
 
         AdminAccount adminAccount = adminAccountMapper.selectOneByExample(example);
+
         if(adminAccount!=null){
-            String password= DigestUtils.md5DigestAsHex(plantPassword.getBytes());
-            if(password.equals(adminAccount.getPassword())){
+//            String password= DigestUtils.md5DigestAsHex(plantPassword.getBytes());
+            if(plantPassword.equals(adminAccount.getPassword())){
                 return adminAccount;
             }
         }

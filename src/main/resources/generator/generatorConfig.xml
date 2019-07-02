@@ -45,6 +45,14 @@
             <!-- mysql 配置 -->
             <generatedKey column="category_id" sqlStatement="Mysql" identity="false"/>
         </table>
+        <table tableName="collections">
+            <!-- mysql 配置 -->
+            <generatedKey column="c_id" sqlStatement="Mysql" identity="false"/>
+        </table>
+        <table tableName="comments">
+            <!-- mysql 配置 -->
+            <generatedKey column="order_id" sqlStatement="Mysql" identity="false"/>
+        </table>
         <table tableName="customer">
             <!-- mysql 配置 -->
             <generatedKey column="c_id" sqlStatement="Mysql" identity="false"/>

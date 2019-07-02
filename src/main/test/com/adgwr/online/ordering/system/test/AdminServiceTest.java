@@ -30,7 +30,10 @@ public class AdminServiceTest {
 
     @Test
     public void testLogin(){
-        AdminAccount adminAccount=adminService.login("123456","123456");
+        AdminAccount adminAccount=adminService.login("18000000000","123456");
+        System.out.println(adminAccount.getAdminId());
+        System.out.println(adminAccount.getAdTel());
+        System.out.println(adminAccount.getPassword());
         Assert.assertNotNull(adminAccount);
     }
 

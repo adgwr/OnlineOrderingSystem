@@ -15,6 +15,7 @@ jsp放在templates
 
 运行AdminServiceTest 结果成功即可
 
+
 运行OnlineOrderingSystemApplication，
 访问[http://localhost:9090/](http://localhost:9090/)
 

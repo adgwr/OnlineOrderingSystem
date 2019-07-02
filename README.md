@@ -14,5 +14,5 @@ jsp放在templates
 
 # 环境
 
-如果用mysql8单独问我
+如果用mysql8见注解
 springboot 2.0.2

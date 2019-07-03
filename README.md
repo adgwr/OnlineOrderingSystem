@@ -42,4 +42,10 @@ Springboot的默认视图支持是Thymeleaf。默认情况下，springboot是不
 mybaits二级缓存打算用Redis。
 
 
-# 总的来说：由组长决定使用 jsp 还是 thymeleaf 
+
+### 结论：由组长决定使用 jsp 还是 thymeleaf 
+
+如果决定使用thymeleaf ，就将templates目录下所有jsp改成thymeleaf
+大概要改，c:if、c:foreach、EL表达式等
+
+thymeleaf [使用参考](https://blog.csdn.net/malimingwq/article/details/79329921)

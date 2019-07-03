@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 
 /**
  * @author Administrator
  */
 @Controller
-public class DispatchController {
+public class AdminDispatchController {
 
     @Autowired
     private AdminService adminService;
@@ -30,37 +32,55 @@ public class DispatchController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = {"", "pcHomepage"})
+    /**
+     * 主页跳转，当浏览器发送请求时，经过此方法跳转到“pcHomepage”页面
+     *
+     * @return
+     */
+    @RequestMapping(value = {"", "pcHomepage"}, method = RequestMethod.GET)
     public String pcHomepage() {
         return "pcHomepage";
     }
 
 
-    //    @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    /**
+     * 登录的具体控制
+     *
+     * @param request
+     * @param response
+     * @param username
+     * @param password
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(HttpServletRequest request,
                         HttpServletResponse response,
                         @RequestParam(value = "username") String username,
                         @RequestParam(value = "password") String password,
+                        RedirectAttributes redirectAttributes,
                         Model model) {
 
         AdminAccount adminAccount = adminService.login(username, password);
         Customer customer = customerService.login(username, password);
-
+        //获取session
+        HttpSession session = request.getSession();
         //管理员登录
         if (adminAccount != null) {
-
+            session.setAttribute("adminAccount", adminAccount);
+            model.addAttribute("message", "登录成功");
+            return "";
         }
 
         //用户登录
         if (customer != null) {
-            BaseResult baseResult = BaseResult.ok();
             model.addAttribute("customer", customer);
             try {
-                HttpSession session = request.getSession();
-                session.setAttribute("customer",customer);
+                session.setAttribute("customer", customer);
+                //用model向页面传参
+                model.addAttribute("message", "登录成功");
+                //返回pcHomepage页面
                 return "pcHomepage";
-//                return MapperUtils.obj2json(baseResult);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -68,9 +88,12 @@ public class DispatchController {
 
         //登录失败
         else {
-            model.addAttribute("message", "用户名或密码错误");
-            return "pcHomepage";
+            //用RedirectAttributes对象重定向传参
+            redirectAttributes.addFlashAttribute("message", "用户名或密码错误，请重新输入");
+            return "redirect:/pcHomepage";
         }
         return null;
     }
+
+
 }

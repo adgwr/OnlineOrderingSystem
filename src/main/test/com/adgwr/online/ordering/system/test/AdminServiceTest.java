@@ -2,8 +2,10 @@ package com.adgwr.online.ordering.system.test;
 
 import com.adgwr.online.ordering.system.OnlineOrderingSystemApplication;
 import com.adgwr.online.ordering.system.domain.AdminAccount;
+import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.mapper.AdminAccountMapper;
 import com.adgwr.online.ordering.system.admin.service.AdminService;
+import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,13 +15,15 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author Administrator
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OnlineOrderingSystemApplication.class)
-@Rollback
-@Transactional
+//@Rollback
+//@Transactional
 public class AdminServiceTest {
 
     @Autowired
@@ -27,6 +31,15 @@ public class AdminServiceTest {
 
     @Autowired
     private AdminAccountMapper adminAccountMapper;
+
+    @Autowired
+    private MyOrderMapper myOrderMapper;
+    @Test
+    public void test(){
+        MyOrder myOrder=new MyOrder();
+        myOrder.setOrderDate((new Date()).toString());
+        myOrderMapper.insert(myOrder);
+    }
 
     @Test
     public void testLogin(){

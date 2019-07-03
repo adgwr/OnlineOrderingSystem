@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
-<script>
+<script type="text/javascript" th:inline="javascript">
+
     function openLogin() {
         document.getElementById("login").style.display = "";
     }
@@ -20,22 +21,6 @@
             return;
         }
         document.f.submit();
-        // $.ajax({
-        //     url:"/login",
-        //     data:{
-        //       username : "demo",
-        //       password : "12356"
-        //     },
-        //     type:"post",
-        //     dataType:"json",
-        //     success:function (result) {
-        //         alert("ok");
-        //         alert(result);
-        //         if(result.result=="ok"){
-        //             alert("登录成功");
-        //         }
-        //     }
-        // });
     }
 </script>
 
@@ -76,15 +61,6 @@
             <li class="navitem" th:if="${session.customer!=null}">
                 <a href="#" target="_self" th:if="${session.customer!=null}">购物车</a>
             </li>
-            <!--            <c:if test="${sessionScope.type=='customer'}">-->
-            <!--                <li class="navitem"><a-->
-            <!--                        href="${pageContext.request.contextPath}/GetOrders" target="_self">订单</a></li>-->
-            <!--                <li class="navitem"><a-->
-            <!--                        href="${pageContext.request.contextPath}/ShoppingCart"-->
-            <!--                        target="_self">购物车</a></li>-->
-            <!--            </c:if>-->
-
-            <!--            <loginT:login />-->
         </ul>
 
         <div id="login" style="display: none;" class="input_control">
@@ -111,7 +87,7 @@
 </div>
 <a id="headSHBtn" href="javascript:;"><i class="fa fa-bars"></i></a>
 </div>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
     function categoryClicked(category) {
         form = $("<form></form>")
         form.attr('action', '${pageContext.request.contextPath}/GetFoods')
@@ -124,6 +100,11 @@
         form.css('display', 'none')
         form.submit()
     }
+
+    // var message = [[${message}]];
+    // if(message!=null){
+    //     alert(message);
+    // }
 </script>
 </body>
 </html>

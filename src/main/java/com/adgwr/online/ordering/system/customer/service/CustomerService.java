@@ -7,7 +7,7 @@ import com.adgwr.online.ordering.system.domain.Customer;
  * @author Administrator
  */
 public interface CustomerService {
-    void register();
+    boolean register(String username,String password,String email);
 
     /**
      * 登录功能

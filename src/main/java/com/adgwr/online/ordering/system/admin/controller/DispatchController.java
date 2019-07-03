@@ -11,7 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Administrator
@@ -25,15 +30,19 @@ public class DispatchController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = {"","pcHomepage"})
-    public String pcHomepage(){
+    @RequestMapping(value = {"", "pcHomepage"})
+    public String pcHomepage() {
         return "pcHomepage";
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(String username, String password, Model model) {
+    //    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(HttpServletRequest request,
+                        HttpServletResponse response,
+                        @RequestParam(value = "username") String username,
+                        @RequestParam(value = "password") String password,
+                        Model model) {
 
         AdminAccount adminAccount = adminService.login(username, password);
         Customer customer = customerService.login(username, password);
@@ -46,9 +55,12 @@ public class DispatchController {
         //用户登录
         if (customer != null) {
             BaseResult baseResult = BaseResult.ok();
-            model.addAttribute("Customer",customer);
+            model.addAttribute("customer", customer);
             try {
-                return MapperUtils.obj2json(baseResult);
+                HttpSession session = request.getSession();
+                session.setAttribute("customer",customer);
+                return "pcHomepage";
+//                return MapperUtils.obj2json(baseResult);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -56,7 +68,8 @@ public class DispatchController {
 
         //登录失败
         else {
-            return null;
+            model.addAttribute("message", "用户名或密码错误");
+            return "pcHomepage";
         }
         return null;
     }

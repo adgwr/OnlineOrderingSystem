@@ -18,8 +18,17 @@
             alert('密码不能为空!');
             return;
         }
-        document.f.submit();
-
+        $.ajax({
+            url:"http://localhost:9090//login",
+            data:"username=demo",
+            type:"POST",
+            success:function (result) {
+                alert("ok");
+                if(result.result=="ok"){
+                    alert("登录成功");
+                }
+            }
+        });
     }
 </script>
 <style type="text/css">
@@ -73,11 +82,11 @@
         </ul>
 
         <div id="login" style="display: none;" class="input_control">
-            <form name="f" action="/admin/login" method="POST">
+            <form name="f" action="/login" method="POST">
                 <span style="font-size: 1em; margin-bottom: 10px; color: white;">欢迎登陆网上订餐系统</span><br />
                 <label style="color: white;">用户名：
                 </label>
-                <input type="text" style="border: white 1px solid; color: white; border-radius: 3px;" name="username" id="username" value="#" onclick="JavaScript:this.value=''" />
+                <input type="text" style="border: white 1px solid; color: white; border-radius: 3px;" name="username" id="username" onclick="JavaScript:this.value=''" />
                 <label style="color: white; margin-left: 5px">密码：</label>
                 <input style="border: white 1px solid; color: white; border-radius: 3px;" name="password" id="password" type="password" onclick="JavaScript:this.value=''" />
                 <input type="button" value="登 陆" style="border-radius: 3px; color: white; margin-left: 10px; cursor: pointer; border: white 0.6px solid; padding: 2px 6px; font-size: 10px;" onclick="Login();" />

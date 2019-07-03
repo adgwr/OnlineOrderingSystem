@@ -1,12 +1,12 @@
-package com.adgwr.online.ordering.system.admin.service;
+package com.adgwr.online.ordering.system.customer.service;
 
 import com.adgwr.online.ordering.system.domain.AdminAccount;
+import com.adgwr.online.ordering.system.domain.Customer;
 
 /**
  * @author Administrator
  */
-public interface AdminService {
-
+public interface CustomerService {
     void register();
 
     /**
@@ -15,7 +15,7 @@ public interface AdminService {
      * @param password
      * @return
      */
-    AdminAccount login(String username,String password);
+    Customer login(String username, String password);
 
     void logout();
 }

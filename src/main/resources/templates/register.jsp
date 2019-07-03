@@ -31,6 +31,7 @@
 
 </head>
 <body class="nobanner">
+    <div t></div>
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- <div class="bgf4"> -->
 	<div id="sitecontent">

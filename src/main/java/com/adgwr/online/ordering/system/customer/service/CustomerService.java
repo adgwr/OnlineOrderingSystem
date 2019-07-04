@@ -2,12 +2,15 @@ package com.adgwr.online.ordering.system.customer.service;
 
 import com.adgwr.online.ordering.system.domain.AdminAccount;
 import com.adgwr.online.ordering.system.domain.Customer;
+import com.adgwr.online.ordering.system.domain.Food;
+
+import java.util.List;
 
 /**
  * @author Administrator
  */
 public interface CustomerService {
-    void register();
+    boolean register(String username,String password,String email);
 
     /**
      * 登录功能
@@ -18,4 +21,6 @@ public interface CustomerService {
     Customer login(String username, String password);
 
     void logout();
+
+    List<Food> getFoods(String searchContent);
 }

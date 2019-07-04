@@ -31,7 +31,7 @@
 </head>
 <body class="nobanner">
 <div t></div>
-<jsp:include page="banner.jsp"></jsp:include>
+<div th:replace="banner.html"></div>
 <!-- <div class="bgf4"> -->
 <div id="sitecontent">
     <div class="npagePage Pageanli" id="mproject">
@@ -43,20 +43,8 @@
             <div class="login-box f-mt10 f-pb50">
                 <div class="main bgf">
                     <div  >
-                        <!-- 						style="background: #2B2B2B;" -->
-                        <!-- 							<div class="step"> -->
-                        <!-- 								<ul> -->
-                        <!-- 									<li class="col-xs-4 on"><span class="num"><em -->
-                        <!-- 											class="f-r5"></em><i>1</i></span> <span class="line_bg lbg-r"></span> -->
-                        <!-- 										<p class="lbg-txt">Fill in Librarian information</p></li> -->
-                        <!-- 									<li class="col-xs-4"><span class="num"><em -->
-                        <!-- 											class="f-r5"></em><i>2</i></span> <span class="line_bg lbg-l"></span> -->
-                        <!-- 										<p class="lbg-txt">Register successfully</p></li> -->
-                        <!-- 								</ul> -->
-                        <!-- 							</div> -->
-
                         <div class="reg-box" id="verifyCheck" style="margin-top: 10px;">
-                            <form id="form2" name="fff" method="POST">
+                            <form id="form2" name="fff" method="POST" action="register">
                                 <div class="item col-xs-12">
                                     <span class="intelligent-label f-fl"><b class="ftx04">*</b>用户名:</span>
                                     <div class="f-fl item-ifo">
@@ -120,16 +108,33 @@
         </div>
     </div>
 </div>
-<jsp:include page="footer.jsp"></jsp:include>
-<script>
+<div th:replace="footer.html"></div>
+<script type="text/javascript" th:inline="javascript">
     $(function() {
         //Register Button
         $("#btn_part1").click(function() {
             if (!verifyCheck._click())
                 return;
-            document.fff.action = "CRegister";
+            document.fff.action = "register";
             document.fff.submit();
         });
+    });
+
+    function sleep(ms) {
+        return new Promise(resolve =>
+            setTimeout(resolve, ms)
+        )
+    }
+
+    var message = [[${message}]];
+    //等待页面加载
+    sleep(500).then(() => {
+        if (message != null) {
+            alert(message);
+            if(message=="注册成功"){
+
+            }
+        }
     });
 </script>
 </body>

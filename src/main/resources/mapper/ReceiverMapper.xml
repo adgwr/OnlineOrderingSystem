@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adgwr.online.ordering.system.mapper.ReceiverMapper">
+  <resultMap id="BaseResultMap" type="com.adgwr.online.ordering.system.domain.Receiver">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="c_id" jdbcType="VARCHAR" property="cId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="r_tel" jdbcType="VARCHAR" property="rTel" />
+    <result column="isshow" jdbcType="TINYINT" property="isshow" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,108 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+        try {
+            if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                window.location.href = "m/orderList.jsp";
+            }
+        } catch (e) {
+        }
+    </script>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/lib.css" />
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/376.css" />
+    <script type="text/javascript"
+            src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="templets/cloud_04/js/org.js"
+            data-main="baseMain"></script>
+    <title>菜品-网上订单系统</title>
+</head>
+<body class="nobanner">
+<!--替代jsp:include-->
+<div th:replace="banner.html"></div>
+<div id="sitecontent">
+    <div class="npagePage Pageanli" id="mproject">
+        <div class="content">
+            <div class="header" id="plheader">
+                <p class="title">我的订单</p>
+                <p class="subtitle">My Orders</p>
+            </div>
+            <div id="showOrders">
+                <table>
+                    <tr id="line1">
+                        <th>商品</th>
+                        <th>价格</th>
+                        <th>收件人</th>
+                        <th>时间</th>
+                        <th>交货方式</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr th:each="order : ${orders}">
+                        <tr id="otherLine">
+                            <td><table>
+                                <c:forEach var="lineItem" items="${order.lineItems}">
+                                    <tr>
+                                        <td>${lineItem.name} × ${lineItem.amount}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table></td>
+                            <td><table>
+                                <c:forEach var="lineItem" items="${order.lineItems}">
+                                    <tr>
+                                        <td>${lineItem.totalPrice}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table></td>
+                            <td>${order.receiver.name}</td>
+                            <td>${order.date}</td>
+                            <td>${order.shipMethod}</td>
+                            <td id="state">${order.state}</td>
+                            <td>
+                                <c:if test="${order.state eq '未付款' or order.state eq '已付款'}">
+                                    <form action="./CancelOrder" method="post"
+                                          onsubmit="return cancelForm();">
+                                        <input type="hidden" name="orderID" value="${order.orderID}" />
+                                        <input id="cancel" type="submit" value="取消订单" />
+                                    </form>
+                                </c:if>
+                                <c:if test="${order.state eq '未付款'}">
+                                    <form action="./PayNow" method="post">
+                                        <input type="hidden" name="orderToPay" value="${order.orderID}" />
+                                        <input id="pay" type="submit" value="立即付款" />
+                                    </form>
+                                </c:if>
+                                <c:if test="${order.state eq '正在配送'}">
+                                    <form action="./FinishOrder" method="post">
+                                        <input type="hidden" name="orderID" value="${order.orderID}" />
+                                        <input id="finish" type="submit" value="确认收货" />
+                                    </form>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="clear"></div>
+            <div id="pages"></div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html"></div>
+<script type="text/javascript">
+    function cancelForm() {
+        var ask = confirm("是否取消改订单？");
+        if (ask == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="LYHTags" prefix="LYH" %>
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html style="background-color:#212121">
 <head>
 <script type="text/javascript">
@@ -58,7 +56,7 @@ table tr td {
 	<table>
 			<tr>
 				<th>用户名</th>
-				<td>${user.c_id }</td>
+				<td th:text="${session.customer.getcId()}"></td>
 			</tr>
 			<tr>
 				<th>电话</th>

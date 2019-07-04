@@ -42,46 +42,44 @@
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
-                    <tr th:each="order : ${orders}">
+                    <tr th:each="order:${orders}">
                         <tr id="otherLine">
                             <td><table>
-                                <c:forEach var="lineItem" items="${order.lineItems}">
-                                    <tr>
+                                    <tr th:each="lineItem:${order.lineItems}">
                                         <td>${lineItem.name} × ${lineItem.amount}</td>
                                     </tr>
-                                </c:forEach>
                             </table></td>
                             <td><table>
-                                <c:forEach var="lineItem" items="${order.lineItems}">
-                                    <tr>
+                                    <tr th:each="lineItem:${order.lineItems}">
                                         <td>${lineItem.totalPrice}</td>
                                     </tr>
-                                </c:forEach>
                             </table></td>
                             <td>${order.receiver.name}</td>
                             <td>${order.date}</td>
                             <td>${order.shipMethod}</td>
                             <td id="state">${order.state}</td>
-                            <td>
-                                <c:if test="${order.state eq '未付款' or order.state eq '已付款'}">
-                                    <form action="./CancelOrder" method="post"
-                                          onsubmit="return cancelForm();">
-                                        <input type="hidden" name="orderID" value="${order.orderID}" />
-                                        <input id="cancel" type="submit" value="取消订单" />
-                                    </form>
-                                </c:if>
-                                <c:if test="${order.state eq '未付款'}">
-                                    <form action="./PayNow" method="post">
-                                        <input type="hidden" name="orderToPay" value="${order.orderID}" />
-                                        <input id="pay" type="submit" value="立即付款" />
-                                    </form>
-                                </c:if>
-                                <c:if test="${order.state eq '正在配送'}">
-                                    <form action="./FinishOrder" method="post">
-                                        <input type="hidden" name="orderID" value="${order.orderID}" />
-                                        <input id="finish" type="submit" value="确认收货" />
-                                    </form>
-                                </c:if>
+
+                            <td th:switch="${order.state}">
+                                <form th:case="未付款" action="./CancelOrder" method="post" onsubmit="return cancelForm();">
+                                    <input type="hidden" name="orderID" value="${order.orderID}" />
+                                    <input id="pay" type="submit" value="立即付款" />
+                                </form>
+                                <form th:case="已付款" action="./CancelOrder" method="post" onsubmit="return cancelForm();">
+                                    <input type="hidden" name="orderID" value="${order.orderID}" />
+                                    <input class="cancel" type="submit" value="取消订单" />
+                                </form>
+                                <form th:case="已接单" action="./CancelOrder" method="post" onsubmit="return cancelForm();">
+                                    <input type="hidden" name="orderID" value="${order.orderID}" />
+                                    <input class="cancel" type="submit" value="取消订单" />
+                                </form>
+                                <form th:case="正在配送" action="./CancelOrder" method="post" onsubmit="return cancelForm();">
+                                    <input type="hidden" name="orderID" value="${order.orderID}" />
+                                    <input id="finish" type="submit" value="确认收货" />
+                                </form>
+                                <form th:case="待评价" action="./CancelOrder" method="post" onsubmit="return cancelForm();">
+                                    <input type="hidden" name="orderID" value="${order.orderID}" />
+                                    <input id="comment" type="submit" value="立即评价" />
+                                </form>
                             </td>
                         </tr>
                     </tr>

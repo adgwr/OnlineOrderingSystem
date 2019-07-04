@@ -1,8 +1,10 @@
 package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.CustomerService;
+import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.mapper.CategoryMapper;
 import com.adgwr.online.ordering.system.mapper.CustomerMapper;
 import com.adgwr.online.ordering.system.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private FoodMapper foodMapper;
 
+    @Autowired
+    private CategoryMapper categoryMapper;
+
 
     @Override
     @Transactional(readOnly = false)
@@ -39,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         //注册成功，向数据库插入数据
         else {
-            Customer customer = new Customer(username, null, password, email);
+            Customer customer = new Customer(username, null, DigestUtils.md5DigestAsHex(password.getBytes()), email);
             customerMapper.insert(customer);
             return true;
         }
@@ -74,5 +79,15 @@ public class CustomerServiceImpl implements CustomerService {
 
         List<Food> foods = foodMapper.selectByExample(example);
         return foods;
+    }
+
+    @Override
+    public List<Food> getAllFoods(){
+        return foodMapper.selectAll();
+    }
+
+    @Override
+    public List<Category> getAllCategorys() {
+        return categoryMapper.selectAll();
     }
 }

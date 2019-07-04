@@ -11,6 +11,7 @@
     <result column="fd_image" jdbcType="VARCHAR" property="fdImage" />
     <result column="fd_price" jdbcType="DECIMAL" property="fdPrice" />
     <result column="fd_description" jdbcType="VARCHAR" property="fdDescription" />
+    <result column="sale_volume" jdbcType="INTEGER" property="saleVolume" />
     <result column="isshow" jdbcType="TINYINT" property="isshow" />
   </resultMap>
 </mapper>

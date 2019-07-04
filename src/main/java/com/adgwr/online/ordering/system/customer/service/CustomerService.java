@@ -1,6 +1,7 @@
 package com.adgwr.online.ordering.system.customer.service;
 
 import com.adgwr.online.ordering.system.domain.AdminAccount;
+import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
 
@@ -23,4 +24,8 @@ public interface CustomerService {
     void logout();
 
     List<Food> getFoods(String searchContent);
+
+    List<Food> getAllFoods();
+
+    List<Category> getAllCategorys();
 }

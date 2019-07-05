@@ -49,20 +49,6 @@
                     <a th:href="@{/menu(categorySelected=${category.categoryName})}" th:if="${category.getCategoryName()!=categorySelected}"
                        onclick="categoryClicked('${category.name}');" th:text="${category.getCategoryName()}"></a>
                 </li>
-
-                <!--                <c:forEach var="category" items="${categories}">-->
-                <!--                    <c:choose>-->
-                <!--                        <c:when test="${sessionScope.categorySelected eq category.name}">-->
-                <!--                            <li><a href="javascript:void(0);"-->
-                <!--                                   onclick="categoryClicked('${category.name}');" class="active">${category.name}</a>-->
-                <!--                            </li>-->
-                <!--                        </c:when>-->
-                <!--                        <c:otherwise>-->
-                <!--                            <li><a href="javascript:void(0);"-->
-                <!--                                   onclick="categoryClicked('${category.name}');">${category.name}</a></li>-->
-                <!--                        </c:otherwise>-->
-                <!--                    </c:choose>-->
-                <!--                </c:forEach>-->
             </ul>
             <div id="projectlist" class="module-content">
                 <div class="wrapper">

@@ -57,4 +57,9 @@ public class CustomerController {
         request.getSession().removeAttribute("customer");
         return "redirect:/pcHomepage";
     }
+
+    @RequestMapping(value = "index",method = RequestMethod.GET)
+    public String index(){
+        return "customer/index";
+    }
 }

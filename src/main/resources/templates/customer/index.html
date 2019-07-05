@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<link rel="stylesheet" type="text/css"
+href="../templets/cloud_04/style/lib.css"/>
+<link rel="stylesheet" type="text/css"
+  href="../templets/cloud_04/style/style.css"/>
+  <link rel="stylesheet" type="text/css"
+    href="../templets/cloud_04/style/376.css"/>
+    <script type="text/javascript"
+      src="../templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript"
+      src="../templets/cloud_04/js/org.js" data-main="baseMain"></script>
+      
+	<link rel="stylesheet" type="text/css" href="../customer/css/main.css"/>
+<title>Insert title here</title>
+</head>
+<body class="nobanner">
+<div th:replace="banner.html"></div>
+	<div id="sitecontent">
+		<div class="npagePage">
+			<div class="content">
+				<iframe style="border-right:1px solid rgba(255, 255, 255, .1)" th:replace="customer/left.html" width="183px" height="1000px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+				<iframe th:replace="customer/customerMain.html" width="82%" height="1000px" frameborder="0" scrolling="no" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
+			</div>
+		</div>
+	</div>
+<div th:replace="footer"></div>
+
+</body>
+</html>

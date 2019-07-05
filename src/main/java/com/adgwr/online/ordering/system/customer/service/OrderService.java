@@ -1,6 +1,9 @@
 package com.adgwr.online.ordering.system.customer.service;
 
 import com.adgwr.online.ordering.system.utils.ShipMethod;
+import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
+
+import java.util.List;
 
 /**
  * @author LiYuHan
@@ -30,6 +33,11 @@ public interface OrderService {
      */
     void cancelOrder(int orderId);
 
-    
+    /**
+     * 返回客户的所有订单
+     *
+     * @param cId
+     */
+    List<OrderWithFoodAndReceiver> getOrders(String cId);
 
 }

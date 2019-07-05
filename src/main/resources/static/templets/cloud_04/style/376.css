@@ -1956,21 +1956,27 @@ font-size: 54px;z-index: 1;margin-left: -50px;}*/
 	background-color: transparent;
 	color: #cfcfcf;
 	font-size: 15px;
-	border: 1px solid rgba(255, 255, 255, .2);
 	cursor: pointer;
 	transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-	margin-left: 10px;
+
 	padding :5px;
 	border-radius: 5px;
 	border: 1px solid #606060;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td #cancel{
+#sitecontent .npagePage .content #showOrders table #otherLine td .cancel{
 	margin-top:10px;
 	margin-bottom:10px;
 }
 
 #sitecontent .npagePage .content #showOrders table #otherLine td #finish{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#sitecontent .npagePage .content #showOrders table #otherLine td #comment{
 	margin-top:10px;
 	margin-bottom:10px;
 }

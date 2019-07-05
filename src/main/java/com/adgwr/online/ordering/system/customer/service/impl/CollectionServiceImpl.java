@@ -34,7 +34,7 @@ public class CollectionServiceImpl implements CollectionService {
         collections.setcId(cId);
         collections.setFoodId(foodId);
 
-        collectionsMapper.delete(collections);
+        collectionsMapper.deleteByPrimaryKey(collections);
     }
 
     @Override

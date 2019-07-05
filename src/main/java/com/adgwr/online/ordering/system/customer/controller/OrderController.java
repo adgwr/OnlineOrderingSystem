@@ -1,10 +1,18 @@
 package com.adgwr.online.ordering.system.customer.controller;
 
 import com.adgwr.online.ordering.system.customer.service.OrderService;
+import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author LiYuHan
@@ -46,12 +54,26 @@ public class OrderController {
         return "成功";
     }
 
-    @PostMapping(value = "/cancelOrder")
-    @ResponseBody
-    public String cancelOrder(@RequestParam("orderId") String [] ids) {
+    @RequestMapping(value = "getOrder", method = RequestMethod.GET)
+    public String getOrders(HttpServletRequest request,
+                                  HttpServletResponse response, Model model) {
+        HttpSession session = request.getSession();
 
+        List<OrderWithFoodAndReceiver> orders = orderService.getOrders((String)session.getAttribute("username"));
+        model.addAttribute("orders", orders);
+        return "orderList";
+    }
 
-        return null;
+    @RequestMapping(value = "cancelOrder", method = RequestMethod.POST)
+    public String cancelOrder(@RequestParam("orderId") int orderId) {
+        orderService.cancelOrder(orderId);
+        return "getOrder";
+    }
+
+    @RequestMapping(value = "changeOrderState", method = RequestMethod.POST)
+    public String changeOrderState(@RequestParam("orderId") int orderId) {
+        orderService.changeOrderState(orderId);
+        return "getOrder";
     }
 
     @RequestMapping(value = "/customer/Test", method = RequestMethod.GET)

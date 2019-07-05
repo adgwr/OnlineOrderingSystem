@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
         AdminAccount adminAccount = adminAccountMapper.selectOneByExample(example);
         if(adminAccount!=null){
             //MD5加密
-//            password= DigestUtils.md5DigestAsHex(password.getBytes());
+            password= DigestUtils.md5DigestAsHex(password.getBytes());
             if(password.equals(adminAccount.getPassword())){
                 return adminAccount;
             }

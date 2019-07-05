@@ -28,6 +28,17 @@ public class AdminController {
     @Autowired
     private CustomerService customerService;
 
+
+    /**
+     * 主页跳转，当浏览器发送请求时，经过此方法跳转到“pcHomepage”页面
+     *
+     * @return
+     */
+    @RequestMapping(value = {"", "pcHomepage"}, method = RequestMethod.GET)
+    public String pcHomepage() {
+        return "pcHomepage";
+    }
+
     /**
      * 登录的具体控制
      *

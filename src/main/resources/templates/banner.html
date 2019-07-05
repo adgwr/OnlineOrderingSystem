@@ -38,28 +38,31 @@
 
 <body>
 
-<div id="header">
+<div id="header" th:fragment="banner">
     <span class="content">
         <a href="pcHomepage.jsp" id="logo"><img
                 src="templets/cloud_04/images/logo.png"
                 height="40"/></a>
         <ul id="nav">
-            <li class="navitem"><a
-                    href="pcHomepage.jsp"
-                    target="_self">首页</a></li>
             <li class="navitem">
-                <a href="javascript:void(0);"
-                   onclick="categoryClicked('全部');">菜品 </a></li>
+             <a href="/pcHomepage" target="_self">首页</a>
+            </li>
             <li class="navitem">
-                <a id="btn_login" href="javascript:void(0);"
-                   onclick="openLogin()">登录 </a></li>
+                <a href="/menu">菜品 </a>
+            </li>
 
             <li class="navitem" th:if="${session.customer!=null}">
               <a href="#" target="_self" th:if="${session.customer!=null}">订单</a>
             </li>
 
             <li class="navitem" th:if="${session.customer!=null}">
-                <a href="#" target="_self" th:if="${session.customer!=null}">购物车</a>
+                <a href="/showCart" target="_self" th:if="${session.customer!=null}">购物车</a>
+            </li>
+            <li class="navitem" th:if="${session.customer==null}">
+                <a id="btn_login" href="javascript:void(0);" onclick="openLogin()">登录 </a>
+            </li>
+            <li class="navitem" th:if="${session.customer!=null}">
+                <a href="#">欢迎<span th:text="${session.customer.cId}"></span>回来 </a>
             </li>
         </ul>
 

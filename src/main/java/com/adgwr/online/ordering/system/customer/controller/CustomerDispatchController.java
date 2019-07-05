@@ -34,22 +34,6 @@ public class CustomerDispatchController {
         return "register";
     }
 
-    @RequestMapping(value = "menu", method = RequestMethod.GET)
-    public String menu(
-            @RequestParam(value = "categorySelected", defaultValue = "主菜") String categorySelected,
-            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
-            Model model) {
-
-        List<Category> categorys = customerService.getAllCategorys();
-        categorySelected = categorys.get(0).getCategoryName();
-        PageHelper.startPage(pn, 8);
-        PageHelper.orderBy("food_id asc");
-        List<Food> foods = customerService.getAllFoods();
-        PageInfo page = new PageInfo(foods, 5);
-        model.addAttribute("foods", foods).addAttribute("pageInfo", page).
-                addAttribute("categorys", categorys).addAttribute("categorySelected", categorySelected);
-        return "menu";
-    }
 
     @RequestMapping(value = "showCart",method = RequestMethod.GET)
     public String showCart(){

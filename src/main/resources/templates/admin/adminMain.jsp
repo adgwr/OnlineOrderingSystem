@@ -34,7 +34,7 @@ a{
 								</tr>
 <!-- 							</thead> -->
 							<tbody>
-								<LYH:adminList/>
+<%--								<LYH:adminList/>--%>
 							
 							</tbody>
 						</table>

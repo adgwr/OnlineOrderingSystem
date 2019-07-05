@@ -62,10 +62,9 @@ public class AdminController {
             model.addAttribute("customer", customer);
             try {
                 session.setAttribute("customer", customer);
-                //用model向页面传参
-                model.addAttribute("message", "登录成功");
+                redirectAttributes.addFlashAttribute("message", "登录成功");
                 //返回pcHomepage页面
-                return "pcHomepage";
+                return "redirect:/pcHomepage";
             } catch (Exception e) {
                 e.printStackTrace();
             }

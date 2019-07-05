@@ -56,76 +56,76 @@
                                         <div class="box-bd">
                                             <dl class="checkout-goods-list">
                                                 <dt class="clearfix">
-											<span class="col col-4"> <input type="checkbox"
-                                                                            id="selectAllItems" name="selectAllItems"
-                                                                            onclick="selectall();renewprice();"/>全选
+											<span class="col col-4">
+                                                <input type="checkbox" id="selectAllItems" name="selectAllItems"
+                                                       onclick="selectall();renewprice();"/>全选
 											</span> <span class="col col-1">商品名称</span> <span
                                                         class="col col-2">价格</span>
-                                                    <span class="col col-3">数量</span> <span
-                                                        class="col col-4">小计（元）</span>
+                                                    <span class="col col-3">数量</span>
+                                                    <span class="col col-4">小计（元）</span>
                                                 </dt>
-                                                <c:forEach var="lineItem" items="${sessionScope.lineItemList}">
-                                                    <jsp:useBean id="lineItem" class="entity.LineItem"/>
+                                                <!--                                                <c:forEach var="lineItem" items="${sessionScope.lineItemList}">-->
+                                                <!--                                                    <jsp:useBean id="lineItem" class="entity.LineItem"/>-->
 
 
-                                                    <dd class="item clearfix">
-                                                        <div class="item-row">
-                                                            <div class="col col-4">
-                                                                <input id="itemselected" name="itemselected"
-                                                                       type="checkbox" value="${lineItem.foodID}"
-                                                                       onclick="renewprice();"
-                                                                       price="${lineItem.totalPrice}"
-                                                                />
+                                                <!--                                                    <dd class="item clearfix">-->
+                                                <!--                                                        <div class="item-row">-->
+                                                <!--                                                            <div class="col col-4">-->
+                                                <!--                                                                <input id="itemselected" name="itemselected"-->
+                                                <!--                                                                       type="checkbox" value="${lineItem.foodID}"-->
+                                                <!--                                                                       onclick="renewprice();"-->
+                                                <!--                                                                       price="${lineItem.totalPrice}"-->
+                                                <!--                                                                />-->
 
-                                                            </div>
-                                                            <div class="col col-1">
-                                                                <div class="g-pic">
-                                                                    <img src="foodImage/${lineItem.imagePath}"
-                                                                         width="40"
-                                                                         height="40"/>
-                                                                </div>
-                                                                <div class="g-info">
-                                                                    <a href="#">
-                                                                        <jsp:getProperty property="name"
-                                                                                         name="lineItem"/>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                                <!--                                                            </div>-->
+                                                <!--                                                            <div class="col col-1">-->
+                                                <!--                                                                <div class="g-pic">-->
+                                                <!--                                                                    <img src="foodImage/${lineItem.imagePath}"-->
+                                                <!--                                                                         width="40"-->
+                                                <!--                                                                         height="40"/>-->
+                                                <!--                                                                </div>-->
+                                                <!--                                                                <div class="g-info">-->
+                                                <!--                                                                    <a href="#">-->
+                                                <!--                                                                        <jsp:getProperty property="name"-->
+                                                <!--                                                                                         name="lineItem"/>-->
+                                                <!--                                                                    </a>-->
+                                                <!--                                                                </div>-->
+                                                <!--                                                            </div>-->
 
-                                                            <div class="col col-2">
-                                                                <jsp:getProperty
-                                                                        property="price" name="lineItem"/>
-                                                                元
-                                                            </div>
-                                                            <div class="col col-3">
-                                                                <div class="col col-5">
-                                                                    <a
-                                                                            href="ModifyShoppingCart?modifyType=add&foodID=${lineItem.foodID}"><img
-                                                                            src="images/+.png"/></a>
-                                                                </div>
+                                                <!--                                                            <div class="col col-2">-->
+                                                <!--                                                                <jsp:getProperty-->
+                                                <!--                                                                        property="price" name="lineItem"/>-->
+                                                <!--                                                                元-->
+                                                <!--                                                            </div>-->
+                                                <!--                                                            <div class="col col-3">-->
+                                                <!--                                                                <div class="col col-5">-->
+                                                <!--                                                                    <a-->
+                                                <!--                                                                            href="ModifyShoppingCart?modifyType=add&foodID=${lineItem.foodID}"><img-->
+                                                <!--                                                                            src="images/+.png"/></a>-->
+                                                <!--                                                                </div>-->
 
-                                                                <div class="col col-6">
-                                                                    <jsp:getProperty
-                                                                            property="amount" name="lineItem"/>
-                                                                </div>
-
-
-                                                                <div class="col col-5" align="center">
-                                                                    <a
-                                                                            href="ModifyShoppingCart?modifyType=minus&foodID=${lineItem.foodID}"><img
-                                                                            src="images/-.png"/></a>
-                                                                </div>
+                                                <!--                                                                <div class="col col-6">-->
+                                                <!--                                                                    <jsp:getProperty-->
+                                                <!--                                                                            property="amount" name="lineItem"/>-->
+                                                <!--                                                                </div>-->
 
 
-                                                            </div>
-                                                            <div class="col col-4">
-                                                                <jsp:getProperty
-                                                                        property="totalPrice" name="lineItem"/>
-                                                                元
-                                                            </div>
-                                                        </div>
-                                                    </dd>
-                                                </c:forEach>
+                                                <!--                                                                <div class="col col-5" align="center">-->
+                                                <!--                                                                    <a-->
+                                                <!--                                                                            href="ModifyShoppingCart?modifyType=minus&foodID=${lineItem.foodID}"><img-->
+                                                <!--                                                                            src="images/-.png"/></a>-->
+                                                <!--                                                                </div>-->
+
+
+                                                <!--                                                            </div>-->
+                                                <!--                                                            <div class="col col-4">-->
+                                                <!--                                                                <jsp:getProperty-->
+                                                <!--                                                                        property="totalPrice" name="lineItem"/>-->
+                                                <!--                                                                元-->
+                                                <!--                                                            </div>-->
+                                                <!--                                                        </div>-->
+                                                <!--                                                    </dd>-->
+                                                <!--                                                </c:forEach>-->
                                             </dl>
                                             <div class="checkout-count clearfix">
                                                 <!-- checkout-count-extend -->
@@ -145,12 +145,12 @@
                                        name="Checkout[couponsValue]"/>
                                 <div class="checkout-confirm">
 
-                                    <input class="btn btn-primary" value="删除所选项"
-                                           id="checkoutToPay" onclick="deleteSC();"/> <a
-                                        href="javascript:void(0);" onclick="categoryClicked('全部');"
-                                        class="btn btn-lineDakeLight btn-back-cart">继续添加</a> <input
-                                        class="btn btn-primary" value="结算" onclick="makeorder();"
-                                        id="checkoutToPay"/>
+                                    <input class="btn btn-primary" value="删除所选项" id="checkoutToPay"
+                                           onclick="deleteSC();"/>
+                                    <a href="javascript:void(0);" onclick="categoryClicked('全部');"
+                                       class="btn btn-lineDakeLight btn-back-cart">继续添加</a>
+                                    <input class="btn btn-primary" value="结算" onclick="makeorder();"
+                                           id="checkoutToPay"/>
                                 </div>
                             </div>
                         </form>

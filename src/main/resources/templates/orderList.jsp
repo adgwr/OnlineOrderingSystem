@@ -24,6 +24,7 @@
 	data-main="baseMain"></script>
 <title>菜品-网上订单系统</title>
 </head>
+
 <body class="nobanner">
 	<jsp:include page="banner.jsp"></jsp:include>
 

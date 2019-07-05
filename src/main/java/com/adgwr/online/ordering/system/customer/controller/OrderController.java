@@ -71,12 +71,21 @@ public class OrderController {
                             HttpServletResponse response, Model model) {
         HttpSession session = request.getSession();
         String cId = ((Customer)session.getAttribute("customer")).getcId();
-        PageHelper.startPage(pn, 8);
-        PageHelper.orderBy("order_id asc");
         List<OrderWithFoodAndReceiver> orders = orderService.getOrders(cId);
-        PageInfo page = new PageInfo(orders, 5);
-
-        model.addAttribute("orders", orders);
+        int startPos = (pn - 1) * 8, endPos = startPos + 8 > orders.size() ? orders.size() : startPos + 8;
+        List<OrderWithFoodAndReceiver> currentpages = orders.subList(startPos, endPos);
+        int totalPages = orders.size() / 8;
+        if(totalPages * 8 < orders.size()) {
+            totalPages++;
+        }
+        int startPage = (pn-1)/5*5+1;
+        int endPage = Math.min(startPage+4,totalPages);
+        model.addAttribute("currentPage",pn);
+        model.addAttribute("hasStart",startPage != 1);
+        model.addAttribute("hasEnd",endPage != totalPages);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("orders", currentpages);
         return "orderList";
     }
 

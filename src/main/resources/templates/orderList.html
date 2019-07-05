@@ -21,6 +21,39 @@
             data-main="baseMain"></script>
     <title>菜品-网上订单系统</title>
 </head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
 <body class="nobanner">
 <!--替代jsp:include-->
 <div th:replace="banner.html"></div>
@@ -84,6 +117,27 @@
             </div>
             <div class="clear"></div>
             <div id="pages"></div>
+            <div aria-label="Page navigation" style="width:100%;text-align: center">
+                <ul class="pagination">
+                    <li th:if="${hasStart}">
+                        <a th:if="${hasStart}" th:href="@{/getOrder(pn=${startPage}-1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a th:href="@{/getOrder(pn=${page})}" th:if="${page==currentPage}"
+                           class="active"
+                           th:text="${page}"></a>
+                        <a th:href="@{/getOrder(pn=${page})}" th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a th:if="${hasEnd}" th:href="@{/getOrder(pn=${endPage}+1)}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

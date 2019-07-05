@@ -3,6 +3,7 @@ package com.adgwr.online.ordering.system.domain;
 import java.math.BigDecimal;
 import javax.persistence.*;
 
+
 public class Lineitem {
     @Id
     @Column(name = "order_id")

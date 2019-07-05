@@ -75,7 +75,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Food> getFoodList(int orderId) {
-        Example example = new Example(LineitemMapper.class);
+        Example example = new Example(Lineitem.class);
         example.createCriteria().andEqualTo("orderId", orderId);
         List<Lineitem> lineitems = lineitemMapper.selectByExample(example);
         List<Food> foods = new ArrayList<>();

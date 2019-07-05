@@ -23,12 +23,14 @@ public interface OrderService {
 
     /**
      * 改变订单状态
+     *
      * @param orderId
      */
     void changeOrderState(int orderId);
 
     /**
      * 取消订单
+     *
      * @param orderId
      */
     void cancelOrder(int orderId);

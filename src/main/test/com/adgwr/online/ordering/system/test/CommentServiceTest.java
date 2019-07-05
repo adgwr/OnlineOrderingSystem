@@ -31,9 +31,6 @@ public class CommentServiceTest {
 
     @Test
     public void testGetFoodComment() {
-        List<Comments> commentsList = commentService.getFoodComment(1);
-        for(Comments c : commentsList) {
-            System.out.println(c.getComment());
-        }
+
     }
 }

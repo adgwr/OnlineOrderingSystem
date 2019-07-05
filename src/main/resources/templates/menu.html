@@ -1,14 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript">
-        try {
-            if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                window.location.href = "m/menu.jsp";
-            }
-        } catch (e) {
-        }
-    </script>
     <link rel="stylesheet" type="text/css"
           href="templets/cloud_04/style/lib.css"/>
     <link rel="stylesheet" type="text/css"
@@ -23,6 +15,39 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <title>菜品-网上订单系统</title>
 </head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
 <body class="nobanner">
 <div th:replace="banner.html"></div>
 <div id="sitecontent">
@@ -43,11 +68,11 @@
 
 
                 <li th:each="category : ${categorys}">
-                    <a th:href="@{/menu(categorySelected=${category.categoryName})}" th:if="${category.getCategoryName()==categorySelected}"
-                       onclick="categoryClicked('${category.name}');" class="active"
+                    <a th:href="@{/menu(categorySelected=${category.categoryId})}" th:if="${category.categoryId==categorySelected}"
+                       class="active"
                        th:text="${category.getCategoryName()}"></a>
-                    <a th:href="@{/menu(categorySelected=${category.categoryName})}" th:if="${category.getCategoryName()!=categorySelected}"
-                       onclick="categoryClicked('${category.name}');" th:text="${category.getCategoryName()}"></a>
+                    <a th:href="@{/menu(categorySelected=${category.categoryId})}" th:if="${category.categoryId!=categorySelected}"
+                       th:text="${category.getCategoryName()}"></a>
                 </li>
 
                 <!--                <c:forEach var="category" items="${categories}">-->
@@ -89,35 +114,37 @@
         </div>
     </div>
 
-    <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div aria-label="Page navigation" style="width:100%;text-align: center">
+        <ul class="pagination">
+            <li th:if="${hasStart}">
+                <a th:if="${hasStart}" th:href="@{/menu(pn=${startPage}-1)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                <a th:href="@{/menu(pn=${page})}" th:if="${page==currentPage}"
+                   class="active"
+                   th:text="${page}"></a>
+                <a th:href="@{/menu(pn=${page})}" th:if="${page!=currentPage}"
+                   th:text="${page}"></a>
+            </li>
+            <li th:if="${hasEnd}">
+                <a th:if="${hasEnd}" th:href="@{/menu(pn=${endPage}+1)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div th:replace="footer.html"></div>
 <script type="text/javascript">
-    function foodclicked(foodID) {
+    function foodclicked(foodId) {
         form = $("<form></form>")
         form.attr('action', 'AddShoppingCart')
         form.attr('method', 'post')
         form.attr('accept-charset', 'UTF-8')
-        input1 = $("<input type='hidden' name='foodID'/>")
+        input1 = $("<input type='hidden' name='foodId'/>")
         input1.attr("value", foodID)
         form.append(input1)
         form.appendTo("body")

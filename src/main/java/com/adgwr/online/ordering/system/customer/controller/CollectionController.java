@@ -1,6 +1,7 @@
 package com.adgwr.online.ordering.system.customer.controller;
 
 import com.adgwr.online.ordering.system.customer.service.CollectionService;
+import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,16 +26,16 @@ public class CollectionController {
     private CollectionService collectionService;
 
     @RequestMapping(value = "addCollection", method = RequestMethod.POST)
-    public void addCollection(@RequestParam("foodId")int foodId, HttpServletRequest request, HttpServletResponse response) {
+    public void addCollection(@RequestParam("foodId")Integer foodId, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        String cId = (String) session.getAttribute("username");
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
         collectionService.addFood(foodId, cId);
     }
 
     @RequestMapping(value = "deleteCollection", method = RequestMethod.POST)
-    public String deleteCollection(@RequestParam("foodId")int foodId, HttpServletRequest request, HttpServletResponse response) {
+    public String deleteCollection(@RequestParam("foodId")Integer foodId, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        String cId = (String) session.getAttribute("username");
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
         collectionService.deleteFood(foodId, cId);
         return "getCollections";
     }
@@ -42,7 +43,7 @@ public class CollectionController {
     @RequestMapping(value = "getCollections", method = RequestMethod.POST)
     public String getCollections(HttpServletRequest request, HttpServletResponse response, Model model) {
         HttpSession session = request.getSession();
-        String cId = (String) session.getAttribute("username");
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
         List<Food> myCollections = collectionService.getMyCollection(cId);
         model.addAttribute("myCollections", myCollections);
 

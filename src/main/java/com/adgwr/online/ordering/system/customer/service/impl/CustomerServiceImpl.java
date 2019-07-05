@@ -4,8 +4,10 @@ import com.adgwr.online.ordering.system.customer.service.CustomerService;
 import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.domain.FoodBelong;
 import com.adgwr.online.ordering.system.mapper.CategoryMapper;
 import com.adgwr.online.ordering.system.mapper.CustomerMapper;
+import com.adgwr.online.ordering.system.mapper.FoodBelongMapper;
 import com.adgwr.online.ordering.system.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +33,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private FoodBelongMapper foodBelongMapper;
 
 
     @Override
@@ -84,6 +90,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Food> getAllFoods(){
         return foodMapper.selectAll();
+    }
+
+    @Override
+    public List<Food> getFoodsByCategoty(int categoryId) {
+        Example example = new Example(FoodBelong.class);
+        example.createCriteria().andEqualTo("categoryId", categoryId);
+        List<FoodBelong> foodBelongs = foodBelongMapper.selectByExample(example);
+        List<Food> foods = new ArrayList<>();
+        for(FoodBelong f : foodBelongs) {
+            Food food = foodMapper.selectByPrimaryKey(f.getFoodId());
+            foods.add(food);
+        }
+        return foods;
     }
 
     @Override

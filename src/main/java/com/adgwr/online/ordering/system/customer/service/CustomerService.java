@@ -27,5 +27,7 @@ public interface CustomerService {
 
     List<Food> getAllFoods();
 
+    List<Food> getFoodsByCategoty(int categoryId);
+
     List<Category> getAllCategorys();
 }

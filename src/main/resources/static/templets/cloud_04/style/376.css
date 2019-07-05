@@ -1963,11 +1963,12 @@ font-size: 54px;z-index: 1;margin-left: -50px;}*/
 	padding :5px;
 	border-radius: 5px;
 	border: 1px solid #606060;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 
 #sitecontent .npagePage .content #showOrders table #otherLine td #cancel{
-	margin-top:10px;
-	margin-bottom:10px;
+
 }
 
 #sitecontent .npagePage .content #showOrders table #otherLine td #finish{

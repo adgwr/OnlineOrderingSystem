@@ -1,7 +1,10 @@
 package com.adgwr.online.ordering.system.customer.controller;
 
 import com.adgwr.online.ordering.system.customer.service.OrderService;
+import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,23 +66,28 @@ public class OrderController {
     }
 
     @RequestMapping(value = "getOrder", method = RequestMethod.GET)
-    public String getOrders(HttpServletRequest request,
+    public String getOrders(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                            HttpServletRequest request,
                             HttpServletResponse response, Model model) {
         HttpSession session = request.getSession();
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
+        PageHelper.startPage(pn, 8);
+        PageHelper.orderBy("order_id asc");
+        List<OrderWithFoodAndReceiver> orders = orderService.getOrders(cId);
+        PageInfo page = new PageInfo(orders, 5);
 
-        List<OrderWithFoodAndReceiver> orders = orderService.getOrders((String)session.getAttribute("username"));
         model.addAttribute("orders", orders);
         return "orderList";
     }
 
     @RequestMapping(value = "cancelOrder", method = RequestMethod.POST)
-    public String cancelOrder(@RequestParam("orderId") int orderId) {
+    public String cancelOrder(@RequestParam("orderId") Integer orderId) {
         orderService.cancelOrder(orderId);
         return "getOrder";
     }
 
     @RequestMapping(value = "changeOrderState", method = RequestMethod.POST)
-    public String changeOrderState(@RequestParam("orderId") int orderId) {
+    public String changeOrderState(@RequestParam("orderId") Integer orderId) {
         orderService.changeOrderState(orderId);
         return "getOrder";
     }

@@ -33,10 +33,6 @@ public class CollectionServiceTest {
 
     @Test
     public void testGetMyCollection() {
-        collectionService.getMyCollection("abc");
-        List<Collections> collections = collectionService.getMyCollection("abc");
-        for(Collections c : collections) {
-            System.out.println(c.getcId() + ":" + c.getFoodId());
-        }
+
     }
 }

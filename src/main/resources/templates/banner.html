@@ -52,7 +52,7 @@
             </li>
 
             <li class="navitem" th:if="${session.customer!=null}">
-              <a href="#" target="_self" th:if="${session.customer!=null}">订单</a>
+              <a href="/getOrder" target="_self" th:if="${session.customer!=null}">订单</a>
             </li>
 
             <li class="navitem" th:if="${session.customer!=null}">

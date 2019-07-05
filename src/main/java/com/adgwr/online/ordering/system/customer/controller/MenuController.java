@@ -27,16 +27,30 @@ public class MenuController {
 
     @RequestMapping(value = "menu", method = RequestMethod.GET)
     public String menu(
-            @RequestParam(value = "categorySelected", defaultValue = "主菜") String categorySelected,
+            @RequestParam(value = "categorySelected", defaultValue = "-1") Integer categorySelected,
             @RequestParam(value = "pn", defaultValue = "1") Integer pn,
             Model model) {
-
         List<Category> categorys = customerService.getAllCategorys();
-        categorySelected = categorys.get(0).getCategoryName();
+//        if(categorySelected == -1) {
+//            categorySelected = categorys.get(0).getCategoryId();
+//        }
         PageHelper.startPage(pn, 4);
         PageHelper.orderBy("food_id asc");
-        List<Food> foods = customerService.getAllFoods();
+        List<Food> foods;
+        if(categorySelected == -1) {
+            foods = customerService.getAllFoods();
+        }
+        else {
+            foods = customerService.getFoodsByCategoty(categorySelected);
+        }
         PageInfo page = new PageInfo(foods, 5);
+        model.addAttribute("currentPage",page.getPageNum());
+        int start = (pn-1)/5*5+1;
+        int end = Math.min(start+4,page.getPages());
+        model.addAttribute("hasStart",start != 1);
+        model.addAttribute("hasEnd",end != page.getPages());
+        model.addAttribute("startPage", start);
+        model.addAttribute("endPage", end);
         model.addAttribute("foods", foods).addAttribute("pageInfo", page).
                 addAttribute("categorys", categorys).addAttribute("categorySelected", categorySelected);
         return "menu";

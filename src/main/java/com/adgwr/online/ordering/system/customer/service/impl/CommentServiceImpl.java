@@ -3,6 +3,7 @@ package com.adgwr.online.ordering.system.customer.service.impl;
 import com.adgwr.online.ordering.system.customer.service.CommentService;
 import com.adgwr.online.ordering.system.domain.Comments;
 import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.domain.Lineitem;
 import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.mapper.CommentsMapper;
 import com.adgwr.online.ordering.system.mapper.FoodMapper;
@@ -74,7 +75,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Food> getFoodList(int orderId) {
-        return null;
+        Example example = new Example(LineitemMapper.class);
+        example.createCriteria().andEqualTo("orderId", orderId);
+        List<Lineitem> lineitems = lineitemMapper.selectByExample(example);
+        List<Food> foods = new ArrayList<>();
+        for(Lineitem l : lineitems) {
+            Food food = foodMapper.selectByPrimaryKey(l.getFoodId());
+            foods.add(food);
+        }
+        return foods;
     }
 
 

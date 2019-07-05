@@ -1,0 +1,150 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html style="background-color:#212121">
+<head>
+    <link href="../../customer/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="../../customer/css/gloab.css" type="text/css" rel="stylesheet">
+    <link href="../../customer/css/regUsr.css" type="text/css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>消费统计</title>
+    <style>
+        select#selectScope{
+            width                    : 85px;
+            height                   : 30px;
+            text-align               : left;
+            vertical-align           : middle;
+            border                   : 1px solid #94c1e7;
+            font-size                : 14px;
+            font-family: "Times New Roman", "微软雅黑";
+            /*font-weight              : 500;*/
+            color                    : RGBA(102,102,102,0.7);
+            cursor                   : pointer;
+            outline                  : none;
+            background: #212121;
+            margin-right: 5px;
+        }
+        table#statics{
+            color: whitesmoke;
+            /*width: ;*/
+            border: 1px solid whitesmoke;
+            text-align: center;
+            float: left;
+            margin-left: 20px;
+        }
+        table, td, tr {
+            border: 1px solid whitesmoke;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="bgf4" style="background-color:#212121">
+<div class="login-box f-mt10 f-pb50">
+    <div class="main bgf" style="background-color:#212121">
+        <div class="reg-box-pan display-inline">
+            <div class="reg-box" style="margin-top: 20px;">
+<!--                查询部分-->
+            <form id="scope" action="/statics" method="post">
+                <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>查询范围:</span>
+                <select id="selectScope" style="background-color:#212121; color: whitesmoke;">
+                    <option value="today" style="color: white;">today</option>
+                    <option value="week" style="color: white;">week</option>
+                    <option value="week" style="color: white;">mouth</option>
+                </select>
+                <input type="submit" value="查询" style="width: 50px; background: transparent; color: white; border-radius:5px;">
+            </form>
+            </div>
+            <div class="content" style="">
+                <div class="header">
+                    <p class="title" style="text-align: center ; color: #9acfea;">消费统计</p>
+                </div>
+                <table id="statics">
+                    <tr>
+                        <td width="50%">菜品名称</td>
+                        <td width="25%">消费数量</td>
+                        <td width="25%">总消费金额（￥）</td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <td>米饭</td>-->
+<!--                        <td>8</td>-->
+<!--                        <td>8.5</td>-->
+<!--                    </tr>-->
+                    <tr th:each="con:${consumptions}">
+                        <td th:text="${con.getFoodName()}"></td>
+                        <td th:text="${con.getFoodNum()}"></td>
+                        <td th:text="${con.getTotalPrice()}"></td>
+                    </tr>
+                </table>
+                    <canvas id="cake" width="400px" height="250px"
+                            style="border:1px solid #d3d3d3;float: left;margin-left: 50px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    var cons = [[${consumptions}]];
+
+    // 要使用的属性
+    var portion = [0, 0.2, 0.3, 0.1, 0.2];
+    var fillSytle = [0, "#f46443", "#3e27f1", "#FFFF00", "#00C5CD", "#ed4eef", "#d2dbd3"];
+    var FNames = ["", "米饭", "紫菜蛋汤", "干锅", "红烧肉"];
+
+    // 得到dom元素
+    var cake = document.getElementById("cake");
+    if (cake == null) {
+        console.log("cake is not found");
+    }
+    var ctx = cake.getContext("2d");
+
+    // 画圆饼图
+    var startArg = 0;
+    for (var i = 1; i < 5; i++) {
+        console.log(FNames[i] + " " + portion[i]);
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 100, startArg*2*Math.PI, 2*(startArg + portion[i])*Math.PI);
+        ctx.fillStyle = fillSytle[i];
+        // ctx.closePath();
+        ctx.fill();
+        startArg += portion[i];
+    }
+    // 画剩下饼图的一部分
+    ctx.beginPath();
+    ctx.moveTo(125, 125);
+    ctx.arc(125, 125, 100, startArg*2*Math.PI, 0);
+    ctx.fillStyle = fillSytle[portion.length];
+    // ctx.closePath();
+    ctx.fill();
+
+    // 编写文字
+    for (var j = 1; j < portion.length; j++) {
+        // 画标识
+        ctx.beginPath();
+        ctx.fillStyle = fillSytle[j];
+        // x, y, h, w
+        ctx.fillRect(250, 60 + 25 * (j-1), 30, 15);
+        // 文字
+        ctx.font = '14px Miscrosoft Yahei';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(FNames[j] + " " + portion[j]*100 + " %", 250 + 40, 68 + 25 * (j-1), 80);
+        ctx.fill();
+    }
+
+    // 画其他部分标识
+    ctx.beginPath();
+    // 填色要早进行
+    ctx.fillStyle = fillSytle[portion.length];
+    // x, y, h, w
+    ctx.fillRect(250, 60 + 25 * (portion.length-1), 30, 15);
+    // 文字
+    ctx.font = '14px Miscrosoft Yahei';
+    ctx.textBaseline = 'middle';
+    ctx.fillText("其他 " + parseInt((1-startArg)*100) + " %", 250 + 40, 68 + 25 * (portion.length-1), 80);
+    ctx.fill();
+    // 只要最后调用一次就行
+    ctx.closePath();
+
+
+</script>
+</body>
+</html>

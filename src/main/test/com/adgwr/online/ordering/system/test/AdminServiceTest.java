@@ -2,9 +2,11 @@ package com.adgwr.online.ordering.system.test;
 
 import com.adgwr.online.ordering.system.OnlineOrderingSystemApplication;
 import com.adgwr.online.ordering.system.domain.AdminAccount;
+import com.adgwr.online.ordering.system.domain.Lineitem;
 import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.mapper.AdminAccountMapper;
 import com.adgwr.online.ordering.system.admin.service.AdminService;
+import com.adgwr.online.ordering.system.mapper.LineitemMapper;
 import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,11 +36,18 @@ public class AdminServiceTest {
 
     @Autowired
     private MyOrderMapper myOrderMapper;
+
+    @Autowired
+    private LineitemMapper lineitemMapper;
     @Test
     public void test(){
-        MyOrder myOrder=new MyOrder();
-        myOrder.setOrderDate((new Date()).toString());
-        myOrderMapper.insert(myOrder);
+//        MyOrder myOrder=new MyOrder();
+//        myOrder.setOrderDate((new Date()).toString());
+//        myOrderMapper.insert(myOrder);
+        Lineitem lineitem = new Lineitem();
+        lineitem.setOrderId(3);
+        lineitem.setFoodId(3);
+        lineitemMapper.insert(lineitem);
     }
 
     @Test

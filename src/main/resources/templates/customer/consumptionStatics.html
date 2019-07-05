@@ -45,10 +45,10 @@
 <!--                查询部分-->
             <form id="scope" action="/statics" method="post">
                 <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>查询范围:</span>
-                <select id="selectScope" style="background-color:#212121; color: whitesmoke;">
-                    <option value="today" style="color: white;">today</option>
-                    <option value="week" style="color: white;">week</option>
-                    <option value="week" style="color: white;">mouth</option>
+                <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke;">
+                    <option th:value="today" style="color: white;">today</option>
+                    <option th:value="week" style="color: white;">week</option>
+                    <option th:value="month" style="color: white;">month</option>
                 </select>
                 <input type="submit" value="查询" style="width: 50px; background: transparent; color: white; border-radius:5px;">
             </form>
@@ -75,7 +75,7 @@
                     </tr>
                 </table>
                     <canvas id="cake" width="400px" height="250px"
-                            style="border:1px solid #d3d3d3;float: left;margin-left: 50px"></canvas>
+                            style="border:1px solid #d3d3d3;float: left;margin-left: 40px"></canvas>
             </div>
         </div>
     </div>
@@ -83,11 +83,35 @@
 
 <script th:inline="javascript">
     var cons = [[${consumptions}]];
+    if (cons.length == 0) {
+        alert("您还没有消费.");
+    }
+    console.log(cons.length);
+    // 画图的商品数量
+    var len;
+    if (cons.length > 5) {
+        len = 5;
+    } else {
+        len = cons.length;
+    }
+
+    // 存放比例的数组
+    var portion = new Array();
+    // portion[0] = 0;
+    // 总的价格
+    var totalP = 0;
+    for (var i = 0; i < len; i++) {
+        totalP += cons[i].totalPrice;
+    }
+    for (var i = 0; i < len; i++) {
+        portion[i] = parseFloat((cons[i].totalPrice / totalP).toFixed(2));
+    }
+
 
     // 要使用的属性
-    var portion = [0, 0.2, 0.3, 0.1, 0.2];
-    var fillSytle = [0, "#f46443", "#3e27f1", "#FFFF00", "#00C5CD", "#ed4eef", "#d2dbd3"];
-    var FNames = ["", "米饭", "紫菜蛋汤", "干锅", "红烧肉"];
+    // var portion = [0, 0.2, 0.3, 0.1, 0.2];
+    var fillSytle = ["#f46443", "#3e27f1", "#FFFF00", "#00C5CD", "#ed4eef", "#d2dbd3"];
+    // var FNames = ["", "米饭", "紫菜蛋汤", "干锅", "红烧肉"];
 
     // 得到dom元素
     var cake = document.getElementById("cake");
@@ -98,8 +122,8 @@
 
     // 画圆饼图
     var startArg = 0;
-    for (var i = 1; i < 5; i++) {
-        console.log(FNames[i] + " " + portion[i]);
+    for (var i = 0; i < len; i++) {
+        // console.log(FNames[i] + " " + portion[i]);
         ctx.beginPath();
         ctx.moveTo(125, 125);
         ctx.arc(125, 125, 100, startArg*2*Math.PI, 2*(startArg + portion[i])*Math.PI);
@@ -108,41 +132,46 @@
         ctx.fill();
         startArg += portion[i];
     }
-    // 画剩下饼图的一部分
-    ctx.beginPath();
-    ctx.moveTo(125, 125);
-    ctx.arc(125, 125, 100, startArg*2*Math.PI, 0);
-    ctx.fillStyle = fillSytle[portion.length];
-    // ctx.closePath();
-    ctx.fill();
+    if (startArg < 1) {
+        // 画剩下饼图的一部分
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 100, startArg * 2 * Math.PI, 0);
+        ctx.fillStyle = fillSytle[portion.length];
+        // ctx.closePath();
+        ctx.fill();
+    }
 
     // 编写文字
-    for (var j = 1; j < portion.length; j++) {
+    for (var j = 0; j < len; j++) {
         // 画标识
         ctx.beginPath();
         ctx.fillStyle = fillSytle[j];
         // x, y, h, w
-        ctx.fillRect(250, 60 + 25 * (j-1), 30, 15);
+        ctx.fillRect(250, 60 + 25 * (j), 30, 15);
         // 文字
         ctx.font = '14px Miscrosoft Yahei';
         ctx.textBaseline = 'middle';
-        ctx.fillText(FNames[j] + " " + portion[j]*100 + " %", 250 + 40, 68 + 25 * (j-1), 80);
+        ctx.fillText(cons[j].foodName + " " + (portion[j]*100).toFixed(2) + " %", 250 + 40, 68 + 25 * (j), 80);
         ctx.fill();
     }
 
-    // 画其他部分标识
-    ctx.beginPath();
-    // 填色要早进行
-    ctx.fillStyle = fillSytle[portion.length];
-    // x, y, h, w
-    ctx.fillRect(250, 60 + 25 * (portion.length-1), 30, 15);
-    // 文字
-    ctx.font = '14px Miscrosoft Yahei';
-    ctx.textBaseline = 'middle';
-    ctx.fillText("其他 " + parseInt((1-startArg)*100) + " %", 250 + 40, 68 + 25 * (portion.length-1), 80);
-    ctx.fill();
-    // 只要最后调用一次就行
-    ctx.closePath();
+    if (startArg < 1){
+        // 画其他部分标识
+        ctx.beginPath();
+        // 填色要早进行
+        ctx.fillStyle = fillSytle[len];
+        // x, y, h, w
+        ctx.fillRect(250, 60 + 25 * (portion.length), 30, 15);
+        // 文字
+        ctx.font = '14px Miscrosoft Yahei';
+        ctx.textBaseline = 'middle';
+        ctx.fillText("其他 " + ((1-startArg)*100).toFixed(2) + " %", 250 + 40, 68 + 25 * (portion.length), 80);
+        ctx.fill();
+        // 只要最后调用一次就行
+        ctx.closePath();
+    }
+
 
 
 </script>

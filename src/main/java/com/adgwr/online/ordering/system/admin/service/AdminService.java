@@ -2,6 +2,8 @@ package com.adgwr.online.ordering.system.admin.service;
 
 import com.adgwr.online.ordering.system.domain.AdminAccount;
 
+import java.util.List;
+
 /**
  * @author Administrator
  */
@@ -11,11 +13,19 @@ public interface AdminService {
 
     /**
      * 登录功能
-     * @param adTel
-     * @param plantPassword
+     * @param username
+     * @param password
      * @return
      */
-    AdminAccount login(String adTel,String plantPassword);
+    AdminAccount login(String username,String password);
 
     void logout();
+
+    List<AdminAccount> getAllAdmin();
+
+    /**
+     * 删除管理员账号
+     * @param adminId
+     */
+    void deleteAdmin(String adminId);
 }

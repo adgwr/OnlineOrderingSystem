@@ -5,11 +5,12 @@ spring:
         encoding: UTF-8
         servlet:
             content-type: text/html
+        prefix: classpath:/templates/
     datasource:
         druid:
-            url: jdbc:mysql://192.168.1.133:3306/restaurant?useUnicode=true&characterEncoding=utf-8&useSSL=false
-            username: root
-            password: 123456
+            url: jdbc:mysql://localhost/restaurant?useUnicode=true&characterEncoding=utf-8&useSSL=false
+            username: tracy
+            password: tracy
             initial-size: 1
             min-idle: 1
             max-active: 20

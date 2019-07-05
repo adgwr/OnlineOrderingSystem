@@ -40,4 +40,6 @@ public interface OrderService {
      */
     List<OrderWithFoodAndReceiver> getOrders(String cId);
 
+    int deleteShoppingCart();
+
 }

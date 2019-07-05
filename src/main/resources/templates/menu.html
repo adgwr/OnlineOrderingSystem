@@ -19,6 +19,8 @@
             src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="templets/cloud_04/js/org.js"
             data-main="baseMain"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <title>菜品-网上订单系统</title>
 </head>
 <body class="nobanner">
@@ -39,38 +41,46 @@
             </div>
             <ul id="category">
 
-<!--                <c:forEach var="category" items="${categories}">-->
-<!--                    <c:choose>-->
-<!--                        <c:when test="${sessionScope.categorySelected eq category.name}">-->
-<!--                            <li><a href="javascript:void(0);"-->
-<!--                                   onclick="categoryClicked('${category.name}');" class="active">${category.name}</a>-->
-<!--                            </li>-->
-<!--                        </c:when>-->
-<!--                        <c:otherwise>-->
-<!--                            <li><a href="javascript:void(0);"-->
-<!--                                   onclick="categoryClicked('${category.name}');">${category.name}</a></li>-->
-<!--                        </c:otherwise>-->
-<!--                    </c:choose>-->
-<!--                </c:forEach>-->
+
+                <li th:each="category : ${categorys}">
+                    <a th:href="@{/menu(categorySelected=${category.categoryName})}" th:if="${category.getCategoryName()==categorySelected}"
+                       onclick="categoryClicked('${category.name}');" class="active"
+                       th:text="${category.getCategoryName()}"></a>
+                    <a th:href="@{/menu(categorySelected=${category.categoryName})}" th:if="${category.getCategoryName()!=categorySelected}"
+                       onclick="categoryClicked('${category.name}');" th:text="${category.getCategoryName()}"></a>
+                </li>
+
+                <!--                <c:forEach var="category" items="${categories}">-->
+                <!--                    <c:choose>-->
+                <!--                        <c:when test="${sessionScope.categorySelected eq category.name}">-->
+                <!--                            <li><a href="javascript:void(0);"-->
+                <!--                                   onclick="categoryClicked('${category.name}');" class="active">${category.name}</a>-->
+                <!--                            </li>-->
+                <!--                        </c:when>-->
+                <!--                        <c:otherwise>-->
+                <!--                            <li><a href="javascript:void(0);"-->
+                <!--                                   onclick="categoryClicked('${category.name}');">${category.name}</a></li>-->
+                <!--                        </c:otherwise>-->
+                <!--                    </c:choose>-->
+                <!--                </c:forEach>-->
             </ul>
             <div id="projectlist" class="module-content">
                 <div class="wrapper">
                     <ul class="content_list">
-<!--                        <c:forEach var="food" items="${foods}">-->
-<!--                            <li class="projectitem">-->
-<!--                                <a href="javascript:void(0);" target="_blank" onclick="foodclicked('${food.foodID}');">-->
-<!--                                    <div class="project_img">-->
-<!--                                        <img src="foodImage/${food.imagePath}" width="500" height="320"/>-->
-<!--                                    </div>-->
-<!--                                    <div class="project_info">-->
-<!--                                        <div>-->
-<!--                                            <p class="title">${food.name}</p>-->
-<!--                                            <p class="subtitle">${food.subName}</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </a> <a href="" target="_blank" class="details">更多<i-->
-<!--                                    class="fa fa-angle-right"></i></a></li>-->
-<!--                        </c:forEach>-->
+                        <li th:each="food : ${foods}" class="projectitem">
+                            <a href="javascript:void(0);" target="_blank" onclick="foodclicked('${food.foodID}');">
+                                <div class="project_img">
+                                    <img th:src="@{foodImage/{fdImage}(fdImage=${food.getFdImage()})}" width="500"
+                                         height="320"/>
+                                </div>
+                                <div class="project_info">
+                                    <div>
+                                        <p class="title" th:text="${food.getFdName()}"></p>
+                                        <p class="subtitle" th:text="${food.getFdSubname()}"></p>
+                                    </div>
+                                </div>
+                            </a> <a href="" target="_blank" class="details">更多
+                            <i class="fa fa-angle-right"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -78,7 +88,28 @@
             <div id="pages"></div>
         </div>
     </div>
+
+    <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 </div>
+
 <div th:replace="footer.html"></div>
 <script type="text/javascript">
     function foodclicked(foodID) {

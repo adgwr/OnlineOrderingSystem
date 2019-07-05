@@ -1,6 +1,8 @@
 package com.adgwr.online.ordering.system.customer.service;
 
 import com.adgwr.online.ordering.system.domain.Comments;
+import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.vo.FoodComment;
 
 import java.util.List;
 
@@ -29,5 +31,13 @@ public interface CommentService {
      * @param foodId
      * @return
      */
-    List<Comments> getFoodComment(int foodId);
+    List<FoodComment> getFoodComment(int foodId);
+
+    /**
+     * 返回当前订单待评价的菜品列表
+     *
+     * @param orderId
+     * @return
+     */
+    List<Food> getFoodList(int orderId);
 }

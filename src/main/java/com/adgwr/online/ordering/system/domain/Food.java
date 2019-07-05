@@ -24,6 +24,9 @@ public class Food {
     @Column(name = "fd_description")
     private String fdDescription;
 
+    @Column(name = "sale_volume")
+    private Integer saleVolume;
+
     private Byte isshow;
 
     /**
@@ -108,6 +111,20 @@ public class Food {
      */
     public void setFdDescription(String fdDescription) {
         this.fdDescription = fdDescription;
+    }
+
+    /**
+     * @return sale_volume
+     */
+    public Integer getSaleVolume() {
+        return saleVolume;
+    }
+
+    /**
+     * @param saleVolume
+     */
+    public void setSaleVolume(Integer saleVolume) {
+        this.saleVolume = saleVolume;
     }
 
     /**

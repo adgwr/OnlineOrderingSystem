@@ -26,6 +26,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+
+    @RequestMapping(value = "DeleteShoppingCart",method = RequestMethod.POST)
+    public String deleteShoppingCart(){
+
+        return "showCart";
+    }
+
+
     /**
      * 新建订单的controller
      * @param cId
@@ -56,7 +64,7 @@ public class OrderController {
 
     @RequestMapping(value = "getOrder", method = RequestMethod.GET)
     public String getOrders(HttpServletRequest request,
-                                  HttpServletResponse response, Model model) {
+                            HttpServletResponse response, Model model) {
         HttpSession session = request.getSession();
 
         List<OrderWithFoodAndReceiver> orders = orderService.getOrders((String)session.getAttribute("username"));

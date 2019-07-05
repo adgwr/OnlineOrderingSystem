@@ -29,5 +29,5 @@ public interface CollectionService {
      * @param cId
      * @return
      */
-    List<Collections> getMyCollection(String cId);
+    List<Food> getMyCollection(String cId);
 }

@@ -2,13 +2,20 @@ package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.CommentService;
 import com.adgwr.online.ordering.system.domain.Comments;
+import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.mapper.CommentsMapper;
+import com.adgwr.online.ordering.system.mapper.FoodMapper;
+import com.adgwr.online.ordering.system.mapper.LineitemMapper;
+import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
+import com.adgwr.online.ordering.system.vo.FoodComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +26,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentsMapper commentsMapper;
+
+    @Autowired
+    private MyOrderMapper myOrderMapper;
+
+    @Autowired
+    private LineitemMapper lineitemMapper;
+
+    @Autowired
+    private FoodMapper foodMapper;
 
     @Override
     public void addComment(int orderId, int foodId, String commentStr) {
@@ -42,11 +58,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comments> getFoodComment(int foodId) {
+    public List<FoodComment> getFoodComment(int foodId) {
         Example example = new Example(Comments.class);
         example.createCriteria().andEqualTo("foodId", foodId);
 
-        List<Comments> comments = commentsMapper.selectByExample(example);
+        List<Comments> commentsList = commentsMapper.selectByExample(example);
+        List<FoodComment> comments = new ArrayList<>();
+        for(Comments c : commentsList) {
+            FoodComment fc = new FoodComment(c);
+            MyOrder myOrder = myOrderMapper.selectByPrimaryKey(fc.getOrderId());
+            fc.setcId(myOrder.getcId());
+        }
         return comments;
     }
+
+    @Override
+    public List<Food> getFoodList(int orderId) {
+        return null;
+    }
+
+
 }

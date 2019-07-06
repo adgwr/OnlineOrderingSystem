@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <script type="text/javascript">
@@ -34,7 +32,7 @@
 	data-main="indexMain"></script>
 </head>
 <body>
-	<jsp:include page="banner.jsp" />
+<div th:replace="banner.html"></div>
 	<div class="border_top_cart">
 		<div class="container payment-con">
 			<div class="order-info" style="margin-top: 100px;">
@@ -56,6 +54,6 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp" />
+<div th:replace="footer.html"></div>
 </body>
 </html>

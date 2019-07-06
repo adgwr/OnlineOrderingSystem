@@ -60,12 +60,12 @@ table tr td {
 			</tr>
 			<tr>
 				<th>电话</th>
-				<td>${user.c_tel}</td>
+				<td th:text="${session.customer.getcTel()}"></td>
 			</tr>
 			<tr>
 				<th>电子邮箱</th>
-				<td>${user.email}</td>
-				<%-- <td><a href="${pageContext.request.contextPath}/customer/editCustomer.jsp">编辑</a></td> --%>
+				<td th:text="${session.customer.getEmail()}"></td>
+<!--				<%&#45;&#45; <td><a href="${pageContext.request.contextPath}/customer/editCustomer.jsp">编辑</a></td> &#45;&#45;%>-->
 			</tr>
 	</table>
 </body>

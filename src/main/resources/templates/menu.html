@@ -91,7 +91,10 @@
                 <!--                    </c:choose>-->
                 <!--                </c:forEach>-->
             </ul>
-            <div id="projectlist" class="module-content">
+            <div th:if="${!hasFood}" style="text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="暂无菜品"></label>
+            </div>
+            <div th:if="${hasFood}" id="projectlist" class="module-content">
                 <div class="wrapper">
                     <ul class="content_list">
                         <li th:each="food : ${foods}" class="projectitem">

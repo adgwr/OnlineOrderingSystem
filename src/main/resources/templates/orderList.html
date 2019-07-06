@@ -64,7 +64,10 @@
                 <p class="title">我的订单</p>
                 <p class="subtitle">My Orders</p>
             </div>
-            <div id="showOrders">
+            <div th:if="${!hasOrder}" style="margin-top: 100px;text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="暂无订单"></label>
+            </div>
+            <div th:if="${hasOrder}" id="showOrders">
                 <table>
                     <tr id="line1">
                         <th>商品</th>

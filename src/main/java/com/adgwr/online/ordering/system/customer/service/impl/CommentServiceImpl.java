@@ -69,6 +69,7 @@ public class CommentServiceImpl implements CommentService {
             FoodComment fc = new FoodComment(c);
             MyOrder myOrder = myOrderMapper.selectByPrimaryKey(fc.getOrderId());
             fc.setcId(myOrder.getcId());
+            comments.add(fc);
         }
         return comments;
     }

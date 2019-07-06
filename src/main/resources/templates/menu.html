@@ -59,7 +59,7 @@
             </div>
             <div id="searchPart"
                  style="height: 10%; line-height: 2%; text-align: center; margin-bottom: 20px;">
-                <form id="searchFood" action="GetFoods" method="post">
+                <form id="searchFood" action="GetFoods" method="get">
                     <input id="searchContent" type="text" name="searchContent"/> <input
                         id="searchButton" type="submit" value="搜索"/>
                 </form>
@@ -68,10 +68,12 @@
 
 
                 <li th:each="category : ${categorys}">
-                    <a th:href="@{/menu(categorySelected=${category.categoryId})}" th:if="${category.categoryId==categorySelected}"
+                    <a th:href="@{/menu(categorySelected=${category.categoryId})}"
+                       th:if="${category.categoryId==categorySelected}"
                        class="active"
                        th:text="${category.getCategoryName()}"></a>
-                    <a th:href="@{/menu(categorySelected=${category.categoryId})}" th:if="${category.categoryId!=categorySelected}"
+                    <a th:href="@{/menu(categorySelected=${category.categoryId})}"
+                       th:if="${category.categoryId!=categorySelected}"
                        th:text="${category.getCategoryName()}"></a>
                 </li>
 
@@ -93,7 +95,7 @@
                 <div class="wrapper">
                     <ul class="content_list">
                         <li th:each="food : ${foods}" class="projectitem">
-                            <a href="javascript:void(0);" target="_blank" onclick="foodclicked('${food.foodID}');">
+                            <a th:href="@{/foodDetail(foodId=${food.foodId})}">
                                 <div class="project_img">
                                     <img th:src="@{foodImage/{fdImage}(fdImage=${food.getFdImage()})}" width="500"
                                          height="320"/>
@@ -138,19 +140,5 @@
 </div>
 
 <div th:replace="footer.html"></div>
-<script type="text/javascript">
-    function foodclicked(foodId) {
-        form = $("<form></form>")
-        form.attr('action', 'AddShoppingCart')
-        form.attr('method', 'post')
-        form.attr('accept-charset', 'UTF-8')
-        input1 = $("<input type='hidden' name='foodId'/>")
-        input1.attr("value", foodID)
-        form.append(input1)
-        form.appendTo("body")
-        form.css('display', 'none')
-        form.submit()
-    }
-</script>
 </body>
 </html>

@@ -217,15 +217,13 @@ bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default
 	transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 	margin-top: 30px;
 	right: 0px;
-	background: url("../images/jt01.png"
-		/*tpa=http://dede24.va666.com/templets/cloud_04/images/jt01.png*/);
+
 	opacity: 0;
 }
 
 #projectlist .projectitem a:hover .project_info div::after {
 	right: 25px;
-	background: url("../images/jt01.png"
-		/*tpa=http://dede24.va666.com/templets/cloud_04/images/jt01.png*/);
+	background: url("../images/jt01.png");
 	opacity: 1;
 }
 
@@ -362,7 +360,7 @@ bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default
 }
 
 #projectlist .projectitem a::after {
-	content: '+';
+	content: '...';
 	width: 64px;
 	height: 64px;
 	line-height: 64px;
@@ -374,8 +372,7 @@ bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default
 	top: 0%;
 	left: 50%;
 	z-index: 10;
-	border-radius: 50px;
-	border: 2px solid #fff;
+	border: 0px;
 	transition: all 0.6s cubic-bezier(.17, .84, .44, 1) 0s;
 	opacity: 0;
 	color: #fff;

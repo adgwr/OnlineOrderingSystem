@@ -1,0 +1,177 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/lib.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/style.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/376.css"/>
+    <script type="text/javascript"
+            src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="templets/cloud_04/js/org.js"
+            data-main="baseMain"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>菜品-网上订单系统</title>
+</head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+
+    #productImg{
+        width:500px;
+        height:320px;
+        border-radius: 8px;
+        border:1.6px #666 solid;
+        padding:10px;
+    }
+
+    .collect{
+        width: 110px;
+        height: 40px;
+        background-color: transparent;
+        color: #cfcfcf;
+        font-size: 18px;
+        border: 1px solid rgba(255, 255, 255, .2);
+        cursor: pointer;
+        transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        padding :5px;
+        border-radius: 5px;
+        border: 1px solid #606060;
+        margin-top:10px;
+        margin-bottom:10px;
+        float:left;
+    }
+
+    .collect:hover{
+        background-color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 255, 255, .1);
+        color: #333;
+    }
+</style>
+<body class="nobanner">
+<div th:replace="banner.html"></div>
+<div id="sitecontent">
+    <div class="npagePage Pageanli" id="mproject">
+        <div class="content">
+            <div class="header" id="plheader">
+                <p class="title">菜品详情</p>
+                <p class="subtitle">PRODECT DETAIL</p>
+            </div>
+            <div id="description" style="text-align: center; margin-top:20px;">
+                <table style="width:80%; border:none; margin:auto;">
+                    <tr>
+                        <td style="width:550px;"><img id="productImg" th:src="@{foodImage/{fdImage}(fdImage=${food.getFdImage()})}"></img></td>
+                        <td>
+                            <table style="text-align: left; margin:auto; float:left;">
+                                <tr><td style="font-size: 35px;font-weight:600;color:#ddd; height:50px; letter-spacing:6px;" th:text="${food.fdName}"></td></tr>
+                                <tr><td style="font-size: 15px;font-weight:100;color:#666; height:25px;" th:text="${food.fdSubname}"></td></tr>
+                                <tr style="height:10px;"></tr>
+                                <tr><td style="font-size: 25px;font-weight:400;color:#ddd; height:50px;" th:text="'价格： ' + ${food.fdPrice} + ' 元'" ></td></tr>
+                                <tr><td style="font-size: 15px;font-weight:100;color:#aaa; height:150px;" th:text="${food.fdDescription}"></td></tr>
+                                <tr th:if="${session.customer != null}">
+                                    <td>
+                                        <form style="float:left; width:200px;" th:if="${isFavourite}" action="/deleteCollection" method="post" onsubmit="deleteCollection('取消收藏成功！')">
+                                            <input style="display:none;" type="hiden" name="foodId" th:value="${food.foodId}"></input>
+                                            <input type="submit" name="submit" class="collect" value="取消收藏"></input>
+                                        </form>
+                                        <form style="float:left; width:200px;"  th:if="${!isFavourite}" action="/addCollection" method="post" onsubmit="success('收藏成功！')">
+                                            <input style="display:none;" type="hiden" name="foodId" th:value="${food.foodId}"></input>
+                                            <input type="submit" name="submit" class="collect" value="添加收藏"></input>
+                                        </form>
+                                        <form style="float:left; width:200px;"  action="#" method="post" onsubmit="success('添加购物车成功！')">
+                                            <input style="display:none;" type="hiden" name="foodId" th:value="${food.foodId}"></input>
+                                            <input type="submit" name="submit" class="collect" value="添加购物车"></input>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="width:95%; margin:80px auto 80px; border:none;border-top:1px dotted #666;">
+            <div th:if="${!hasComment}" style="text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="该商品暂无评价"></label>
+            </div>
+            <div th:if="${hasComment}" style="text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="商品评价"></label>
+            </div>
+            <div style="text-align: center;">
+                <table style="width:70%; border:none; border-bottom: #999; margin:auto; margin-top: 50px;">
+                    <tr th:each="comment:${comments}">
+                        <td style="min-height: 600px;width:100%;text-align: left;padding:10px;">
+                            <div style="font-size:18px; color:#ddd; margin-left:5px; margin-bottom: 10px;" th:text="${comment.comments}"></div>
+                            <br><br>
+                            <div style="font-size:10px; color:#666; text-align: right; margin-bottom: 10px;" th:text="${comment.commentDate}"></div>
+                            <hr style="width:100%; margin:20px auto 20px; border:none;border-top:1px dotted #666;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear"></div>
+            <div id="pages"></div>
+        </div>
+    </div>
+    <div th:if="${hasComment}" aria-label="Page navigation" style="width:100%;text-align: center">
+        <ul class="pagination">
+            <li th:if="${hasStart}">
+                <a th:if="${hasStart}" th:href="@{/foodDetail(pn=${startPage}-1,foodId=${food.foodId})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                <a th:href="@{/foodDetail(pn=${page},foodId=${food.foodId})}" th:if="${page==currentPage}"
+                   class="active"
+                   th:text="${page}"></a>
+                <a th:href="@{/foodDetail(pn=${page},foodId=${food.foodId})}" th:if="${page!=currentPage}"
+                   th:text="${page}"></a>
+            </li>
+            <li th:if="${hasEnd}">
+                <a th:if="${hasEnd}" th:href="@{/foodDetail(pn=${endPage}+1,foodId=${food.foodId})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="footer.html"></div>
+<script th:inline="javascript">
+    function success(message){
+        var fdName = [[${food.fdName}]];
+        alert(fdName + ' ' + message);
+    }
+</script>
+</body>
+</html>

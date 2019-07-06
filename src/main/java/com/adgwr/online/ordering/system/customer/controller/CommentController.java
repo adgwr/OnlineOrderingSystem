@@ -66,7 +66,7 @@ public class CommentController {
         return "redirect:/getOrder";
     }
 
-    @RequestMapping(value = "foodDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "foodDetail")
     public String getCommentsAndFoodDetail(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
                                            @RequestParam("foodId") Integer foodId,
                                            HttpServletRequest request,
@@ -80,23 +80,32 @@ public class CommentController {
         if(totalPages * 8 < commentsList.size()) {
             totalPages++;
         }
-        int startPage = (pn-1)/5*5+1;
-        int endPage = Math.min(startPage+4,totalPages);
-        model.addAttribute("currentPage",pn);
-        model.addAttribute("hasStart",startPage != 1);
-        model.addAttribute("hasEnd",endPage != totalPages);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("comments", currentpages);
+        //判断是否有评价
+        if(totalPages == 0){
+            model.addAttribute("hasComment",false);
+        }else {
+            model.addAttribute("hasComment",true);
+            int startPage = (pn - 1) / 5 * 5 + 1;
+            int endPage = Math.min(startPage + 4, totalPages);
+            model.addAttribute("currentPage", pn);
+            model.addAttribute("hasStart", startPage != 1);
+            model.addAttribute("hasEnd", endPage != totalPages);
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+            model.addAttribute("comments", currentpages);
+        }
 
         // 获取菜品详情
         Food food = customerService.getFoodById(foodId);
         model.addAttribute("food", food);
         // 获取该菜品是否被该客户收藏
         HttpSession session = request.getSession();
-        String cId = ((Customer)session.getAttribute("customer")).getcId();
-        model.addAttribute("isFavourite", collectionService.hasCollected(foodId, cId));
-
+        //判断是否登陆
+        if(session.getAttribute("customer")==null) model.addAttribute("isFavourite",false);
+        else {
+            String cId = ((Customer) session.getAttribute("customer")).getcId();
+            model.addAttribute("isFavourite", collectionService.hasCollected(foodId, cId));
+        }
         return "commentsList";
     }
 

@@ -26,10 +26,11 @@ public class CollectionController {
     private CollectionService collectionService;
 
     @RequestMapping(value = "addCollection", method = RequestMethod.POST)
-    public void addCollection(@RequestParam("foodId")Integer foodId, HttpServletRequest request, HttpServletResponse response) {
+    public String addCollection(@RequestParam("foodId")Integer foodId, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String cId = ((Customer)session.getAttribute("customer")).getcId();
         collectionService.addFood(foodId, cId);
+        return "forward:/foodDetail";
     }
 
     @RequestMapping(value = "deleteCollection", method = RequestMethod.POST)
@@ -37,7 +38,7 @@ public class CollectionController {
         HttpSession session = request.getSession();
         String cId = ((Customer)session.getAttribute("customer")).getcId();
         collectionService.deleteFood(foodId, cId);
-        return "getCollections";
+        return "forward:/foodDetail";
     }
 
     @RequestMapping(value = "getCollections", method = RequestMethod.GET)

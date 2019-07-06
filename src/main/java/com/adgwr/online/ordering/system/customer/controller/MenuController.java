@@ -34,7 +34,7 @@ public class MenuController {
 //        if(categorySelected == -1) {
 //            categorySelected = categorys.get(0).getCategoryId();
 //        }
-        PageHelper.startPage(pn, 4);
+        PageHelper.startPage(pn, 8);
         PageHelper.orderBy("food_id asc");
         List<Food> foods;
         if(categorySelected == -1) {

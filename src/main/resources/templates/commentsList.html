@@ -101,7 +101,7 @@
                                 <tr><td style="font-size: 15px;font-weight:100;color:#aaa; height:150px;" th:text="${food.fdDescription}"></td></tr>
                                 <tr th:if="${session.customer != null}">
                                     <td>
-                                        <form style="float:left; width:200px;" th:if="${isFavourite}" action="/deleteCollection" method="post" onsubmit="deleteCollection('取消收藏成功！')">
+                                        <form style="float:left; width:200px;" th:if="${isFavourite}" action="/deleteCollection" method="post" onsubmit="success('取消收藏成功！')">
                                             <input style="display:none;" type="hiden" name="foodId" th:value="${food.foodId}"></input>
                                             <input type="submit" name="submit" class="collect" value="取消收藏"></input>
                                         </form>

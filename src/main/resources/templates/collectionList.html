@@ -93,7 +93,7 @@
                 <div class="wrapper">
                     <ul class="content_list">
                         <li th:each="food : ${foods}" class="projectitem">
-                            <a href="javascript:void(0);" target="_blank" onclick="foodclicked('${food.foodID}');">
+                            <a th:href="@{/foodDetail(foodId=${food.foodId})}">
                                 <div class="project_img">
                                     <img th:src="@{foodImage/{fdImage}(fdImage=${food.getFdImage()})}" width="500"
                                          height="320"/>

@@ -78,14 +78,21 @@ public class OrderController {
         if(totalPages * 8 < orders.size()) {
             totalPages++;
         }
-        int startPage = (pn-1)/5*5+1;
-        int endPage = Math.min(startPage+4,totalPages);
-        model.addAttribute("currentPage",pn);
-        model.addAttribute("hasStart",startPage != 1);
-        model.addAttribute("hasEnd",endPage != totalPages);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
+        if(totalPages == 0) {
+            model.addAttribute("hasOrder", false);
+        }
+        else {
+            model.addAttribute("hasOrder", true);
+            int startPage = (pn-1)/5*5+1;
+            int endPage = Math.min(startPage+4,totalPages);
+            model.addAttribute("currentPage",pn);
+            model.addAttribute("hasStart",startPage != 1);
+            model.addAttribute("hasEnd",endPage != totalPages);
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        }
         model.addAttribute("orders", currentpages);
+
         return "orderList";
     }
 

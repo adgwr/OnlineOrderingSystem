@@ -44,13 +44,20 @@ public class MenuController {
             foods = customerService.getFoodsByCategoty(categorySelected);
         }
         PageInfo page = new PageInfo(foods, 5);
-        model.addAttribute("currentPage",page.getPageNum());
-        int start = (pn-1)/5*5+1;
-        int end = Math.min(start+4,page.getPages());
-        model.addAttribute("hasStart",start != 1);
-        model.addAttribute("hasEnd",end != page.getPages());
-        model.addAttribute("startPage", start);
-        model.addAttribute("endPage", end);
+        if(page.getPages() == 0) {
+            model.addAttribute("hasFood", false);
+        }
+        else {
+            model.addAttribute("hasFood", true);
+            model.addAttribute("currentPage",page.getPageNum());
+            int start = (pn-1)/5*5+1;
+            int end = Math.min(start+4,page.getPages());
+            model.addAttribute("hasStart",start != 1);
+            model.addAttribute("hasEnd",end != page.getPages());
+            model.addAttribute("startPage", start);
+            model.addAttribute("endPage", end);
+        }
+
         model.addAttribute("foods", foods).addAttribute("pageInfo", page).
                 addAttribute("categorys", categorys).addAttribute("categorySelected", categorySelected);
         return "menu";

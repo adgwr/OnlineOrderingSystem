@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div aria-label="Page navigation" style="width:100%;text-align: center">
+    <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center">
         <ul class="pagination">
             <li th:if="${hasStart}">
                 <a th:if="${hasStart}" th:href="@{/menu(pn=${startPage}-1)}" aria-label="Previous">

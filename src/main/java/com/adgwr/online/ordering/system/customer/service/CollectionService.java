@@ -30,4 +30,13 @@ public interface CollectionService {
      * @return
      */
     List<Food> getMyCollection(String cId);
+
+    /**
+     * 判断客户是否收藏了某一菜品
+     *
+     * @param foodId
+     * @param cId
+     * @return
+     */
+    boolean hasCollected(int foodId, String cId);
 }

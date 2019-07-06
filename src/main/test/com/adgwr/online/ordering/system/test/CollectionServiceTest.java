@@ -4,6 +4,7 @@ import com.adgwr.online.ordering.system.OnlineOrderingSystemApplication;
 import com.adgwr.online.ordering.system.customer.service.CollectionService;
 import com.adgwr.online.ordering.system.domain.Collections;
 import com.adgwr.online.ordering.system.domain.Comments;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,12 @@ public class CollectionServiceTest {
     }
 
     @Test
-    public void testGetMyCollection() {
-
+    public void testHasCollection() {
+        String cId1 = "abc", cId2 = "abcd";
+        int foodId = 1;
+//        System.out.println(collectionService.hasCollected(foodId, cId1));
+//        System.out.println(collectionService.hasCollected(foodId,cId2));
+        Assert.assertTrue(collectionService.hasCollected(foodId, cId1));
+        Assert.assertFalse(collectionService.hasCollected(foodId,cId2));
     }
 }

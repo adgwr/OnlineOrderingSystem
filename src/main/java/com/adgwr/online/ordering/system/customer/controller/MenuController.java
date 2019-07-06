@@ -55,4 +55,13 @@ public class MenuController {
                 addAttribute("categorys", categorys).addAttribute("categorySelected", categorySelected);
         return "menu";
     }
+
+//    @RequestMapping(value = "foodDetail", method = RequestMethod.GET)
+//    public String getFoodDetail(
+//            @RequestParam(value = "foodId", defaultValue = "-1") Integer foodId,
+//            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+//            Model model) {
+//
+//        return "foodDetail";
+//    }
 }

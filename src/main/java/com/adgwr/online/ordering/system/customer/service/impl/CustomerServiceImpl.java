@@ -109,4 +109,11 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Category> getAllCategorys() {
         return categoryMapper.selectAll();
     }
+
+    @Override
+    public Food getFoodById(int foodId) {
+        return foodMapper.selectByPrimaryKey(foodId);
+    }
+
+
 }

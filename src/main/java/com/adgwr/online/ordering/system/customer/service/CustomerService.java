@@ -30,4 +30,6 @@ public interface CustomerService {
     List<Food> getFoodsByCategoty(int categoryId);
 
     List<Category> getAllCategorys();
+
+    Food getFoodById(int foodId);
 }

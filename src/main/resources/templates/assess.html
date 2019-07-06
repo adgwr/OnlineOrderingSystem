@@ -13,6 +13,58 @@
             data-main="baseMain"></script>
     <title>评价订单-网上订单系统</title>
 </head>
+<style type="text/css">
+    #assess{
+        width:100%;
+        height:100%;
+        text-align: center;
+    }
+    #assessList {
+        width:70%;
+        margin:auto;
+    }
+
+    .assessLabel{
+        margin:auto;
+        font-family: "Times New Roman", "微软雅黑";
+        font-size: 20px;
+        color:#fff;
+    }
+    .typeComment{
+        margin:auto;
+        width:700px;
+        height:100px;
+        opacity:1;
+        background: #222222;
+        border:#a1a1a1 2px solid;
+        color:#fff;
+        border-radius: 5px;
+        padding:3px;
+    }
+
+    #submitComment{
+        width: 110px;
+        height: 40px;
+        background-color: transparent;
+        color: #cfcfcf;
+        font-size: 18px;
+        border: 1px solid rgba(255, 255, 255, .2);
+        cursor: pointer;
+        transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        margin-left: 10px;
+        padding :5px;
+        border-radius: 5px;
+        border: 1px solid #606060;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+
+    #submitComment:hover{
+        background-color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 255, 255, .1);
+        color: #333;
+    }
+</style>
 <body class="nobanner">
 <!--替代jsp:include-->
 <div th:replace="banner.html"></div>
@@ -23,6 +75,24 @@
                 <p class="title">评价</p>
                 <p class="subtitle">Assess</p>
             </div>
+            <br><br>
+            <div id="assess">
+                <table id="assessList">
+                    <tr th:each="food,foodStat:${foods}">
+                        <br><br>
+                        <label class="assessLabel" th:text="${food.fdName}"></label>
+                        <br><br><br>
+                        <textarea style="display:none" th:id="'fdId'+${foodStat.index}" th:text="${food.foodId}"></textarea>
+                        <textarea th:id="'comment'+${foodStat.index}" class="typeComment" placeholder="评论不超过100字" maxlength="100" th:name="${food.fdName}"></textarea>
+                        <br><br>
+                    </tr>
+                </table>
+                <form id="commentForm" action="/addComment" method="post">
+                    <input id="hidInput" type="hidden" name="comments"></input>
+                    <br>
+                    <input id="submitComment" type="button" value="立即评价" onclick="submitClicked()"></input>
+                </form>
+            </div>
 
             <div class="clear"></div>
             <div id="pages"></div>
@@ -30,8 +100,27 @@
     </div>
 </div>
 <div th:replace="footer.html"></div>
-<script type="text/javascript">
-
+<script th:inline="javascript">
+    function submitClicked() {
+        var comments = [[${orderId}]];
+        var pattern = new RegExp("[@&#]");
+        comments = comments + '#';
+        for(var i=0;i<[[${foods.size()}]];i++){
+            comments = comments + $('#fdId'+i).text() + "@";
+            var comment = $.trim( $('#comment'+i).val() );
+            if(comment == "") {
+                alert("评论不能为空");
+                return;
+            }
+            if(pattern.test(comment)){
+                alert("评论中包含非法字符@，&，#");
+                return;
+            }
+            comments = comments + comment + "&";
+        }
+        $('#hidInput').attr("value",comments);
+        $("#commentForm").submit();
+    }
 </script>
 </body>
 </html>

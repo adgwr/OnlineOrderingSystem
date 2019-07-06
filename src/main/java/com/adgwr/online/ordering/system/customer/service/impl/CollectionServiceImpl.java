@@ -55,4 +55,14 @@ public class CollectionServiceImpl implements CollectionService {
         }
         return myCollections;
     }
+
+    @Override
+    public boolean hasCollected(int foodId, String cId) {
+        Example example = new Example(Collections.class);
+        example.createCriteria().andEqualTo("foodId", foodId).andEqualTo("cId", cId);
+        List<Collections> collectionsList = collectionsMapper.selectByExample(example);
+        return !collectionsList.isEmpty();
+    }
+
+
 }

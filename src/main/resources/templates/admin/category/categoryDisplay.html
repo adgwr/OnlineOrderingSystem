@@ -1,0 +1,61 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/main.css" />-->
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+<title>Category Display</title>
+</head>
+<body>
+	<div class="main">
+		<div class="main-content">
+			<div class="container-fluid">
+				<h3 class="page-title">菜品类别管理</h3>
+				<div class="row">
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">菜品类别</h3>
+							<br />
+							<form th:action="@{'/admin/category/categoryAdd'}" accept-charset="UTF-8" onsubmit="document.charset='UTF-8';">
+								<input type="submit" value="添加菜品类别">
+							</form>
+							<br /> <br />
+						</div>
+						<div class="panel-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<td><b>ID</b></td>
+										<td><b>类别名</b></td>
+										<td><b>修改</b></td>
+										<td><b>删除</b></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="category:${categoryList}">
+										<td th:text="${category.getCategoryId()}"></td>
+										<td th:text="${category.getCategoryName()}"></td>
+										<td>
+											<form style="align: center; background-color: gray" th:action="@{'/changeCategoryName'}" method="get" >
+												<input type="hidden" name="id" th:value="${category.getCategoryId()}">
+												<input type="text" name="categoryName" size="15">
+												<input type="submit" value="修改类名">
+											</form>
+										</td>
+										<td>
+											<form th:action="@{'/deleteCategory'}" method="get">
+												<input type="hidden" name="id2" th:value="${category.getCategoryId()}">
+												<input type="submit" value="删除">
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

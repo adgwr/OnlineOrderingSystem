@@ -71,7 +71,7 @@
         </table>
         <table tableName="my_order">
             <!-- mysql 配置 -->
-            <generatedKey column="order_id" sqlStatement="Mysql" identity="false"/>
+            <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>
         </table>
         <table tableName="receiver">
             <!-- mysql 配置 -->

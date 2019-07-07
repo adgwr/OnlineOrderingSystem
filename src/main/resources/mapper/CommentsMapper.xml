@@ -10,4 +10,5 @@
     <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="comment_date" jdbcType="VARCHAR" property="commentDate" />
   </resultMap>
+
 </mapper>

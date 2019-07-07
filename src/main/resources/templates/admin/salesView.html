@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/main.css" />
+<title>SalesView</title>
+</head>
+<body>
+	<div class="main">
+		<div class="main-content">
+			<div class="container-fluid">
+				<h3 class="page-title">销售情况查询</h3>
+				<div class="row">
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">销售情况</h3>
+						</div>
+
+						<div class="panel-body">
+							<table align="center">
+								<tr>
+									<td width="150px">查询范围</td>
+									<td width="350px">
+										<form method="get" name="SearchSales" th:action="@{'/'}">
+											<select name="viewMethod">
+												<option value="today" selected="selected">today</option>
+												<option value="this week">this week</option>
+												<option value="this month">this month</option>
+											</select>
+											<input type="submit" value="Search">
+										</form>
+										<th th:text="${viewMethod}的销售情况"></th>
+									</td>
+								</tr>
+							</table>
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th>菜品ID</th>
+										<th>菜品名</th>
+										<th>销售数量</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="sale:${saleList}">
+										<td th:text="${sale.getFoodId()}"></td>
+										<td th:text="${sale.getFoodName()}"></td>
+										<td th:text="${sale.getAmount()}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

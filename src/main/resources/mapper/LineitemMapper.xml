@@ -10,4 +10,14 @@
     <result column="amount" jdbcType="INTEGER" property="amount" />
     <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
   </resultMap>
+
+  <sql id="Base_Column_List_foodId" >
+    order_id,food_id,amount,total_price
+  </sql>
+  <select id="getLineItemByFoodId" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List_foodId" />
+  from lineitem
+  where food_id = #{foodId,jdbcType=INTEGER}
+  </select>
 </mapper>

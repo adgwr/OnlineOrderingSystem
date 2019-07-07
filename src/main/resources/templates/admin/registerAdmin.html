@@ -21,7 +21,7 @@
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl" style="color:#777777;"><b class="ftx04">*</b>用户名:</span>
                         <div class="f-fl item-ifo">
-                            <input type="text" name="AdminID" maxlength="20"
+                            <input type="text" name="adminId" maxlength="20"
                                    class="txt03 f-r3 required" tabindex="1"
                                    data-valid="isNonEmpty||between:3-20||isUname"
                                    data-error="用户名不能为空||用户名长度为3到20位||只能是字母、数字、下划线，以字母开头"
@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     <div class="item col-xs-12">
-                        <span class="intelligent-label f-fl" style="color:#777777;"><b class="ftx04">*</b>新密码:</span>
+                        <span class="intelligent-label f-fl" style="color:#777777;"><b class="ftx04">*</b>密码:</span>
                         <div class="f-fl item-ifo">
-                            <input type="password" name="newPswd" id="password"
+                            <input type="password" name="password" id="password"
                                    maxlength="20" class="txt03 f-r3 required" tabindex="3"
                                    style="ime-mode: disabled;" onpaste="return  false"
                                    autocomplete="off"
@@ -88,16 +88,30 @@
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript" th:inline="javascript">
     $(function() {
         //Apply Button
         $("#btn_part1").click(function() {
             if (!verifyCheck._click())
                 return;
-            document.form1.action = "../RegisterAdmin";
+            document.form1.action = "/registerAdmin";
             document.form1.submit();
         });
     });
+    //
+    // function sleep(ms) {
+    //     return new Promise(resolve =>
+    //         setTimeout(resolve, ms)
+    // )
+    // }
+    //
+    // var message = [[${message}]];
+    // //等待页面加载
+    // sleep(500).then(() => {
+    //     if (message != null) {
+    //     alert(message);
+    // }
+    // });
 </script>
 </body>
 </html>

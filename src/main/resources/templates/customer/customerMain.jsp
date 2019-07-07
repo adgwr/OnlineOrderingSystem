@@ -66,7 +66,7 @@ table tr td {
 			</tr>
 			<tr>
 				<th>电子邮箱</th>
-				<td>${user.email}</a></td>
+				<td>${user.email}</td>
 				<%-- <td><a href="${pageContext.request.contextPath}/customer/editCustomer.jsp">编辑</a></td> --%>
 			</tr>
 	</table>

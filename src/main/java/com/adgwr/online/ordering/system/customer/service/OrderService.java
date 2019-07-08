@@ -1,8 +1,10 @@
 package com.adgwr.online.ordering.system.customer.service;
 
+import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.vo.BalanceItem;
 import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -48,4 +50,8 @@ public interface OrderService {
     int deleteShoppingCart();
 
     List<BalanceItem> getBalanceItems(String cId, Integer[] foodIds);
+
+    MyOrder getOrderById(int orderId);
+
+    BigDecimal getOrderPrice(int orderId);
 }

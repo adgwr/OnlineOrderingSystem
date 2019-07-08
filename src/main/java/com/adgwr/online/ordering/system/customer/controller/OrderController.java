@@ -112,10 +112,10 @@ public class OrderController {
         return "orderList";
     }
 
-    @RequestMapping(value = "cancelOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "cancelOrder")
     public String cancelOrder(@RequestParam("orderId") Integer orderId) {
         orderService.cancelOrder(orderId);
-        return "getOrder";
+        return "redirect:getOrder";
     }
 
     @RequestMapping(value = "changeOrderState", method = RequestMethod.POST)

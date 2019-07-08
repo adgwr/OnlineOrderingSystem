@@ -28,7 +28,7 @@
 	<div class="border_top_cart">
 
 		<div class="container payment-con">
-			<form target="_blank" action="PayOrder" id="pay-form" method="post"
+			<form target="_blank" action="/paySuccessfully" id="pay-form" method="post"
 				style="margin-top: 100px;">
 				<div class="order-info">
 					<div class="msg">
@@ -38,11 +38,12 @@
 					</div>
 					<div class="info">
 						<p>
-							金额：<span class="pay-total" th:text="${totalPrice}元"></span>
+							金额：<span class="pay-total" th:text="${totalPrice}">元</span>
 						</p>
-						<p th:text="订单&#58; ${orderId}"></p>
+						<p>订单&#58; <span class="pay-total" th:text="${orderId}"></span></p>
 						<p>
-							<span th:text="配送&#58; ${receiver.rName}"></span>
+							<span class="line">配送&#58; </span>
+							<span th:text="${receiver.rName}"></span>
 							<span class="line">/</span>
 							<span th:text="${receiver.rTel}"></span>
 							<span class="line">/</span>
@@ -87,9 +88,9 @@
 					<div class="box-ft clearfix">
 						<input type="hidden" name="orderPrice"
 							th:value="${totalPrice}" /> <input type="hidden"
-							name="orderID" th:value="${orderId}" /> <input
+							name="orderId" th:value="${orderId}" /> <input
 							type="submit" class="btn btn-primary" value="下一步" id="payBtn">
-						<a th:href="@{/cancleOrder(orderId=${orderId})}"
+						<a th:href="@{/cancelOrder(orderId=${orderId})}"
 							class="btn btn-lineDakeLight" style="float:left">取消订单</a> <span class="tip"></span>
 					</div>
 				</div>

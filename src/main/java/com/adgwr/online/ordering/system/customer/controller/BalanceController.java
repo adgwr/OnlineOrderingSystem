@@ -4,6 +4,7 @@ package com.adgwr.online.ordering.system.customer.controller;
 import com.adgwr.online.ordering.system.customer.service.OrderService;
 import com.adgwr.online.ordering.system.customer.service.ReceiverService;
 import com.adgwr.online.ordering.system.domain.Customer;
+import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.domain.Receiver;
 import com.adgwr.online.ordering.system.mapper.LineitemMapper;
 import com.adgwr.online.ordering.system.vo.BalanceItem;
@@ -67,18 +68,32 @@ public class BalanceController {
         return "balance";
     }
 
-    @RequestMapping(value = "paySuccessfully", method = RequestMethod.GET)
+    @RequestMapping(value = "paySuccessfully", method = RequestMethod.POST)
     public String paySuccessfully(@RequestParam("orderId")Integer orderId,
+                                  @RequestParam("orderPrice")BigDecimal orderPrice,
                                   HttpServletRequest request,
                                   Model model) {
         orderService.changeOrderState(orderId);
         HttpSession session = request.getSession();
-        BigDecimal orderPrice = (BigDecimal) session.getAttribute("orderPrice");
         model.addAttribute("totalPrice", orderPrice);
+        model.addAttribute("orderId", orderId);
         session.removeAttribute("orderPrice");
         session.removeAttribute("balanceItems");
         return "paySuccessfully";
     }
 
-
+    @RequestMapping(value = "payOrder", method = RequestMethod.POST)
+    public String payOrder(@RequestParam("orderId")Integer orderId,
+                           HttpServletRequest request,
+                           Model model) {
+        HttpSession session = request.getSession();
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
+        MyOrder myOrder= orderService.getOrderById(orderId);
+        Receiver receiver = receiverService.getReceiverById(myOrder.getrId());
+        BigDecimal totalPrice = orderService.getOrderPrice(orderId);
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("receiver", receiver);
+        return "payOrder";
+    }
 }

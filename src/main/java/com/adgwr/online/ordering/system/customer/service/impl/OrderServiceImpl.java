@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.sound.sampled.Line;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,15 +57,14 @@ public class OrderServiceImpl implements OrderService {
         myOrder.setOrderState(OrderState.UNPAID.getDec());
 
         // 获取刚插入的orderId
-        orderMapper.insertUseGeneratedKeys(myOrder);
-
+        orderMapper.insert(myOrder);
         int orderId = myOrder.getOrderId();
         for(BalanceItem b :balanceItems) {
             // 插入lineitem
             Lineitem l = new Lineitem();
             l.setOrderId(orderId);
             l.setAmount(b.getAmount());
-            l.setTotalPrice(l.getTotalPrice());
+            l.setTotalPrice(b.getTotalPrice());
             l.setFoodId(b.getFoodId());
             lineitemMapper.insert(l);
             // 删除shoppingcart
@@ -175,6 +175,24 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(balanceItem);
         }
         return orderItems;
+    }
+
+    @Override
+    public MyOrder getOrderById(int orderId) {
+        return orderMapper.selectByPrimaryKey(orderId);
+    }
+
+    @Override
+    public BigDecimal getOrderPrice(int orderId) {
+        Example example = new Example(Lineitem.class);
+        example.createCriteria().andEqualTo("orderId", orderId);
+        List<Lineitem> lineitems = lineitemMapper.selectByExample(example);
+        BigDecimal orderPrice = new BigDecimal("0");
+        for(Lineitem l : lineitems) {
+            orderPrice = orderPrice.add(l.getTotalPrice());
+        }
+        orderPrice.setScale(2);
+        return orderPrice;
     }
 
 }

@@ -11,21 +11,21 @@
         }
     </script>
     <title>Register page</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/gloab.css" rel="stylesheet">
-    <link href="css/addAddress.css" rel="stylesheet">
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/addAddress.js"></script>
+    <link th:href="@{{APP_PATH}/css/bootstrap.min.css(APP_PATH=${APP_PATH})}" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/css/gloab.css(APP_PATH=${APP_PATH})}" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/css/addAddress.css(APP_PATH=${APP_PATH})}" rel="stylesheet">
+    <script th:src="@{{APP_PATH}/js/jquery-1.11.1.min.js(APP_PATH=${APP_PATH})}"></script>
+    <script th:src="@{{APP_PATH}/js/addAddress.js(APP_PATH=${APP_PATH})}"></script>
 
     <link rel="stylesheet" type="text/css"
-          href="templets/cloud_04/style/lib.css" />
+          th:href="@{{APP_PATH}/templets/cloud_04/style/lib.css(APP_PATH=${APP_PATH})}" />
     <link rel="stylesheet" type="text/css"
-          href="templets/cloud_04/style/style.css" />
+          th:href="@{{APP_PATH}/templets/cloud_04/style/style.css(APP_PATH=${APP_PATH})}" />
     <link rel="stylesheet" type="text/css"
-          href="templets/cloud_04/style/376.css" />
+          th:href="@{{APP_PATH}/templets/cloud_04/style/376.css(APP_PATH=${APP_PATH})}" />
     <script type="text/javascript"
-            src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="templets/cloud_04/js/org.js"
+            th:src="@{{APP_PATH}/templets/cloud_04/js/jquery-1.11.3.min.js(APP_PATH=${APP_PATH})}"></script>
+    <script type="text/javascript" th:src="@{{APP_PATH}/templets/cloud_04/js/org.js(APP_PATH=${APP_PATH})}"
             data-main="baseMain"></script>
 
 </head>

@@ -20,11 +20,7 @@ public interface CustomerService {
      */
     Customer login(String username, String password);
 
-    void logout();
+    boolean updatePassword(Customer customer,String password);
 
-    List<Food> getFoods(String searchContent);
-
-    List<Food> getAllFoods();
-
-    List<Category> getAllCategorys();
+    boolean editCustomer(Customer customer,String tel,String email);
 }

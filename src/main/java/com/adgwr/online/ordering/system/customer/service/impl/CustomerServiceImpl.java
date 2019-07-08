@@ -4,8 +4,10 @@ import com.adgwr.online.ordering.system.customer.service.CustomerService;
 import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
+import com.adgwr.online.ordering.system.domain.FoodBelong;
 import com.adgwr.online.ordering.system.mapper.CategoryMapper;
 import com.adgwr.online.ordering.system.mapper.CustomerMapper;
+import com.adgwr.online.ordering.system.mapper.FoodBelongMapper;
 import com.adgwr.online.ordering.system.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +28,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerMapper customerMapper;
 
-    @Autowired
-    private FoodMapper foodMapper;
-
-    @Autowired
-    private CategoryMapper categoryMapper;
 
 
     @Override
@@ -67,27 +65,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void logout() {
-
+    @Transactional(readOnly = false)
+    public boolean updatePassword(Customer customer,String password) {
+        customer.setcPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        int i = customerMapper.updateByPrimaryKey(customer);
+        return true;
     }
 
     @Override
-    public List<Food> getFoods(String searchContent) {
-        String keyword="%"+searchContent+"%";
-        Example example=new Example(Food.class);
-        example.createCriteria().orEqualTo("fdName",keyword).orEqualTo("fdSubname",keyword);
-
-        List<Food> foods = foodMapper.selectByExample(example);
-        return foods;
-    }
-
-    @Override
-    public List<Food> getAllFoods(){
-        return foodMapper.selectAll();
-    }
-
-    @Override
-    public List<Category> getAllCategorys() {
-        return categoryMapper.selectAll();
+    @Transactional(readOnly = false)
+    public boolean editCustomer(Customer customer, String tel, String email) {
+        customer.setcTel(tel);
+        customer.setEmail(email);
+        int i = customerMapper.updateByPrimaryKey(customer);
+        return true;
     }
 }

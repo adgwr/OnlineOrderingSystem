@@ -3,17 +3,17 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-href="../templets/cloud_04/style/lib.css"/>
+th:href="@{{APP_PATH}/templets/cloud_04/style/lib.css(APP_PATH=${APP_PATH})}"/>
 <link rel="stylesheet" type="text/css"
-  href="../templets/cloud_04/style/style.css"/>
+  th:href="@{{APP_PATH}/templets/cloud_04/style/style.css(APP_PATH=${APP_PATH})}"/>
   <link rel="stylesheet" type="text/css"
-    href="../templets/cloud_04/style/376.css"/>
+    th:href="@{{APP_PATH}/templets/cloud_04/style/376.css(APP_PATH=${APP_PATH})}"/>
     <script type="text/javascript"
-      src="../templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+      th:src="@{{APP_PATH}/templets/cloud_04/js/jquery-1.11.3.min.js(APP_PATH=${APP_PATH})}"></script>
     <script type="text/javascript"
-      src="../templets/cloud_04/js/org.js" data-main="baseMain"></script>
+      th:src="@{{APP_PATH}/templets/cloud_04/js/org.js(APP_PATH=${APP_PATH})}" data-main="baseMain"></script>
       
-	<link rel="stylesheet" type="text/css" href="../customer/css/main.css"/>
+	<link rel="stylesheet" type="text/css" th:href="@{{APP_PATH}/customer/css/main.css(APP_PATH=${APP_PATH})}"/>
 <title>Insert title here</title>
 </head>
 <body class="nobanner">
@@ -21,8 +21,8 @@ href="../templets/cloud_04/style/lib.css"/>
 	<div id="sitecontent">
 		<div class="npagePage">
 			<div class="content">
-				<iframe style="border-right:1px solid rgba(255, 255, 255, .1)" th:replace="customer/left.html" width="183px" height="1000px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-				<iframe th:replace="customer/customerMain.html" width="82%" height="1000px" frameborder="0" scrolling="no" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
+				<div style="width: 15%;float:left;border-right:1px solid rgba(255, 255, 255, .1)"  th:include="customer/left.html"frameborder="no" border="0"></div>
+				<div style="width: 82%;float:right;" th:include="customer/customerMain.html" frameborder="no" border="0"></div>
 			</div>
 		</div>
 	</div>

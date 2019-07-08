@@ -61,8 +61,11 @@
             <li class="navitem" th:if="${session.customer==null}">
                 <a id="btn_login" href="javascript:void(0);" onclick="openLogin()">登录 </a>
             </li>
+            <li class="navitem" th:if="${session.customer==null}">
+                <a href="/register">注册 </a>
+            </li>
             <li class="navitem" th:if="${session.customer!=null}">
-                <a href="/index">欢迎<span th:text="${session.customer.cId}"></span>回来 </a>
+                <a href="/customerIndex">欢迎<span th:text="${session.customer.cId}"></span>回来 </a>
             </li>
             <li class="navitem" th:if="${session.customer!=null}">
                 <a href="/logout" target="_self" th:if="${session.customer!=null}">退出登录</a>
@@ -96,8 +99,9 @@
 <script type="text/javascript" th:inline="javascript">
     function categoryClicked(category) {
         form = $("<form></form>")
-        form.attr('action', '${pageContext.request.contextPath}/GetFoods')
-        form.attr('method', 'post')
+        // form.attr('action', '${pageContext.request.contextPath}/GetFoods')
+        form.attr('action', 'menu')
+        form.attr('method', 'get')
         form.attr('accept-charset', 'UTF-8')
         input1 = $("<input type='hidden' name='categorySelected'/>")
         input1.attr("value", category)

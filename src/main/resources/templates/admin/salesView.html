@@ -20,15 +20,15 @@
 								<tr>
 									<td width="150px">查询范围</td>
 									<td width="350px">
-										<form method="get" name="SearchSales" th:action="@{'/'}">
+										<form method="get" name="SearchSales" th:action="@{'/searchSales'}">
 											<select name="viewMethod">
-												<option value="today" selected="selected">today</option>
+												<option value="today">today</option>
 												<option value="this week">this week</option>
 												<option value="this month">this month</option>
 											</select>
 											<input type="submit" value="Search">
 										</form>
-										<th th:text="${viewMethod}的销售情况"></th>
+										<th th:text="${viewMethod}+'的销售情况'"></th>
 									</td>
 								</tr>
 							</table>

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LineitemMapper extends MyMapper<Lineitem> {
     List<Lineitem> getLineItemByFoodId(int foodId);
+    List<Lineitem> getLineItemByOrderId(int orderId);
 }

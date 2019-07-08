@@ -15,6 +15,13 @@ public interface SalesService {
     List<Lineitem> getLineItemByFoodId(int foodId);
 
     /**
+     * 根据订单ID查找
+     * @param orderId
+     * @return
+     */
+    List<Lineitem> getLineItemByOrderId(int orderId);
+
+    /**
      * 获取所有项
      * @return
      */

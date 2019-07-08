@@ -29,6 +29,11 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
+    public List<Lineitem> getLineItemByOrderId(int orderId) {
+        return lineitemMapper.getLineItemByOrderId(orderId);
+    }
+
+    @Override
     public List<Lineitem> getAllLineItem() {
         return lineitemMapper.selectAll();
     }

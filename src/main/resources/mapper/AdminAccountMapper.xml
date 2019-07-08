@@ -10,4 +10,14 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="issuper" jdbcType="TINYINT" property="issuper" />
   </resultMap>
+
+  <sql id="Base_Column_List" >
+    admin_id,ad_tel,password,issuper
+  </sql>
+  <select id="selectAdminByIsSuper" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin_account
+    where issuper = #{issuper,jdbcType=TINYINT}
+  </select>
 </mapper>

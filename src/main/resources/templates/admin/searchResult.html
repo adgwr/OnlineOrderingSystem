@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<!--<link rel="stylesheet" href="../../static/admin/css/main.css"/>-->
+	<link rel="stylesheet" href="../admin/css/main.css"/>
+<style>
+a{
+		text-decoration:none;
+}
+</style>
+<title>adminMain</title>
+</head>
+<body>
+<div class="main">
+	<div class="main-content">
+		<div class="container-fluid">
+			<h3 class="page-title">搜索结果</h3>
+			<div class="row">
+				<div class="panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">账号信息</h3>
+						<br>
+						<div>
+							<p><strong>用户名:</strong><span th:text="${searchAdmin.adminId}"></span></p>
+							<p><strong>电话:</strong><span th:text="${searchAdmin.adTel}"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

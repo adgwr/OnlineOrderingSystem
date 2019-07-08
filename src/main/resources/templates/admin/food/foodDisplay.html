@@ -1,0 +1,101 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <title>Food Display</title>
+    <style type="text/css">body {margin-bottom:300px;}</style>
+</head>
+<body>
+<div class="main">
+    <div class="main-content">
+        <div class="container-fluid">
+            <h3 class="page-title">菜品管理</h3>
+            <div class="row">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">菜品</h3>
+
+                    </div>
+
+                    <br />
+                    <div>
+                        <form action="/admin/food/turnFoodAdd">
+                            <input type="submit" value="添加菜品">
+                        </form>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <form action="/admin/food/foodSearch" method="get">
+                        <div align="center">
+                            &nbsp; <label> </label> <label> 输入关键字: <input
+                                type='text' name='info' value='' />
+                        </label> <label> &nbsp; <input type="submit" value="查询" />
+                        </label>
+                            <br/>
+                        </div>
+                    </form>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>菜名</th>
+                                <th>菜品子名字</th>
+                                <th>图片展示</th>
+                                <th>价格</th>
+                                <th>描述</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="food:${foodList}">
+<!--                                <td>${food.foodID}</td>-->
+                                <td th:text="${food.getFoodId()}"></td>
+                                <td th:text="${food.getFdName()}"></td>
+                                <td th:text="${food.getFdSubname()}"></td>
+
+                                <td><input type="hidden" th:value="${food.getFdImage()}" name="foodIm"></td>
+                                <td><img th:src="'/foodImage/'+${food.getFdImage()}" width=200px height=200px></td>
+
+                                <td th:text="'￥'+${food.getFdPrice()}"></td>
+
+                                <td th:text="${food.getFdDescription()}"></td>
+
+                                <td>
+
+                                        <form style="align: center; background-color: gray" action="/admin/food/turnFoodEdit">
+                                            <input type="hidden" name="oldFoodId" th:value="${food.getFoodId()}">
+                                            <input type="submit" value="修改">
+                                        </form>
+
+                                    </td>
+                                    <form action="/admin/food/foodDelete">
+                                        <td>
+                                            <input type="hidden" name="fId" th:value="${food.getFoodId()}">
+                                            <input type="submit" value="删除">
+                                        </td>
+                                    </form>
+                                    <form action="/admin/food/turnCategoryEdit" method="get">
+                                        <td>
+                                            <input type="hidden" name="food"
+                                                   th:value="${food.getFoodId()}"> <input type="submit"
+                                                                                  value="编辑类别">
+                                        </td>
+                                    </form>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

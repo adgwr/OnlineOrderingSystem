@@ -12,7 +12,7 @@ public interface ReceiverService {
 
     Receiver getReceiverById(int rId);
 
-    void modifyReceiver(int rId, String rName, String address, String rTel)
+    void modifyReceiver(int rId, String rName, String address, String rTel);
 
     List<Receiver> getReceivers(String cId);
 

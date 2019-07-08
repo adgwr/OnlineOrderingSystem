@@ -30,7 +30,7 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl"><b class="ftx04">*</b>收货人姓名:</span>
 							<div class="f-fl item-ifo">
-								<input type="text" name="receiverName" value="${param.name}" maxlength="20"
+								<input type="text" name="receiverName" th:value="${receiver.rName}" maxlength="20"
 									class="txt03 f-r3 required" tabindex="1"
 									data-valid="isNonEmpty||isRename"
 									data-error="收货人姓名不可为空||收货人姓名格式错误"
@@ -43,7 +43,7 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl"><b class="ftx04">*</b>地址:</span>
 							<div class="f-fl item-ifo">
-								<input type="text" name="address" th:value="${address}" class="txt03 f-r3 required"
+								<input type="text" name="address" th:value="${receiver.address}" class="txt03 f-r3 required"
 									keycodes="address" tabindex="2" data-valid="isNonEmpty"
 									data-error="取餐人地址不可为空"
 									maxlength="50" id="address" /> <span
@@ -56,7 +56,7 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl"><b class="ftx04">*</b>手机号:</span>
 							<div class="f-fl item-ifo">
-								<input type="text" name="tel" th:value="${tel}" class="txt03 f-r3 required"
+								<input type="text" name="tel" th:value="${receiver.rTel}" class="txt03 f-r3 required"
 									keycodes="email" tabindex="2" data-valid="isNonEmpty||isPhone"
 									data-error="取餐人手机号码不可为空||手机号码格式错误"
 									maxlength="30" id="tel" /> <span
@@ -73,7 +73,7 @@
 								<a href="javascript:;" class="btn btn-blue f-r3" id="btn_part1">修改</a>
 							</div>
 						</div>
-						<input name="receiverID" type="hidden" th:value="${rId}"/>
+						<input name="receiverID" type="hidden" th:value="${receiver.rId}"/>
 					</form>
 
 				</div>

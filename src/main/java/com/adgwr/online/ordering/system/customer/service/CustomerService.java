@@ -21,7 +21,9 @@ public interface CustomerService {
      */
     Customer login(String username, String password);
 
-    void logout();
+    boolean updatePassword(Customer customer,String password);
+
+    boolean editCustomer(Customer customer,String tel,String email);
 
     List<Food> getFoods(String searchContent);
 

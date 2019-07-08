@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html style="background-color:#212121">
 <head>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 	try {
 		if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 			window.location.href = "m/perInfo.jsp";
@@ -56,15 +56,15 @@ table tr td {
 	<table>
 			<tr>
 				<th>用户名</th>
-				<td th:text="${session.customer.getcId()}"></td>
+				<td th:text="${session.customer.cId}"></td>
 			</tr>
 			<tr>
 				<th>电话</th>
-				<td th:text="${session.customer.getcTel()}"></td>
+				<td th:text="${session.customer.cTel}"></td>
 			</tr>
 			<tr>
 				<th>电子邮箱</th>
-				<td th:text="${session.customer.getEmail()}"></td>
+				<td th:text="${session.customer.email}"></td>
 <!--				<%&#45;&#45; <td><a href="${pageContext.request.contextPath}/customer/editCustomer.jsp">编辑</a></td> &#45;&#45;%>-->
 			</tr>
 	</table>

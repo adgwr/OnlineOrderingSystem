@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>add address</title>
@@ -22,7 +20,7 @@
 	data-main="indexMain"></script>
 </head>
 <body class="bgf4">
-	<jsp:include page="banner.jsp" />
+	<div th:replace="banner.html"></div>
 	<div class="login-box f-mt10 f-pb50">
 		<div class="main bgf">
 			<div class="reg-box-pan display-inline">
@@ -81,13 +79,13 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp" />
+	<div th:replace="footer.html"></div>
 	<script>
 $(function(){	
 	//Register Button
 	$("#btn_part1").click(function(){
 		if(!verifyCheck._click()) return;
-		document.form1.action="AddReceiver";
+		document.form1.action="addReceiver";
 		document.form1.submit();
 			});
 		});

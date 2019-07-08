@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>modify address</title>
@@ -22,7 +20,7 @@
 	data-main="indexMain"></script>
 </head>
 <body class="bgf4">
-	<jsp:include page="banner.jsp" />
+	<div th:replace="banner.html"></div>
 	<div class="login-box f-mt10 f-pb50">
 		<div class="main bgf">
 			<div class="reg-box-pan display-inline">
@@ -45,7 +43,7 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl"><b class="ftx04">*</b>地址:</span>
 							<div class="f-fl item-ifo">
-								<input type="text" name="address" value="${param.address}" class="txt03 f-r3 required"
+								<input type="text" name="address" th:value="${address}" class="txt03 f-r3 required"
 									keycodes="address" tabindex="2" data-valid="isNonEmpty"
 									data-error="取餐人地址不可为空"
 									maxlength="50" id="address" /> <span
@@ -58,7 +56,7 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl"><b class="ftx04">*</b>手机号:</span>
 							<div class="f-fl item-ifo">
-								<input type="text" name="tel" value="${param.tel}" class="txt03 f-r3 required"
+								<input type="text" name="tel" th:value="${tel}" class="txt03 f-r3 required"
 									keycodes="email" tabindex="2" data-valid="isNonEmpty||isPhone"
 									data-error="取餐人手机号码不可为空||手机号码格式错误"
 									maxlength="30" id="tel" /> <span
@@ -75,20 +73,20 @@
 								<a href="javascript:;" class="btn btn-blue f-r3" id="btn_part1">修改</a>
 							</div>
 						</div>
-						<input name="receiverID" type="hidden" value="${param.id}"/>
+						<input name="receiverID" type="hidden" th:value="${rId}"/>
 					</form>
 
 				</div>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp" />
+	<div th:replace="footer.html"></div>
 	<script>
 $(function(){	
 	//Register Button
 	$("#btn_part1").click(function(){
 		if(!verifyCheck._click()) return;
-		document.form1.action="ModifyReceiver";
+		document.form1.action="modifyReceiver";
 		document.form1.submit();
 			});
 		});

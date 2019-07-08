@@ -2,19 +2,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html style="background-color:#212121">
 <head>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         try {
             if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 window.location.href = "m/modInfo.jsp";
             }
         } catch (e) {
         }
+
+        function sleep(ms) {
+            return new Promise(resolve =>
+                setTimeout(resolve, ms)
+            )
+        }
+
+        var message = [[${message}]];
+        //等待页面加载
+        sleep(500).then(() => {
+            if (message != null) {
+                alert(message);
+                if(message=="修改成功,即将跳转个人信息页"){
+                    window.location.href="customerIndex";
+                }
+            }
+        });
     </script>
-    <link href="../../customer/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="../../customer/css/gloab.css" type="text/css" rel="stylesheet">
-    <link href="../../customer/css/regUsr.css" type="text/css" rel="stylesheet">
-    <script src="../../customer/js/jquery-1.11.1.min.js"></script>
-    <script src="../../customer/js/register.js" type="text/javascript"></script>
+    <link th:href="@{{APP_PATH}/customer/css/bootstrap.min.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/customer/css/gloab.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/customer/css/regUsr.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <script th:src="@{{APP_PATH}/customer/js/jquery-1.11.1.min.js(APP_PATH=${APP_PATH})}"></script>
+    <script th:src="@{{APP_PATH}/customer/js/register.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
     <script type="text/javascript">
         function edit() {
             if ($("#tel").val() == "" && $("#pwd").val() == "") {
@@ -52,16 +69,16 @@
     <div class="main bgf" style="background-color:#212121">
         <div class="reg-box-pan display-inline">
             <div class="reg-box" id="verifyCheck" style="margin-top: 20px;">
-                <%-- <input type="hidden" value="${param.tel }" id="requestTel"/> --%>
-                <%-- <input type="hidden" value="${param.email }" id="requestEmail"/> --%>
-                <form name="f" action="${pageContext.request.contextPath}/EditCustomer" method="POST">
+<!--                <%&#45;&#45; <input type="hidden" value="${param.tel }" id="requestTel"/> &#45;&#45;%>-->
+<!--                <%&#45;&#45; <input type="hidden" value="${param.email }" id="requestEmail"/> &#45;&#45;%>-->
+                <form name="f" action="/editCustomer" method="POST">
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>原电话:</span>
                         <div class="f-fl item-ifo">
-                            <input type="text" name="userName" maxlength="20"
+                            <input type="text" name="oldTel" maxlength="20"
                                    class="txt03 f-r3 required" tabindex="1"
                                    data-valid="isNonEmpty||between:3-20||isUname"
-                                   id="userName" value="${user.c_tel }"
+                                   id="userName" th:value="${session.customer.cTel}"
                                    disabled="disabled" style="background-color:transparent;"/> <span
                                 class="ie8 icon-close close hide"></span>
                         </div>
@@ -69,10 +86,10 @@
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>原邮件:</span>
                         <div class="f-fl item-ifo">
-                            <input type="text" name="userName" maxlength="20"
+                            <input type="text" name="oldEmail" maxlength="20"
                                    class="txt03 f-r3 required" tabindex="1"
                                    data-valid="isNonEmpty||between:3-20||isUname"
-                                   id="userName" value="${user.email }"
+                                   id="userEmail" th:value="${session.customer.email}"
                                    disabled="disabled" style="background-color:transparent;"/> <span
                                 class="ie8 icon-close close hide"></span>
                         </div>
@@ -81,7 +98,7 @@
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl" style="color:#fff;">新的电话:</span>
                         <div class="f-fl item-ifo">
-                            <input type="text" name="tel" id="tel"
+                            <input type="text" name="newTel" id="tel"
                                    maxlength="20" class="txt03 f-r3 required" tabindex="3"
                                    style="ime-mode: disabled;background-color:transparent;">
                         </div>
@@ -90,7 +107,7 @@
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl" style="color:#fff;">新的邮件地址:</span>
                         <div class="f-fl item-ifo">
-                            <input type="text" name="email" id="email"
+                            <input type="text" name="newEmail" id="email"
                                    maxlength="20" class="txt03 f-r3 required" tabindex="2"
                                    style="ime-mode: disabled;background-color:transparent;"/>
                         </div>
@@ -106,8 +123,8 @@
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl">&nbsp;</span>
                         <div class="f-fl item-ifo">
-                            <a style="border:none" href="${pageContext.request.contextPath}/customer/customerMain.jsp;"
-                               target="rightFrame" class="btn btn-red f-r3" id="btn_part1">取消</a>
+                            <a style="border:none" href="/index"
+                               target="rightFrame" class="btn btn-red f-r3" id="btn_part2">取消</a>
                         </div>
                     </div>
                 </form>

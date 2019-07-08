@@ -10,7 +10,9 @@ public interface ReceiverService {
 
     void deleteReceiver(int rId);
 
-    void findReceiverById(int rId);
+    Receiver getReceiverById(int rId);
+
+    void modifyReceiver(int rId, String rName, String address, String rTel)
 
     List<Receiver> getReceivers(String cId);
 

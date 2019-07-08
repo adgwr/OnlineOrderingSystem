@@ -73,8 +73,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void logout() {
+    @Transactional(readOnly = false)
+    public boolean updatePassword(Customer customer,String password) {
+        customer.setcPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        int i = customerMapper.updateByPrimaryKey(customer);
+        return true;
+    }
 
+    @Override
+    @Transactional(readOnly = false)
+    public boolean editCustomer(Customer customer, String tel, String email) {
+        customer.setcTel(tel);
+        customer.setEmail(email);
+        int i = customerMapper.updateByPrimaryKey(customer);
+        return true;
     }
 
     @Override

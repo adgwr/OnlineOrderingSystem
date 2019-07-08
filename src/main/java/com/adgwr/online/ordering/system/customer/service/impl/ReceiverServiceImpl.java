@@ -27,12 +27,25 @@ public class ReceiverServiceImpl implements ReceiverService {
 
     @Override
     public void deleteReceiver(int rId) {
-
+        Receiver receiver = new Receiver();
+        receiver.setrId(rId);
+        receiver.setIsshow(new Byte("0"));
+        receiverMapper.updateByPrimaryKeySelective(receiver);
     }
 
     @Override
-    public void findReceiverById(int rId) {
+    public Receiver getReceiverById(int rId) {
+        return  receiverMapper.selectByPrimaryKey(rId);
+    }
 
+    @Override
+    public void modifyReceiver(int rId, String rName, String address, String rTel) {
+        Receiver receiver = new Receiver();
+        receiver.setrId(rId);
+        receiver.setrName(rName);
+        receiver.setAddress(address);
+        receiver.setrTel(rTel);
+        receiverMapper.updateByPrimaryKeySelective(receiver);
     }
 
     @Override

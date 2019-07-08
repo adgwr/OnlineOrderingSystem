@@ -22,7 +22,7 @@ spring:
 #            suffix: .jsp
 
 server:
-    port: 9090
+    port: 80
 
 mybatis:
     type-aliases-package: com.adgwr.online.ordering.system.domain

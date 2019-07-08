@@ -47,7 +47,7 @@
             <div class="border_top_cart">
                 <div class="container">
                     <div class="checkout-box">
-                        <form id="checkoutForm" name="checkoutForm" action="DeleteShoppingCart" method="post">
+                        <form id="checkoutForm" name="checkoutForm" action="deleteShoppingCart" method="post">
 
                             <div class="checkout-box-ft">
                                 <!-- 商品清单 -->
@@ -71,7 +71,7 @@
                                                             <input id="itemselected" name="itemselected" type="checkbox"
                                                                    th:value="${lineItem.food.getFoodId()}"
                                                                    onclick="renewprice();"
-                                                                   price="${lineItem.lineitem.totalPrice}"/>
+                                                                   th:price="${lineItem.lineitem.totalPrice}"/>
 
                                                             <div class="col col-1">
                                                                 <div class="g-pic">
@@ -89,18 +89,17 @@
                                                                 <span th:text="${lineItem.food.getFdPrice()}"></span>
                                                                 元
                                                             </div>
-
                                                             <div class="col col-3">
                                                                 <div class="col col-5">
                                                                     <a th:href="@{modifyShoppingCart(modifyType=add,foodId=${lineItem.getFood().foodId})}">
-                                                                        <img src="images/+.png"/></a>
+                                                                        <img th:src="@{{APP_PATH}/images/+.png(APP_PATH=${APP_PATH})}"/></a>
                                                                 </div>
 
                                                                 <div class="col col-6">
                                                                     <span th:text="${lineItem.lineitem.getAmount()}"></span>
                                                                 </div>
                                                                 <div class="col col-5" align="center">
-                                                                    <a href="modifyShoppingCart?modifyType=minus&foodID=${lineItem.foodId}">
+                                                                    <a th:href="@{modifyShoppingCart(modifyType=minus,foodId=${lineItem.getFood().foodId})}">
                                                                         <img th:src="@{{APP_PATH}/images/-.png(APP_PATH=${APP_PATH})}"/></a>
                                                                 </div>
                                                             </div>
@@ -117,7 +116,7 @@
                                                 <!-- checkout-count-extend -->
                                                 <div class="checkout-price">
                                                     <p class="checkout-total">
-                                                        总额：<span><strong id="orderPrice">0</strong>元</span>
+                                                        总额：<span><strong  th:text="${orderPrice}" id="orderPrice"></strong>元</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -133,7 +132,7 @@
 
                                     <input class="btn btn-primary" value="删除所选项" id="checkoutToPay"
                                            onclick="deleteSC();"/>
-                                    <a href="javascript:void(0);" onclick="categoryClicked('全部');"
+                                    <a href="javascript:void(0);" onclick="categoryClicked();"
                                        class="btn btn-lineDakeLight btn-back-cart">继续添加</a>
                                     <input class="btn btn-primary" value="结算" onclick="makeorder();"
                                            id="checkoutToPay"/>
@@ -154,7 +153,22 @@
 </div>
 <!--收货地址body部分结束-->
 <div th:replace="footer.html"></div>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+
+    function sleep(ms) {
+        return new Promise(resolve =>
+            setTimeout(resolve, ms)
+        )
+    }
+
+    var message = [[${message}]];
+    //等待页面加载
+    sleep(300).then(() => {
+        if (message != null) {
+            alert(message);
+        }
+    });
+
     function selectall() {
         var selectbox = document.getElementById('selectAllItems');
         var checkboxs = document.getElementsByName('itemselected');
@@ -171,7 +185,7 @@
     }
 
     function deleteSC() {
-        document.checkoutForm.action = "DeleteShoppingCart";
+        document.checkoutForm.action = "deleteShoppingCart";
         document.checkoutForm.submit();
     }
 
@@ -207,6 +221,7 @@
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script th:src="@{{APP_PATH}/js/unslider.min.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
 <script th:src="@{{APP_PATH}/js/index.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
+
 
 </body>
 </html>

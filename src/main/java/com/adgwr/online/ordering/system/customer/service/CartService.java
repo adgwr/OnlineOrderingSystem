@@ -1,5 +1,6 @@
 package com.adgwr.online.ordering.system.customer.service;
 
+import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
 import com.adgwr.online.ordering.system.domain.Lineitem;
 
@@ -15,5 +16,7 @@ public interface CartService {
 
     List<Integer> getOrderIdByCId(String cId);
 
-    void updateLineitem(Lineitem lineitem,Lineitem newLineitem);
+    void updateLineitem(Lineitem lineitem, Lineitem newLineitem);
+
+    void deleteLineitem(List<Integer> item, Customer customer);
 }

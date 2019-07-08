@@ -4,10 +4,12 @@ import com.adgwr.online.ordering.system.customer.service.ReceiverService;
 import com.adgwr.online.ordering.system.domain.Receiver;
 import com.adgwr.online.ordering.system.mapper.ReceiverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
+@Service
 public class ReceiverServiceImpl implements ReceiverService {
 
     @Autowired

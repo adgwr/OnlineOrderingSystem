@@ -1,6 +1,7 @@
 package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.CartService;
+import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
 import com.adgwr.online.ordering.system.domain.Lineitem;
 import com.adgwr.online.ordering.system.domain.MyOrder;
@@ -62,11 +63,35 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void updateLineitem(Lineitem lineitem,Lineitem newLineitem) {
         Example example = new Example(Lineitem.class);
         example.createCriteria().
                 andEqualTo("orderId",lineitem.getOrderId()).
                 andEqualTo("foodId",lineitem.getFoodId());
-        lineitemMapper.updateByExample(lineitem,newLineitem);
+        lineitemMapper.updateByExample(newLineitem,example);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteLineitem(List<Integer> item, Customer customer) {
+        List<Integer> orderIdByCId = getOrderIdByCId(customer.getcId());
+        List<Lineitem> lineitem = getLineitem(orderIdByCId);
+        List<Lineitem> toRemove=new ArrayList<>();
+
+        for (Integer integer : item) {
+            for (Lineitem lineitem1 : lineitem) {
+                if(integer.equals(lineitem1.getFoodId())){
+                    toRemove.add(lineitem1);
+                }
+            }
+        }
+
+        for (Lineitem li : toRemove) {
+            Example example = new Example(Lineitem.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("orderId",li.getOrderId()).andEqualTo("foodId",li.getFoodId());
+            lineitemMapper.deleteByExample(example);
+        }
     }
 }

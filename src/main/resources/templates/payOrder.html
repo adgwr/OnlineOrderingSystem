@@ -38,13 +38,15 @@
 					</div>
 					<div class="info">
 						<p>
-							金额：<span class="pay-total">${requestScope.totalPrice}元</span>
+							金额：<span class="pay-total" th:text="${totalPrice}元"></span>
 						</p>
-						<p>订单：${requestScope.orderID}</p>
+						<p th:text="订单&#58; ${orderId}"></p>
 						<p>
-							配送：${requestScope.reName} <span class="line">/</span>
-							${requestScope.reTel} <span class="line">/</span>
-							${requestScope.reAddress}
+							<span th:text="配送&#58; ${receiver.rName}"></span>
+							<span class="line">/</span>
+							<span th:text="${receiver.rTel}"></span>
+							<span class="line">/</span>
+							<span th:text="${receiver.address}"></span>
 						</p>
 					</div>
 					<div class="icon-box">
@@ -84,10 +86,10 @@
 					</div>
 					<div class="box-ft clearfix">
 						<input type="hidden" name="orderPrice"
-							value="${requestScope.totalPrice}" /> <input type="hidden"
-							name="orderID" value="${requestScope.orderID}" /> <input
+							th:value="${totalPrice}" /> <input type="hidden"
+							name="orderID" th:value="${orderId}" /> <input
 							type="submit" class="btn btn-primary" value="下一步" id="payBtn">
-						<a href="CancelOrder?orderID=${requestScope.orderID}"
+						<a th:href="@{/cancleOrder(orderId=${orderId})}"
 							class="btn btn-lineDakeLight" style="float:left">取消订单</a> <span class="tip"></span>
 					</div>
 				</div>

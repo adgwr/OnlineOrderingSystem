@@ -1,7 +1,11 @@
 package com.adgwr.online.ordering.system.customer.controller;
 
 import com.adgwr.online.ordering.system.customer.service.OrderService;
+import com.adgwr.online.ordering.system.customer.service.ReceiverService;
 import com.adgwr.online.ordering.system.domain.Customer;
+import com.adgwr.online.ordering.system.domain.Receiver;
+import com.adgwr.online.ordering.system.mapper.ReceiverMapper;
+import com.adgwr.online.ordering.system.vo.BalanceItem;
 import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,6 +34,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ReceiverService receiverService;
 
     @RequestMapping(value = "DeleteShoppingCart",method = RequestMethod.POST)
     public String deleteShoppingCart(){
@@ -38,31 +45,40 @@ public class OrderController {
 
 
     /**
-     * 新建订单的controller
-     * @param cId
+     * 新建订单
+     *
      * @param rId
-     * @param shipMethod
-     * @param redirectAttributes
+     * @param shipMethodFlag
+     * @param request
+     * @param model
      * @return
      */
-    @PostMapping(value = "/newOrder")
-    @ResponseBody
-    public String newOrder(@RequestParam("cId") String cId, @RequestParam("rId") Integer rId,
-                           @RequestParam("shipMethod") String shipMethod,
-                           RedirectAttributes redirectAttributes) {
-
-        if (cId == null) {
-            redirectAttributes.addFlashAttribute("message", "cId is null");
-            return "redirect:/error";
+    @RequestMapping(value = "newOrder", method = RequestMethod.POST)
+    public String newOrder(@RequestParam("receiverId") Integer rId,
+                           @RequestParam("Checkout[shipment_id]") Integer shipMethodFlag,
+                           HttpServletRequest request,
+                           Model model) {
+        String shipMethod;
+        if(shipMethodFlag == 0) {
+            shipMethod = "商家配送";
         }
-        if (rId == null){
-            redirectAttributes.addFlashAttribute("message", "rId is null");
-            return "redirect:/error";
+        else if(shipMethodFlag == 1) {
+            shipMethod = "到店自取";
         }
+        else throw new IllegalArgumentException("配送方式非法！");
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        String cId = customer.getcId();
+        List<BalanceItem> balanceItems = (List<BalanceItem>) session.getAttribute("balanceItems");
+        int orderId = orderService.newOrder(cId, rId, shipMethod, balanceItems);
 
-        orderService.newOrder(cId, rId, shipMethod);
+        BigDecimal totalPrice = (BigDecimal) session.getAttribute("orderPrice");
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("totalPrice", totalPrice);
+        Receiver receiver = receiverService.getReceiverById(rId);
+        model.addAttribute("receiver", receiver);
 
-        return "成功";
+        return "payOrder";
     }
 
     @RequestMapping(value = "getOrder", method = RequestMethod.GET)

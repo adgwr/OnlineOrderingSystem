@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -33,10 +34,11 @@ public class BalanceController {
     private OrderService orderService;
 
     @RequestMapping(value = "prepareBalance", method = RequestMethod.POST)
-    public String prepareBalance(@RequestParam("selectAllItems")Integer [] itemSelected,
+    public String prepareBalance(@RequestParam("itemselected")Integer [] itemSelected,
                                  HttpServletRequest request,
                                  Model model) {
-        String cId = ((Customer)request.getSession().getAttribute("customer")).getcId();
+        HttpSession session = request.getSession();
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
         List<Receiver> receiverList = receiverService.getReceivers(cId);
         model.addAttribute("receivers", receiverList);
         List<BalanceItem> balanceItems = orderService.getBalanceItems(cId, itemSelected);
@@ -47,9 +49,36 @@ public class BalanceController {
         totalPrice.setScale(2);
         model.addAttribute("orderPrice", totalPrice);
         model.addAttribute("balanceItems", balanceItems);
+        session.setAttribute("orderPrice", totalPrice);
+        session.setAttribute("balanceItems", balanceItems);
         return "balance";
     }
 
+    @RequestMapping(value = "returnToBalance", method = RequestMethod.GET)
+    public String returnToBalance(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String cId = ((Customer)session.getAttribute("customer")).getcId();
+        List<Receiver> receiverList = receiverService.getReceivers(cId);
+        model.addAttribute("receivers", receiverList);
+        BigDecimal totalPrice = (BigDecimal) session.getAttribute("orderPrice");
+        List<BalanceItem> balanceItems = (List<BalanceItem>) session.getAttribute("balanceItems");
+        model.addAttribute("orderPrice", totalPrice);
+        model.addAttribute("balanceItems", balanceItems);
+        return "balance";
+    }
+
+    @RequestMapping(value = "paySuccessfully", method = RequestMethod.GET)
+    public String paySuccessfully(@RequestParam("orderId")Integer orderId,
+                                  HttpServletRequest request,
+                                  Model model) {
+        orderService.changeOrderState(orderId);
+        HttpSession session = request.getSession();
+        BigDecimal orderPrice = (BigDecimal) session.getAttribute("orderPrice");
+        model.addAttribute("totalPrice", orderPrice);
+        session.removeAttribute("orderPrice");
+        session.removeAttribute("balanceItems");
+        return "paySuccessfully";
+    }
 
 
 }

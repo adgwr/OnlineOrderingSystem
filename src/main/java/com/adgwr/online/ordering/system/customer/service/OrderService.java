@@ -13,13 +13,16 @@ import java.util.List;
  */
 public interface OrderService {
 
+
     /**
-     * 新生成一个订单
-     * @param cid 用户id
-     * @param rid 收货人id
-     * @param method 配送方式
+     *
+     * @param cId
+     * @param rId
+     * @param method
+     * @param balanceItems
+     * @return
      */
-    void newOrder(String cid, Integer rid, String method);
+    int newOrder(String cId, Integer rId, String method, List<BalanceItem> balanceItems);
 
     /**
      * 改变订单状态

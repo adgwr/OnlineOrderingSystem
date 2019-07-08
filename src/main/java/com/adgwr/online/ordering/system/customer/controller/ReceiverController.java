@@ -18,21 +18,26 @@ public class ReceiverController {
     @Autowired
     private ReceiverService receiverService;
 
-    @RequestMapping(value = "prepareModReceiver", method = RequestMethod.POST)
+    @RequestMapping(value = "prepareModReceiver", method = RequestMethod.GET)
     public String prepareModReceiver(@RequestParam("rId")Integer rId,
-                                 Model model) {
+                                     Model model) {
         Receiver receiver = receiverService.getReceiverById(rId);
         model.addAttribute("receiver", receiver);
         return "modReceiver";
     }
 
     @RequestMapping(value = "modifyReceiver", method = RequestMethod.POST)
-    public String modifyReceiver(@RequestParam("rId")Integer rId,
-                                 @RequestParam("rName")String receiverName,
+    public String modifyReceiver(@RequestParam("receiverID")Integer rId,
+                                 @RequestParam("receiverName")String receiverName,
                                  @RequestParam("tel")String tel,
                                  @RequestParam("address")String address) {
         receiverService.modifyReceiver(rId,receiverName,address,tel);
-        return "";
+        return "redirect:returnToBalance";
+    }
+
+    @RequestMapping(value = "addReceiver", method = RequestMethod.GET)
+    public String addReceiver() {
+        return "addReceiver";
     }
 
     @RequestMapping(value = "addReceiver", method = RequestMethod.POST)
@@ -42,6 +47,12 @@ public class ReceiverController {
                               HttpServletRequest request) {
         String cId = ((Customer)request.getSession().getAttribute("customer")).getcId();
         receiverService.addReceiver(cId,receiverName, address, tel);
-        return "";
+        return "redirect:returnToBalance";
+    }
+
+    @RequestMapping(value = "deleteReceiver", method = RequestMethod.GET)
+    public String deleteReceiver(@RequestParam("rId")Integer rId) {
+        receiverService.deleteReceiver(rId);
+        return "redirect:returnToBalance";
     }
 }

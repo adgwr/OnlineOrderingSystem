@@ -44,22 +44,38 @@ public class OrderServiceImpl implements OrderService {
     private ShoppingcartMapper shoppingcartMapper;
 
     @Override
-    public void newOrder(String cid, Integer rid, String method) {
-        if (ShipMethod.toEnum(method) != null){
-            MyOrder myOrder = new MyOrder();
-            myOrder.setcId(cid);
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            myOrder.setOrderDate(df.format(new Date()));
-            myOrder.setrId(rid);
-            myOrder.setShipMethod(method);
-            myOrder.setOrderState(OrderState.UNPAID.getDec());
+    public int newOrder(String cId, Integer rId, String method, List<BalanceItem> balanceItems) {
 
-            orderMapper.insert(myOrder);
-        } else {
-            throw new IllegalArgumentException("method 不符合");
+        // 插入新订单到my_order
+        MyOrder myOrder = new MyOrder();
+        myOrder.setcId(cId);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        myOrder.setOrderDate(df.format(new Date()));
+        myOrder.setrId(rId);
+        myOrder.setShipMethod(method);
+        myOrder.setOrderState(OrderState.UNPAID.getDec());
+
+        // 获取刚插入的orderId
+        orderMapper.insertUseGeneratedKeys(myOrder);
+
+        int orderId = myOrder.getOrderId();
+        for(BalanceItem b :balanceItems) {
+            // 插入lineitem
+            Lineitem l = new Lineitem();
+            l.setOrderId(orderId);
+            l.setAmount(b.getAmount());
+            l.setTotalPrice(l.getTotalPrice());
+            l.setFoodId(b.getFoodId());
+            lineitemMapper.insert(l);
+            // 删除shoppingcart
+            Shoppingcart s = new Shoppingcart();
+            s.setFoodId(b.getFoodId());
+            s.setcId(cId);
+            shoppingcartMapper.deleteByPrimaryKey(s);
+            return orderId;
         }
 
-
+        return -1;
     }
 
     @Override
@@ -156,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
             shoppingcart.setFoodId(foodId);
             shoppingcart = shoppingcartMapper.selectByPrimaryKey(shoppingcart);
             balanceItem.setAmount(shoppingcart.getAmount());
+            orderItems.add(balanceItem);
         }
         return orderItems;
     }

@@ -9,7 +9,7 @@ package com.adgwr.online.ordering.system.utils;
 public enum  ShipMethod {
 
     DELIVERY("商家配送"),
-    FETCH("用户自取"),
+    FETCH("到店自取"),
     ;
 
     /**中文描述*/

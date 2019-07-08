@@ -1928,26 +1928,27 @@ font-size: 54px;z-index: 1;margin-left: -50px;}*/
 	font-family: "Times New Roman", "微软雅黑";
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td {
+#sitecontent .npagePage .content #showOrders table .otherLine td {
 	border: 2px solid #606060;
 	font-size: 15px;
 	text-align:center;
-	font-family: "Times New Roman", "微软雅黑"; 
+	font-family: "Times New Roman", "微软雅黑";
+	padding:15px 0px;
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td table {
+#sitecontent .npagePage .content #showOrders table .otherLine td table {
 	height: 100%;
 	width: 100%;
-	border-collapse: collapse; 
+	border-collapse: collapse;
 	border:0;
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td table tr td{
+#sitecontent .npagePage .content #showOrders table .otherLine td table tr td{
 	border:0;
 	padding:5px;
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td input{
+#sitecontent .npagePage .content #showOrders table .otherLine td input{
 	width: 70%;
 	height: 35px;
 	background-color: transparent;
@@ -1964,25 +1965,7 @@ font-size: 54px;z-index: 1;margin-left: -50px;}*/
 	margin-bottom:10px;
 }
 
-#sitecontent .npagePage .content #showOrders table #otherLine td #cancel{
-
-}
-
-#sitecontent .npagePage .content #showOrders table #otherLine td #finish{
-	margin-top:10px;
-	margin-bottom:10px;
-}
-
-#sitecontent .npagePage .content #showOrders table #otherLine td #pay{
-	margin-bottom:10px;
-}
-
-#sitecontent .npagePage .content #showOrders table #otherLine #state{
-	padding-top:20px;
-	padding-bottom:20px;
-}
-
-#sitecontent .npagePage .content #showOrders table #otherLine td input:hover{
+#sitecontent .npagePage .content #showOrders table .otherLine td input:hover{
 	background-color: rgba(255, 255, 255, 1);
 	border: 1px solid rgba(255, 255, 255, .1);
 	color: #333;

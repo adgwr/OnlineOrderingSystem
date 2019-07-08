@@ -2,12 +2,10 @@ package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.OrderService;
 import com.adgwr.online.ordering.system.domain.*;
-import com.adgwr.online.ordering.system.mapper.FoodMapper;
-import com.adgwr.online.ordering.system.mapper.LineitemMapper;
-import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
-import com.adgwr.online.ordering.system.mapper.ReceiverMapper;
+import com.adgwr.online.ordering.system.mapper.*;
 import com.adgwr.online.ordering.system.utils.OrderState;
 import com.adgwr.online.ordering.system.utils.ShipMethod;
+import com.adgwr.online.ordering.system.vo.BalanceItem;
 import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +39,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private FoodMapper foodMapper;
+
+    @Autowired
+    private ShoppingcartMapper shoppingcartMapper;
 
     @Override
     public void newOrder(String cid, Integer rid, String method) {
@@ -142,6 +143,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int deleteShoppingCart() {
         return 0;
+    }
+
+    @Override
+    public List<BalanceItem> getBalanceItems(String cId, Integer[] foodIds) {
+
+        List<BalanceItem> orderItems = new ArrayList<>();
+        for(Integer foodId : foodIds) {
+            BalanceItem balanceItem = new BalanceItem(foodMapper.selectByPrimaryKey(foodId));
+            Shoppingcart shoppingcart = new Shoppingcart();
+            shoppingcart.setcId(cId);
+            shoppingcart.setFoodId(foodId);
+            shoppingcart = shoppingcartMapper.selectByPrimaryKey(shoppingcart);
+            balanceItem.setAmount(shoppingcart.getAmount());
+        }
+        return orderItems;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.adgwr.online.ordering.system.customer.service;
 
-import com.adgwr.online.ordering.system.utils.ShipMethod;
+import com.adgwr.online.ordering.system.vo.BalanceItem;
 import com.adgwr.online.ordering.system.vo.OrderWithFoodAndReceiver;
 
 import java.util.List;
@@ -44,4 +44,5 @@ public interface OrderService {
 
     int deleteShoppingCart();
 
+    List<BalanceItem> getBalanceItems(String cId, Integer[] foodIds);
 }

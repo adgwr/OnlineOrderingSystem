@@ -72,7 +72,7 @@
                                                                    th:value="${lineItem.food.getFoodId()}"
                                                                    onclick="renewprice();"
                                                                    th:price="${lineItem.lineitem.totalPrice}"/>
-
+                                                        </div>
                                                             <div class="col col-1">
                                                                 <div class="g-pic">
                                                                     <img th:src="@{foodImage/{imagePath}(imagePath=${lineItem.getFood().getFdImage()})}"
@@ -108,7 +108,7 @@
                                                                 <span th:text="${lineItem.lineitem.totalPrice}"></span>
                                                                 元
                                                             </div>
-                                                        </div>
+
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -185,8 +185,21 @@
     }
 
     function deleteSC() {
-        document.checkoutForm.action = "deleteShoppingCart";
-        document.checkoutForm.submit();
+        var Flag = false;
+        var checkboxs = document.getElementsByName('itemselected');
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (checkboxs[i].checked) {
+                Flag = true;
+                break;
+            }
+        }
+        if(Flag == false) {
+            alert('您还未选择任何食品！');
+        } else {
+            document.checkoutForm.action = "deleteShoppingCart";
+            document.checkoutForm.submit();
+        }
+
     }
 
     function makeorder() {

@@ -12,4 +12,14 @@
     <result column="order_state" jdbcType="VARCHAR" property="orderState" />
     <result column="ship_method" jdbcType="VARCHAR" property="shipMethod" />
   </resultMap>
+
+  <sql id="Base_Column_List" >
+    order_id,c_id,r_id,order_date,order_state,ship_method
+  </sql>
+  <select id="selectByState" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from my_order
+  where order_state = #{order_state,jdbcType=VARCHAR}
+  </select>
 </mapper>

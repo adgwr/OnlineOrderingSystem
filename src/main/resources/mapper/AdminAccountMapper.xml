@@ -10,4 +10,5 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="issuper" jdbcType="TINYINT" property="issuper" />
   </resultMap>
+
 </mapper>

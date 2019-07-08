@@ -1,7 +1,12 @@
 package com.adgwr.online.ordering.system.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
     @Column(name = "c_id")

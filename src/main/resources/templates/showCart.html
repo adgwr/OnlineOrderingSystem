@@ -1,14 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript">
-        try {
-            if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                window.location.href = "m/showCart.jsp";
-            }
-        } catch (e) {
-        }
-    </script>
+
     <meta content="text/html; charset=utf-8">
     <title>网上订餐系统</title>
     <link th:href="@{{APP_PATH}/css/public.css(APP_PATH=${APP_PATH})}"

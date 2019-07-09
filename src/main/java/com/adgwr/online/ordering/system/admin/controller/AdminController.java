@@ -64,7 +64,7 @@ public class AdminController {
         //管理员登录
         if (adminAccount != null) {
             session.setAttribute("adminAccount", adminAccount);
-            model.addAttribute("message", "登录成功");
+//            model.addAttribute("message", "登录成功");
             return "pcHomepage";
         }
 
@@ -73,7 +73,7 @@ public class AdminController {
             model.addAttribute("customer", customer);
             try {
                 session.setAttribute("customer", customer);
-                redirectAttributes.addFlashAttribute("message", "登录成功");
+//                redirectAttributes.addFlashAttribute("message", "登录成功");
                 //返回pcHomepage页面
                 return "redirect:/pcHomepage";
             } catch (Exception e) {

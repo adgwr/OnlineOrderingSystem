@@ -97,7 +97,7 @@ public class CartServiceImpl implements CartService {
         shoppingcart.setcId(cId);
         shoppingcart.setFoodId(foodId);
         Shoppingcart sc = shoppingcartMapper.selectByPrimaryKey(shoppingcart);
-        if(sc.getAmount() != null) {
+        if(sc != null && sc.getAmount() != null) {
             shoppingcart.setAmount(sc.getAmount() + 1);
             shoppingcartMapper.updateByPrimaryKey(shoppingcart);
         }

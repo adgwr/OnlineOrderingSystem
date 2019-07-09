@@ -50,7 +50,7 @@ public class CustomerController {
         boolean flag = customerService.register(CustomerID, email, password);
         if (flag) {
             redirectAttributes.addFlashAttribute("message", "注册成功");
-            return "redirect:/register";
+            return "redirect:/pcHomepage";
         } else {
             model.addAttribute("message", "用户名已存在");
             return "register";

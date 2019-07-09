@@ -3,13 +3,6 @@
 <html style="background-color:#212121">
 <head>
     <script type="text/javascript" th:inline="javascript">
-        try {
-            if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                window.location.href = "m/modInfo.jsp";
-            }
-        } catch (e) {
-        }
-
         function sleep(ms) {
             return new Promise(resolve =>
                 setTimeout(resolve, ms)
@@ -122,10 +115,10 @@
                     </div>
                     <div class="item col-xs-12">
                         <span class="intelligent-label f-fl">&nbsp;</span>
-                        <div class="f-fl item-ifo">
-                            <a style="border:none" href="/index"
+                        <!--<div class="f-fl item-ifo">
+                            <a style="border:none" href="index"
                                target="rightFrame" class="btn btn-red f-r3" id="btn_part2">取消</a>
-                        </div>
+                        </div>-->
                     </div>
                 </form>
             </div>

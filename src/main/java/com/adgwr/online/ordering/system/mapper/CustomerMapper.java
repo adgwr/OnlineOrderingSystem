@@ -1,12 +1,15 @@
 package com.adgwr.online.ordering.system.mapper;
 
 import com.adgwr.online.ordering.system.domain.Customer;
+import com.adgwr.online.ordering.system.utils.RedisCache;
 import com.adgwr.online.ordering.system.vo.CustumerConsumption;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.MyMapper;
 
 import java.util.List;
 
+@CacheNamespace(implementation = RedisCache.class)
 public interface CustomerMapper extends MyMapper<Customer> {
 
     @Select("SELECT fd_name as foodName, sum(amount) as foodNum, sum(total_price) as totalPrice \n" +

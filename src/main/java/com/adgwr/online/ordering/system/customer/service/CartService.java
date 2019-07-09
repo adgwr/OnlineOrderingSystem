@@ -3,6 +3,7 @@ package com.adgwr.online.ordering.system.customer.service;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
 import com.adgwr.online.ordering.system.domain.Lineitem;
+import com.adgwr.online.ordering.system.domain.Shoppingcart;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface CartService {
 
     List<Integer> getOrderIdByCId(String cId);
 
-    void updateLineitem(Lineitem lineitem,Lineitem newLineitem);
+    List<Shoppingcart> getShoppingcart(String cId);
 
-    void deleteLineitem(List<Integer> item, Customer customer);
+    void updateShoppingcart(Shoppingcart newShoppingcart, Shoppingcart oldShoppingcart);
+
+    void deleteShoppingcart(List<Integer> foodIds, String cId);
 }

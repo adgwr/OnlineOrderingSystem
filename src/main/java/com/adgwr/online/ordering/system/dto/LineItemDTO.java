@@ -1,8 +1,10 @@
 package com.adgwr.online.ordering.system.dto;
 
 import com.adgwr.online.ordering.system.domain.Food;
-import com.adgwr.online.ordering.system.domain.Lineitem;
+import com.adgwr.online.ordering.system.domain.Shoppingcart;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
  * @author Administrator
@@ -10,5 +12,6 @@ import lombok.Data;
 @Data
 public class LineItemDTO {
     private Food food;
-    private Lineitem lineitem;
+    private Shoppingcart shoppingcart;
+    private BigDecimal totalPrice;
 }

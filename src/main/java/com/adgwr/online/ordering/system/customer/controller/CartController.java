@@ -3,7 +3,7 @@ package com.adgwr.online.ordering.system.customer.controller;
 import com.adgwr.online.ordering.system.customer.service.CartService;
 import com.adgwr.online.ordering.system.domain.Customer;
 import com.adgwr.online.ordering.system.domain.Food;
-import com.adgwr.online.ordering.system.domain.Lineitem;
+import com.adgwr.online.ordering.system.domain.Shoppingcart;
 import com.adgwr.online.ordering.system.dto.LineItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,24 +43,23 @@ public class CartController {
         Customer customer = (Customer) request.getSession().getAttribute("customer");
         String cId = customer.getcId();
 
-        List<Integer> orderIds = cartService.getOrderIdByCId(cId);
-        List<Lineitem> lineitems = cartService.getLineitem(orderIds);
+        List<Shoppingcart> shoppingcarts = cartService.getShoppingcart(cId);
 
         //封装传输对象
         List<LineItemDTO> lineItemList = new ArrayList<>();
-
         LineItemDTO lineItemDTO;
-        BigDecimal orderPrice = new BigDecimal(0);
-        for (Lineitem lineitem : lineitems) {
+
+        for (Shoppingcart shoppingcart : shoppingcarts) {
             lineItemDTO = new LineItemDTO();
-            Integer foodId = lineitem.getFoodId();
+            Integer foodId = shoppingcart.getFoodId();
             Food food = cartService.getFoodByFoodId(foodId);
             lineItemDTO.setFood(food);
-            lineItemDTO.setLineitem(lineitem);
-            orderPrice = orderPrice.add(lineitem.getTotalPrice());
+            lineItemDTO.setShoppingcart(shoppingcart);
+            lineItemDTO.setTotalPrice(food.getFdPrice().multiply(new BigDecimal(shoppingcart.getAmount().toString())));
             lineItemList.add(lineItemDTO);
         }
-        model.addAttribute("lineItemList", lineItemList).addAttribute("orderPrice", orderPrice);
+
+        model.addAttribute("lineItemList", lineItemList);
         return "showCart";
     }
 
@@ -71,26 +70,23 @@ public class CartController {
         Customer customer = (Customer) request.getSession().getAttribute("customer");
         String cId = customer.getcId();
 
-        List<Integer> orderIds = cartService.getOrderIdByCId(cId);
-        List<Lineitem> lineitems = cartService.getLineitem(orderIds);
-        Lineitem newLineitem = new Lineitem();
-        Lineitem oldLineitem = new Lineitem();
-        for (Lineitem lineitem : lineitems) {
-            if (foodId.equals(lineitem.getFoodId())) {
-                newLineitem.setTotalPrice(lineitem.getTotalPrice());
-                newLineitem.setAmount(lineitem.getAmount());
-                newLineitem.setFoodId(lineitem.getFoodId());
-                newLineitem.setOrderId(lineitem.getOrderId());
+        List<Shoppingcart> shoppingcarts = cartService.getShoppingcart(cId);
+        Shoppingcart newShoppingcart=new Shoppingcart();
+        Shoppingcart oldShoppingcart=new Shoppingcart();
+        for (Shoppingcart shoppingcart : shoppingcarts) {
+            if(foodId.equals(shoppingcart.getFoodId())){
+                newShoppingcart.setAmount(shoppingcart.getAmount());
+                newShoppingcart.setcId(shoppingcart.getcId());
+                newShoppingcart.setFoodId(shoppingcart.getFoodId());
 
-                oldLineitem.setTotalPrice(lineitem.getTotalPrice());
-                oldLineitem.setAmount(lineitem.getAmount());
-                oldLineitem.setFoodId(lineitem.getFoodId());
-                oldLineitem.setOrderId(lineitem.getOrderId());
+                oldShoppingcart.setAmount(shoppingcart.getAmount());
+                oldShoppingcart.setcId(shoppingcart.getcId());
+                oldShoppingcart.setFoodId(shoppingcart.getFoodId());
                 break;
             }
         }
 
-        Integer amount = newLineitem.getAmount();
+        Integer amount = newShoppingcart.getAmount();
 
         switch (modifyType) {
             case "add":
@@ -104,14 +100,8 @@ public class CartController {
                 }
                 break;
         }
-
-        Food food = cartService.getFoodByFoodId(foodId);
-        BigDecimal fdPrice = food.getFdPrice();
-
-        newLineitem.setAmount(amount);
-        newLineitem.setTotalPrice(fdPrice.multiply(new BigDecimal(amount.toString())));
-        cartService.updateLineitem(oldLineitem, newLineitem);
-
+        newShoppingcart.setAmount(amount);
+        cartService.updateShoppingcart(newShoppingcart,oldShoppingcart);
         return "redirect:/showCart";
     }
 
@@ -127,23 +117,9 @@ public class CartController {
             foodIds.add(Integer.parseInt(s));
         }
         Customer customer = (Customer) request.getSession().getAttribute("customer");
-        cartService.deleteLineitem(foodIds, customer);
+        cartService.deleteShoppingcart(foodIds,customer.getcId());
         redirectAttributes.addFlashAttribute("message", "删除成功");
         return "redirect:/showCart";
     }
 
-    @RequestMapping(value = "prepareOrder", method = RequestMethod.POST)
-    public String prepareOrder(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            String itemselected,
-            RedirectAttributes redirectAttributes) {
-
-        return "redirect:/showCart";
-    }
-
-    @RequestMapping(value = "prepareOrder",method = RequestMethod.GET)
-    public String balance(){
-        return "balance";
-    }
 }

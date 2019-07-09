@@ -1,14 +1,8 @@
 package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.CustomerService;
-import com.adgwr.online.ordering.system.domain.Category;
-import com.adgwr.online.ordering.system.domain.Customer;
-import com.adgwr.online.ordering.system.domain.Food;
-import com.adgwr.online.ordering.system.domain.FoodBelong;
-import com.adgwr.online.ordering.system.mapper.CategoryMapper;
-import com.adgwr.online.ordering.system.mapper.CustomerMapper;
-import com.adgwr.online.ordering.system.mapper.FoodBelongMapper;
-import com.adgwr.online.ordering.system.mapper.FoodMapper;
+import com.adgwr.online.ordering.system.domain.*;
+import com.adgwr.online.ordering.system.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +21,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerMapper customerMapper;
-
-
 
     @Override
     @Transactional(readOnly = false)

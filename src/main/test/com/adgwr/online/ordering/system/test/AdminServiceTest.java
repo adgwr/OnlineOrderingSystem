@@ -36,9 +36,12 @@ public class AdminServiceTest {
     private MyOrderMapper myOrderMapper;
     @Test
     public void test(){
-        MyOrder myOrder=new MyOrder();
-        myOrder.setOrderDate((new Date()).toString());
-        myOrderMapper.insert(myOrder);
+        MyOrder m =new MyOrder();
+        m.setOrderDate((new Date()).toString());
+        orderMapper.insert(m);
+//        int i = orderMapper.insertUseGeneratedKeys(m);
+        Integer orderId = m.getOrderId();
+        System.out.println(orderId);
     }
 
     @Test
@@ -49,5 +52,10 @@ public class AdminServiceTest {
         System.out.println(adminAccount.getPassword());
         Assert.assertNotNull(adminAccount);
     }
+
+    @Autowired
+    private MyOrderMapper orderMapper;
+
+//    @Transactional(readOnly = false)
 
 }

@@ -1,13 +1,11 @@
 package com.adgwr.online.ordering.system.customer.service.impl;
 
 import com.adgwr.online.ordering.system.customer.service.CartService;
-import com.adgwr.online.ordering.system.domain.Customer;
-import com.adgwr.online.ordering.system.domain.Food;
-import com.adgwr.online.ordering.system.domain.Lineitem;
-import com.adgwr.online.ordering.system.domain.MyOrder;
+import com.adgwr.online.ordering.system.domain.*;
 import com.adgwr.online.ordering.system.mapper.FoodMapper;
 import com.adgwr.online.ordering.system.mapper.LineitemMapper;
 import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
+import com.adgwr.online.ordering.system.mapper.ShoppingcartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +28,14 @@ public class CartServiceImpl implements CartService {
     private FoodMapper foodMapper;
 
     @Autowired
+    private ShoppingcartMapper shoppingcartMapper;
+
+    @Autowired
     private MyOrderMapper myOrderMapper;
 
     @Override
     public List<Lineitem> getLineitem(List<Integer> orderIds) {
-        Example example=new Example(Lineitem.class);
+        Example example=new Example(Shoppingcart.class);
         Example.Criteria criteria = example.createCriteria();
         for (Integer orderId : orderIds) {
             criteria.orEqualTo("orderId",orderId);
@@ -62,36 +63,30 @@ public class CartServiceImpl implements CartService {
         return orderIds;
     }
 
+
     @Override
-    @Transactional(readOnly = false)
-    public void updateLineitem(Lineitem lineitem,Lineitem newLineitem) {
-        Example example = new Example(Lineitem.class);
-        example.createCriteria().
-                andEqualTo("orderId",lineitem.getOrderId()).
-                andEqualTo("foodId",lineitem.getFoodId());
-        lineitemMapper.updateByExample(newLineitem,example);
+    public List<Shoppingcart> getShoppingcart(String cId) {
+        Example example = new Example(Shoppingcart.class);
+        example.createCriteria().andEqualTo("cId",cId);
+        return shoppingcartMapper.selectByExample(example);
     }
 
     @Override
     @Transactional(readOnly = false)
-    public void deleteLineitem(List<Integer> item, Customer customer) {
-        List<Integer> orderIdByCId = getOrderIdByCId(customer.getcId());
-        List<Lineitem> lineitem = getLineitem(orderIdByCId);
-        List<Lineitem> toRemove=new ArrayList<>();
+    public void updateShoppingcart(Shoppingcart newShoppingcart, Shoppingcart oldShoppingcart) {
+        Example example = new Example(Shoppingcart.class);
+        example.createCriteria().andEqualTo("cId",oldShoppingcart.getcId()).andEqualTo("foodId",oldShoppingcart.getFoodId());
+        shoppingcartMapper.updateByExample(newShoppingcart,example);
+    }
 
-        for (Integer integer : item) {
-            for (Lineitem lineitem1 : lineitem) {
-                if(integer.equals(lineitem1.getFoodId())){
-                    toRemove.add(lineitem1);
-                }
-            }
-        }
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteShoppingcart(List<Integer> foodIds, String cId) {
 
-        for (Lineitem li : toRemove) {
-            Example example = new Example(Lineitem.class);
-            Example.Criteria criteria = example.createCriteria();
-            criteria.andEqualTo("orderId",li.getOrderId()).andEqualTo("foodId",li.getFoodId());
-            lineitemMapper.deleteByExample(example);
+        for (Integer foodId : foodIds) {
+            Example example = new Example(Shoppingcart.class);
+            example.createCriteria().andEqualTo("cId", cId).andEqualTo("foodId",foodId);
+            shoppingcartMapper.deleteByExample(example);
         }
     }
 }

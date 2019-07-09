@@ -49,7 +49,7 @@
         display: inline-block;
     }
 
-    .pagination a {
+    .pagination a,.pagination div {
         display: inline-block;
         height: 33px;
         padding: 0px 13px;
@@ -61,7 +61,6 @@
         font-size: 16px;
         color: #aaa;
         border:none;
-        cursor: pointer;
     }
 
     .pagination a:hover, .pagination a.current {
@@ -103,17 +102,17 @@
         <div class="reg-box-pan display-inline">
             <div class="reg-box" style="margin-top: 20px;">
 <!--                查询部分-->
-            <form id="scope" action="/statics" method="get">
-                <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>
-                <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:300px; margin:0px 30px;"
-                th:value="${selectScope}">
-                    <option th:value="today" style="color: white;">今天</option>
-                    <option th:value="week" style="color: white;">本周</option>
-                    <option th:value="month" style="color: white;">当月</option>
-                    <option th:value="all" style="color: white;">所有</option>
-                </select>
-                <input type="submit" value="查询" id="search">
-            </form>
+                <form id="scope" action="/statics" method="get">
+                    <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>
+                    <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:300px; margin:0px 30px;"
+                    th:value="${selectScope}">
+                        <option th:value="today" style="color: white;">今天</option>
+                        <option th:value="week" style="color: white;">本周</option>
+                        <option th:value="month" style="color: white;">当月</option>
+                        <option th:value="all" style="color: white;">所有</option>
+                    </select>
+                    <input type="submit" value="查询" id="search">
+                </form>
             </div>
             <div class="content" style="">
                 <table id="statics">
@@ -122,10 +121,8 @@
                         <td width="25%">消费数量</td>
                         <td width="25%">总消费金额（￥）</td>
                     </tr>
-                    <tr id="tr1">
-                    </tr>
-                    <tr id="tr2">
-                    </tr>
+                    <tr id="tr1"></tr>
+                    <tr id="tr2"></tr>
                 </table>
 <!--                饼状图-->
                     <canvas id="cake" width="400px" height="250px"
@@ -134,27 +131,21 @@
                 <div class="clear"></div>
                 <div id="pages"></div>
         </div>
-    </div>
-        <div th:if="${hasCon}" aria-label="Page navigation" style="width:100%;text-align: center">
+            <div th:if="${hasCon}" aria-label="Page navigation" style="width:60%;text-align: center; margin-top:20px;">
             <ul class="pagination">
                 <li>
-                    <a onclick="javascript:nextPage(false)" id="previousPage" style="display: none">
-                        上一页
-                    </a>
-                    <a onclick="javascript:nextPage(true)" id="nextPage">
-                        下一页
-                    </a>
-                    <a>当前：
-<!--                        这里的样式需要修改-->
-                        <input type="text" id="inputPage" placeholder="1" style="width: 50px"> 页
-                    </a>
-                    <a >总共:
-                        <span th:text="${totalPages}"></span> 页
-                    </a>
-                    <input onclick="javascript:forPage()" type="button" value="提交">
+                    <a onclick="javascript:nextPage(false)" id="previousPage" style="display: none">上一页</a>
+                    <div>第
+                        <input type="text" id="inputPage" placeholder="1" style="text-align:center; border:1px solid; width: 25px;height:33px;background: transparent;">&nbsp;页
+                        <span th:text="'，共 '+ ${totalPages}"></span>  页
+                    </div>
+                    <a href="javascript:void(0);" onclick="javascript:forPage()">跳转</a>
+                    <a onclick="javascript:nextPage(true)" id="nextPage">下一页 </a>
                 </li>
             </ul>
         </div>
+    </div>
+
 
 </div>
 </div>

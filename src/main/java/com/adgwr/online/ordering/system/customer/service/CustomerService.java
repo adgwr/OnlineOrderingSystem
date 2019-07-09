@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public interface CustomerService {
+public interface CustomerService{
     boolean register(String username,String password,String email);
 
     /**

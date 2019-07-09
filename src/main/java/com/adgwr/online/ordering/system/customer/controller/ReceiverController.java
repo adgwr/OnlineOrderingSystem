@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 实现了收货人的Controller
+ *
+ * @author lyc
+ * @version 1.0
+ */
 @Controller
 public class ReceiverController {
 

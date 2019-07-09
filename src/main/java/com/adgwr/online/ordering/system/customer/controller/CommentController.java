@@ -23,7 +23,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
+ * 实现了评论的Controller
+ *
  * @author Administrator
+ * @version 1.0
  */
 @Controller
 public class CommentController {

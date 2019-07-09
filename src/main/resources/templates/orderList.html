@@ -93,10 +93,16 @@
                         <td th:text="${order.state}"/>
 
                         <td th:switch="${order.state}">
-                            <form th:case="未付款" action="/payOrder" method="post" >
-                                <input type="hidden" name="orderId" th:value="${order.orderId}" />
-                                <input id="pay" type="submit" value="立即付款" />
-                            </form>
+                            <div th:case="未付款">
+                                <form action="/payOrder" method="post" >
+                                    <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                    <input id="pay" type="submit" value="立即付款" />
+                                </form>
+                                <form action="/cancelOrder" method="post" onsubmit="return confirm('是否取消改订单？')">
+                                    <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                    <input class="cancel" type="submit" value="取消订单" />
+                                </form>
+                            </div>
                             <form th:case="已付款" action="/cancelOrder" method="post" onsubmit="return confirm('是否取消改订单？')">
                                 <input type="hidden" name="orderId" th:value="${order.orderId}" />
                                 <input class="cancel" type="submit" value="取消订单" />

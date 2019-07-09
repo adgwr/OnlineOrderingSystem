@@ -40,7 +40,7 @@ public class CustumerConsumption implements Comparable<CustumerConsumption>{
     }
 
     /**
-     * 先比较价格在比较数量
+     * 先比较价格再比较数量
      * @param o
      * @return
      */

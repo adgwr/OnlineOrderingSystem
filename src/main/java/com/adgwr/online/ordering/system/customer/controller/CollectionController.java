@@ -17,6 +17,8 @@ import java.util.List;
 
 
 /**
+ * 收藏的Controller
+ *
  * @author Administrator
  */
 @Controller

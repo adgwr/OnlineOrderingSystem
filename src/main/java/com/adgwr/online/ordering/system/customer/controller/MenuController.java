@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
+ * 实现了菜单的Controller
+ *
  * @author Administrator
+ * @version 1.0
  */
 @Controller
 public class MenuController {

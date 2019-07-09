@@ -1,54 +1,89 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <html style="background-color:#212121">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"type="text/javascript"></script>
 <head>
+
     <link href="../../customer/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="../../customer/css/gloab.css" type="text/css" rel="stylesheet">
     <link href="../../customer/css/regUsr.css" type="text/css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>消费统计</title>
-    <style>
-        select#selectScope{
-            width                    : 85px;
-            height                   : 30px;
-            text-align               : left;
-            vertical-align           : middle;
-            border                   : 1px solid #94c1e7;
-            font-size                : 14px;
-            font-family: "Times New Roman", "微软雅黑";
-            /*font-weight              : 500;*/
-            color                    : RGBA(102,102,102,0.7);
-            cursor                   : pointer;
-            outline                  : none;
-            background: #212121;
-            margin-right: 5px;
-        }
-        table#statics{
-            color: whitesmoke;
-            /*width: ;*/
-            border: 1px solid whitesmoke;
-            text-align: center;
-            float: left;
-            margin-left: 20px;
-        }
-        table, td, tr {
-            border: 1px solid whitesmoke;
-            border-radius: 5px;
-        }
-    </style>
 </head>
+<style>
+    select#selectScope{
+        width                    : 85px;
+        height                   : 30px;
+        text-align               : left;
+        vertical-align           : middle;
+        border                   : 1px solid #94c1e7;
+        font-size                : 14px;
+        font-family: "Times New Roman", "微软雅黑";
+        /*font-weight              : 500;*/
+        color                    : RGBA(102,102,102,0.7);
+        cursor                   : pointer;
+        outline                  : none;
+        background: #212121;
+        margin-right: 5px;
+    }
+    table#statics{
+        color: whitesmoke;
+        /*width: ;*/
+        border: 1px solid whitesmoke;
+        text-align: center;
+        float: left;
+        margin-left: 20px;
+    }
+    table, td, tr {
+        border: 1px solid whitesmoke;
+        border-radius: 5px;
+    }
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
 <body class="bgf4" style="background-color:#212121">
 <div class="login-box f-mt10 f-pb50">
     <div class="main bgf" style="background-color:#212121">
         <div class="reg-box-pan display-inline">
             <div class="reg-box" style="margin-top: 20px;">
 <!--                查询部分-->
-            <form id="scope" action="/statics" method="post">
+            <form id="scope" action="/statics" method="get">
                 <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>查询范围:</span>
-                <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke;">
-                    <option th:value="today" style="color: white;">today</option>
-                    <option th:value="week" style="color: white;">week</option>
-                    <option th:value="month" style="color: white;">month</option>
+                <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke;"
+                th:value="${selectScope}">
+                    <option th:value="today" style="color: white;">今天</option>
+                    <option th:value="week" style="color: white;">本周</option>
+                    <option th:value="month" style="color: white;">当月</option>
+                    <option th:value="all" style="color: white;">所有</option>
                 </select>
                 <input type="submit" value="查询" style="width: 50px; background: transparent; color: white; border-radius:5px;">
             </form>
@@ -63,26 +98,47 @@
                         <td width="25%">消费数量</td>
                         <td width="25%">总消费金额（￥）</td>
                     </tr>
-<!--                    <tr>-->
-<!--                        <td>米饭</td>-->
-<!--                        <td>8</td>-->
-<!--                        <td>8.5</td>-->
-<!--                    </tr>-->
-                    <tr th:each="con:${consumptions}">
-                        <td th:text="${con.getFoodName()}"></td>
-                        <td th:text="${con.getFoodNum()}"></td>
-                        <td th:text="${con.getTotalPrice()}"></td>
+                    <tr id="tr1">
+                    </tr>
+                    <tr id="tr2">
                     </tr>
                 </table>
+<!--                饼状图-->
                     <canvas id="cake" width="400px" height="250px"
                             style="border:1px solid #d3d3d3;float: left;margin-left: 40px"></canvas>
-            </div>
+<!--                页面导航栏-->
+                <div class="clear"></div>
+                <div id="pages"></div>
         </div>
     </div>
+        <div th:if="${hasCon}" aria-label="Page navigation" style="width:100%;text-align: center">
+
+            <ul class="pagination">
+                <li th:if="${hasStart}">
+                    <a th:if="${hasStart}" th:href="@{/menu(pn=${startPage}-1)}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                    <a th:if="${page==currentPage}" th:onclick="|javascript:getPage(${page})|"
+                       class="active"
+                       th:text="${page}"></a>
+                    <a th:if="${page!=currentPage}" th:onclick="|javascript:getPage(${page})|"
+                       th:text="${page}"></a>
+                </li>
+                <li th:if="${hasEnd}">
+                    <a th:if="${hasEnd}" th:href="@{/menu(pn=${endPage}+1)}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+</div>
 </div>
 
 <script th:inline="javascript">
-    var cons = [[${consumptions}]];
+    var cons = [[${consumptionsFroPie}]];
     if (cons.length == 0) {
         alert("您还没有消费.");
     }
@@ -110,6 +166,7 @@
 
     // 要使用的属性
     // var portion = [0, 0.2, 0.3, 0.1, 0.2];
+    // 颜色列表
     var fillSytle = ["#f46443", "#3e27f1", "#FFFF00", "#00C5CD", "#ed4eef", "#d2dbd3"];
     // var FNames = ["", "米饭", "紫菜蛋汤", "干锅", "红烧肉"];
 
@@ -148,11 +205,11 @@
         ctx.beginPath();
         ctx.fillStyle = fillSytle[j];
         // x, y, h, w
-        ctx.fillRect(250, 60 + 25 * (j), 30, 15);
+        ctx.fillRect(230, 60 + 25 * (j), 20, 15);
         // 文字
         ctx.font = '14px Miscrosoft Yahei';
         ctx.textBaseline = 'middle';
-        ctx.fillText(cons[j].foodName + " " + (portion[j]*100).toFixed(2) + " %", 250 + 40, 68 + 25 * (j), 80);
+        ctx.fillText(cons[j].foodName + " " + (portion[j]*100).toFixed(2) + " %", 230 + 30, 68 + 25 * (j), 130);
         ctx.fill();
     }
 
@@ -162,17 +219,68 @@
         // 填色要早进行
         ctx.fillStyle = fillSytle[len];
         // x, y, h, w
-        ctx.fillRect(250, 60 + 25 * (portion.length), 30, 15);
+        ctx.fillRect(230, 60 + 25 * (portion.length), 20, 15);
         // 文字
         ctx.font = '14px Miscrosoft Yahei';
         ctx.textBaseline = 'middle';
-        ctx.fillText("其他 " + ((1-startArg)*100).toFixed(2) + " %", 250 + 40, 68 + 25 * (portion.length), 80);
+        ctx.fillText("其他 " + ((1-startArg)*100).toFixed(2) + " %", 230 + 30, 68 + 25 * (portion.length), 130);
         ctx.fill();
         // 只要最后调用一次就行
         ctx.closePath();
     }
 
+    window.onload=function () {
+        // 设置下拉框选项
+        var selected = [[${selectScope}]];
 
+        if (selected != null) {
+            var sel = document.getElementById("selectScope");
+            for (i = 0; i <= sel.options.length; i++) {
+                if (sel.options[i].value == selected) {
+                    sel.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+
+        // 第一次进入显示后端的两个
+        var cons = [[${consumptions}]];
+        if (cons[0] != null && cons[0] != undefined) {
+            $('#tr1').html(tdHtml(cons[0]));
+        } else {
+            $('#tr1').html("");
+        }
+        if (cons[1] != null && cons[1] != undefined) {
+            $('#tr2').html(tdHtml(cons[1]));
+        } else {
+            $('#tr2').html("");
+        }
+    };
+
+    // ajax 更新table数据
+    function getPage(page) {
+        var s = [[${selectScope}]];
+        if (s == null) {
+            s = "all";
+        }
+        $.ajax({
+            type : "get",
+            url : "staticsWithPage",
+            data : {"pn":page, "selectScope":s},
+            success : function (response) {
+                console.log(response);
+                // 例子只显示2行
+                $('#tr1').html(tdHtml(response[0]));
+                $('#tr2').html(tdHtml(response[1]));
+            }
+        });
+    }
+    // 生成<td>标签
+    function tdHtml(con) {
+        return "<td >" + con.foodName + "</td>\n" +
+            "    <td >"+ con.foodNum+"</td>\n" +
+            "    <td >"+ con.totalPrice+"</td>";
+    }
 
 </script>
 </body>

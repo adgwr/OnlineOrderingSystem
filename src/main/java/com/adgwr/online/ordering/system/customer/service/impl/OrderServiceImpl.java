@@ -155,12 +155,6 @@ public class OrderServiceImpl implements OrderService {
         return ordersWithFoodAndReceivers;
     }
 
-    @Transactional(readOnly = false)
-    @Override
-    public int deleteShoppingCart() {
-        return 0;
-    }
-
     @Override
     public List<BalanceItem> getBalanceItems(String cId, Integer[] foodIds) {
 

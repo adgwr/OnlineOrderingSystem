@@ -1,5 +1,6 @@
 package com.adgwr.online.ordering.system.vo;
 
+import javax.persistence.Column;
 import java.util.List;
 import java.math.BigDecimal;
 /**
@@ -10,7 +11,6 @@ import java.math.BigDecimal;
  */
 public class CustumerConsumption implements Comparable<CustumerConsumption>{
     
-
     private String foodName;
     private int foodNum;
     private double totalPrice;

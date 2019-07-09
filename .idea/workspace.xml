@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26aeaefc-f60f-4041-b239-f42acb750da7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/CustomerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/CustomerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/test/AdminServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/test/AdminServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,92 +31,65 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="55" column="40" lean-forward="true" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
+            <state relative-caret-position="200">
+              <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3837#4497#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+              <folding>
+                <element signature="docComment;class#ConsumptionStatisticsService#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/test/AdminServiceTest.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+            <state relative-caret-position="219">
+              <caret line="212" column="5" lean-forward="true" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#head#0;n#html#0;n#html#0;n#!!top" />
+                <element signature="n#style#1;n#html#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#option#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#option#1;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#option#2;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" />
+                <element signature="e#5323#5330#1" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Lineitem.java">
+        <entry file="file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/FoodBelong.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Customer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/MyOrder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Collections.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Category.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/AdminAccount.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Comments.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="900">
+              <caret line="72" column="90" selection-start-line="72" selection-start-column="90" selection-end-line="72" selection-end-column="90" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#T#0;class#ConsumptionStatisticsServiceTest#0" />
+                <element signature="docComment;method#T2#0;class#ConsumptionStatisticsServiceTest#0" />
+                <element signature="method#T2#0;class#ConsumptionStatisticsServiceTest#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,6 +113,8 @@
       <find>th</find>
       <find>i</find>
       <find>getrId()</find>
+      <find>forma</find>
+      <find>selectScope</find>
     </findStrings>
     <replaceStrings>
       <replace>td</replace>
@@ -158,17 +134,19 @@
         <option value="$PROJECT_DIR$/src/main/java/com/onlineorderingsystem/Controller/ControllerTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yaml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/admin/service/impl/AdminServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/customer/customerMain.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/customer/editCustomer.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Food.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html" />
-        <option value="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java" />
         <option value="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/test/AdminServiceTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java" />
+        <option value="$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/CustomerMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html" />
       </list>
     </option>
   </component>
@@ -191,8 +169,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="642" />
-    <option name="y" value="66" />
+    <option name="x" value="207" />
+    <option name="y" value="26" />
     <option name="width" value="1645" />
     <option name="height" value="980" />
   </component>
@@ -204,6 +182,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -325,15 +304,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OnlineOrderingSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
               <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -343,7 +313,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="vo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
@@ -351,8 +321,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="vo" type="462c0819:PsiDirectoryNode" />
+              <item name="mybatis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
@@ -374,6 +343,15 @@
               <item name="OnlineOrderingSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OnlineOrderingSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -383,6 +361,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OnlineOrderingSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="onlineorderingsystem" type="b2602c69:ProjectViewProjectNode" />
@@ -397,7 +384,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -412,7 +398,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl" />
+    <property name="last_opened_file_path" value="E:/Ahian Li/桌面/New folder/lyc/OnlineOrderingSystem" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -449,7 +435,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AdminServiceTest.test">
+  <component name="RunManager" selected="Spring Boot.OnlineOrderingSystemApplication (1)">
     <configuration name="AdminServiceTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="online-ordering-system" />
       <extension name="coverage">
@@ -477,6 +463,38 @@
       <option name="PACKAGE_NAME" value="com.adgwr.online.ordering.system.customer.service" />
       <option name="MAIN_CLASS_NAME" value="com.adgwr.online.ordering.system.customer.service.ConsumptionStatisticsServiceTest" />
       <option name="METHOD_NAME" value="T" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConsumptionStatisticsServiceTest.T2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="online-ordering-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.adgwr.online.ordering.system.customer.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.adgwr.online.ordering.system.customer.service" />
+      <option name="MAIN_CLASS_NAME" value="com.adgwr.online.ordering.system.customer.service.ConsumptionStatisticsServiceTest" />
+      <option name="METHOD_NAME" value="T2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConsumptionStatisticsServiceTest.T3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="online-ordering-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.adgwr.online.ordering.system.customer.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.adgwr.online.ordering.system.customer.service" />
+      <option name="MAIN_CLASS_NAME" value="com.adgwr.online.ordering.system.customer.service.ConsumptionStatisticsServiceTest" />
+      <option name="METHOD_NAME" value="T3" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -512,9 +530,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AdminServiceTest.test" />
         <item itemvalue="Spring Boot.OnlineOrderingSystemApplication (1)" />
+        <item itemvalue="JUnit.ConsumptionStatisticsServiceTest.T3" />
+        <item itemvalue="JUnit.ConsumptionStatisticsServiceTest.T2" />
         <item itemvalue="JUnit.ConsumptionStatisticsServiceTest.T" />
+        <item itemvalue="JUnit.AdminServiceTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -522,35 +542,38 @@
     <configuration />
   </component>
   <component name="TestHistory">
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 16h 55m 25s.xml">
+    <history-entry file="ConsumptionStatisticsServiceTest_T2 - 2019.07.08 at 11h 53m 09s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConsumptionStatisticsServiceTest_T2 - 2019.07.08 at 11h 53m 56s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.08 at 11h 54m 20s.xml">
       <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 16h 56m 03s.xml">
+    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.08 at 11h 55m 05s.xml">
       <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 00m 33s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T2 - 2019.07.08 at 11h 55m 57s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 00m 50s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T2 - 2019.07.08 at 11h 56m 12s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 01m 34s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T3 - 2019.07.08 at 12h 08m 34s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 02m 06s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T3 - 2019.07.08 at 12h 11m 08s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 03m 02s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T3 - 2019.07.08 at 12h 14m 18s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 05m 26s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ConsumptionStatisticsServiceTest_T - 2019.07.05 at 17h 05m 44s.xml">
-      <configuration name="ConsumptionStatisticsServiceTest.T" configurationId="JUnit" />
+    <history-entry file="ConsumptionStatisticsServiceTest_T3 - 2019.07.08 at 12h 14m 39s.xml">
+      <configuration name="ConsumptionStatisticsServiceTest.T3" configurationId="JUnit" />
     </history-entry>
   </component>
-  <component name="TodoView" selected-index="4">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -563,27 +586,27 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66096425" visible="true" weight="0.20362903" />
-      <window_info id="Structure" order="1" sideWeight="0.33903578" side_tool="true" visible="true" weight="0.20362903" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.650838" weight="0.29140127" />
+      <window_info id="Structure" order="1" sideWeight="0.349162" side_tool="true" weight="0.29140127" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.09943978" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3207283" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.34217876" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920383" weight="0.23603351" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41061452" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3282123" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.23743017" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49840763" weight="0.25920245" />
+      <window_info anchor="bottom" id="TODO" order="8" weight="0.32668713" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Analysis" order="10" />
       <window_info anchor="bottom" id="Spring" order="11" weight="0.32960895" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5007962" side_tool="true" weight="0.42177916" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.32861635" />
-      <window_info anchor="bottom" id="Java Enterprise" order="15" />
+      <window_info anchor="bottom" id="Java Enterprise" order="15" weight="0.3297546" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -640,35 +663,10 @@
     <MESSAGE value="初始项目，里面是空的。spring boot 版本： 1.5.21。有不对的大家说一下" />
     <MESSAGE value="添加jsp依赖和热部署" />
     <MESSAGE value="用户消费统计，前端画图" />
-    <option name="LAST_COMMIT_MESSAGE" value="用户消费统计，前端画图" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java</url>
-          <line>26</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="用户消费统计整体已经完成，还差一点前端分页显示即可" />
+    <option name="LAST_COMMIT_MESSAGE" value="用户消费统计整体已经完成，还差一点前端分页显示即可" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mvnw" />
-    <entry file="file://$PROJECT_DIR$/OnlineOrderingSystem.iml" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/onlineorderingsystem/OnlineOrderingSystemApplicationTests.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/onlineorderingsystem/Controller/ControllerTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/1.5.21.RELEASE/spring-boot-1.5.21.RELEASE.jar!/org/springframework/boot/SpringApplication.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/onlineorderingsystem/OnlineOrderingSystemApplication.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/customer/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -688,13 +686,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/customer/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/customer/css/regUsr.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -813,13 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="143" column="20" selection-start-line="143" selection-start-column="20" selection-end-line="143" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Food.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-160">
@@ -827,47 +811,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/admin/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="51" column="51" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/admin/service/impl/AdminServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#557#581#0" />
-            <element signature="e#1451#1475#0" />
-            <element signature="e#1590#1638#0" />
-            <element signature="n#style#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#option#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#option#1;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#option#2;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -885,23 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="503" selection-start-line="503" selection-end-line="503" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -934,24 +864,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/LineitemMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-140">
-          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
+        <state relative-caret-position="80">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/FoodBelong.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Lineitem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
+        <state relative-caret-position="80">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Customer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -990,34 +913,173 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Lineitem.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="-34">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/LineitemMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/AdminAccountMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/FoodBelong.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="55" column="40" lean-forward="true" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="140">
+          <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/test/AdminServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+        <state relative-caret-position="-62">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/domain/Customer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/CustomerMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/FoodBelongMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+          <folding>
+            <element signature="n#parent#0;n#project#0;n#!!top" />
+            <element signature="n#dependencies#0;n#project#0;n#!!top" />
+            <element signature="n#dependency#9;n#dependencies#0;n#project#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/pcHomepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1331" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/impl/ConsumptionStatisticsImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="38" column="110" selection-start-line="38" selection-start-column="110" selection-end-line="38" selection-end-column="110" />
+          <folding>
+            <element signature="docComment;method#getStartDateOfScope#0;class#ConsumptionStatisticsImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding>
+            <element signature="docComment;class#ConsumptionStatisticsService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/vo/CustumerConsumption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/mapper/CustomerMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/test/com/adgwr/online/ordering/system/customer/service/ConsumptionStatisticsServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="72" column="90" selection-start-line="72" selection-start-column="90" selection-end-line="72" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#T#0;class#ConsumptionStatisticsServiceTest#0" />
+            <element signature="docComment;method#T2#0;class#ConsumptionStatisticsServiceTest#0" />
+            <element signature="method#T2#0;class#ConsumptionStatisticsServiceTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/OnlineOrderingSystemApplication (1).http">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/adgwr/online/ordering/system/customer/controller/ConsumptionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
+          <folding>
+            <element signature="e#3837#4497#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/customer/consumptionStatics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="212" column="5" lean-forward="true" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#head#0;n#html#0;n#html#0;n#!!top" />
+            <element signature="n#style#1;n#html#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#option#0;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#option#1;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#option#2;n#select#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#html#0;n#!!top" />
+            <element signature="e#5323#5330#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

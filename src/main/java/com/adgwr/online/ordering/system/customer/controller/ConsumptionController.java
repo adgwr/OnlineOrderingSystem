@@ -2,11 +2,13 @@ package com.adgwr.online.ordering.system.customer.controller;
 
 import com.adgwr.online.ordering.system.customer.service.ConsumptionStatisticsService;
 import com.adgwr.online.ordering.system.vo.CustumerConsumption;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -25,68 +27,75 @@ public class ConsumptionController {
     @Autowired
     private ConsumptionStatisticsService statisticsService;
 
+    /**
+     * 按一定范围查询消费情况
+     * @param pn 查询的页面
+     * @param selectScope 查询范围
+     * @return
+     */
     @GetMapping(value = "statics")
-    public ModelAndView getStatics() {
+    public ModelAndView getStatics(
+            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            @RequestParam(value = "selectScope", defaultValue = "all") String selectScope
+    ){
         ModelAndView modelAndView = new ModelAndView("customer/consumptionStatics");
-        // consumptionStatics   editCustomer
 
-        // test
-//        List<CustumerConsumption> consumptions = new ArrayList<>();
-//        CustumerConsumption c1 = new CustumerConsumption();
-//        c1.setFoodName("米饭");
-//        c1.setFoodNum(5);
-//        c1.setTotalPrice(50.0);
-//        consumptions.add(c1);
-//        c1 = new CustumerConsumption();
-//        c1.setFoodName("紫菜蛋汤");
-//        c1.setFoodNum(5);
-//        c1.setTotalPrice(20.0);
-//        consumptions.add(c1);
-//        c1 = new CustumerConsumption();
-//        c1.setFoodName("干锅");
-//        c1.setFoodNum(5);
-//        c1.setTotalPrice(80.0);
-//        consumptions.add(c1);
-//        c1 = new CustumerConsumption();
-//        c1.setFoodName("红烧肉");
-//        c1.setFoodNum(5);
-//        c1.setTotalPrice(100.0);
-//        consumptions.add(c1);
+        List<CustumerConsumption> consumptionsFroPie = statisticsService.getConsumptionWithScope("abc", "all");
 
-//        System.out.println(consumptions.size());
-
-        List<CustumerConsumption> consumptions = statisticsService.getCustumerConsumptionToday();
-
-        System.out.println(consumptions.size());
+        // 只显示两行
+        PageHelper.startPage(pn, 2);
+        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope("abc", selectScope);
+        PageInfo page = new PageInfo(consumptions, 5);
+        if(page.getPages() == 0) {
+            modelAndView.addObject("hasCon", false);
+        }
+        else {
+            modelAndView.addObject("hasCon", true);
+            modelAndView.addObject("currentPage",page.getPageNum());
+            int start = (pn-1)/5*5+1;
+            int end = Math.min(start+4,page.getPages());
+            modelAndView.addObject("hasStart",start != 1);
+            modelAndView.addObject("hasEnd",end != page.getPages());
+            modelAndView.addObject("startPage", start);
+            modelAndView.addObject("endPage", end);
+        }
         modelAndView.addObject("consumptions", consumptions);
+        modelAndView.addObject("consumptionsFroPie", consumptionsFroPie);
 
         return modelAndView;
     }
 
-    @PostMapping(value = "statics")
+    /*@PostMapping(value = "statics")
     public ModelAndView postStatics(@RequestParam("selectScope") String selectScope) {
         System.out.print("post:" +selectScope);
         ModelAndView modelAndView = new ModelAndView("customer/consumptionStatics");
         // consumptionStatistics   editCustomer
         List<CustumerConsumption> consumptions = null;
-        switch (selectScope) {
-            case "today":
-                consumptions = statisticsService.getCustumerConsumptionToday();
-                break;
-            case "week":
-                consumptions = statisticsService.getCustumerConsumptionThisWeek();
-                break;
-            case "month":
-                consumptions = statisticsService.getCustumerConsumptionThisMonth();
-                break;
-                default:
-                    throw new IllegalArgumentException("日期范围错误！");
-        }
 
+
+//        consumptions = statisticsService.getConsumptionWithScopr(selectScope);
 
         System.out.println(" num: " + consumptions.size());
         modelAndView.addObject("consumptions", consumptions);
+        modelAndView.addObject("selectScope", selectScope);
 
         return modelAndView;
+    }*/
+
+    /**
+     * ajax 异步get方法
+     * @param pn 第几个页面
+     * @return
+     */
+    @GetMapping(value = "staticsWithPage")
+    @ResponseBody
+    public List<CustumerConsumption> staticsWithPage(
+            @RequestParam(value = "pn") Integer pn,
+            @RequestParam(value = "selectScope", defaultValue = "all") String selectScope
+    ) {
+        PageHelper.startPage(pn, 2);
+        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope("abc", selectScope);
+
+        return consumptions;
     }
 }

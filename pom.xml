@@ -98,6 +98,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
         </dependency>
+<!--        mybatis 分页查询插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.10</version>
+        </dependency>
         <!-- environment end -->
 <!--        热部署-->
         <dependency>
@@ -148,6 +154,7 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

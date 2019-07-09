@@ -18,14 +18,14 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 50px;ove
 </style>
 </head>
 <body class="nobanner">
-<div th:replace="banner.html"></div>
+<div th:replace="bannerAdmin.html"></div>
 	<div id="sitecontent">
 		<div class="npagePage Pageanli" id="mproject">
 			<div class="content">
-
-					<iframe th:replace="admin/left.html" style="width:21%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
-					<iframe th:replace="admin/food/foodDisplay.html" style="width:78%;height:100%" frameborder="0"  name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
-
+				<iframe style="border-right:1px solid rgba(255, 255, 255, .1)" th:src="left" width="183px" height="1000px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+<!--				<iframe th:src="foodDisplay" width="82%" height="1000px" frameborder="0" scrolling="no" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>-->
+				<iframe th:src="foodDisplay" width="82%" height="1000px" frameborder="0" scrolling="no" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
+			</div>
 			</div>
 		</div>
 	</div>

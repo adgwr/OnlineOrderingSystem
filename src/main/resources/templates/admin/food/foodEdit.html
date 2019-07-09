@@ -7,6 +7,10 @@
 </head>
 <body>
 <h3 class="page-title">菜品管理 >> 修改菜品信息</h3>
+<form action="/admin/food/foodDisplay">
+    <button type="submit" th:text="返回"></button>
+</form>
+<br>
 <form action="/admin/food/foodEdit" name="formAdd" method="post" enctype="multipart/form-data">
     <table width="70%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC">
         <input type="hidden" name="foodId" th:value="${oldFood.getFoodId()}"/>

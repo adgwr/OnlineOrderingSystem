@@ -47,4 +47,9 @@ public class FoodBelongServiceImpl implements FoodBelongService {
     public List<FoodBelong> getFoodBelong(int foodId){
         return foodBelongMapper.selectFoodBelongByFoodId(foodId);
     }
+
+    @Override
+    public List<FoodBelong> getALL() {
+        return foodBelongMapper.selectAll();
+    }
 }

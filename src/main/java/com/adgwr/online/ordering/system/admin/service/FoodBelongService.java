@@ -32,4 +32,10 @@ public interface FoodBelongService {
      * @return
      */
     List<FoodBelong> getFoodBelong(int foodId);
+
+    /**
+     * 获取所有的FoodBelong记录
+     * @return
+     */
+    List<FoodBelong> getALL();
 }

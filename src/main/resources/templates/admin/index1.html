@@ -18,19 +18,22 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 50px;ove
 </style>
 </head>
 <body class="nobanner">
-<div th:replace="banner.html"></div>
-	<div id="sitecontent">
-		<div class="npagePage Pageanli" id="mproject">
-			<div class="content">
-
-				<p>index1</p>
-					<iframe th:replace="admin/left1.html" style="width:21%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
-					<iframe th:replace="admin/adminMain.html" style="width:78%;height:100%" frameborder="0"  name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
-
-			</div>
+<div th:replace="bannerAdmin1.html"></div>
+<div id="sitecontent" style="text-align: center">
+	<div class="npagePage">
+		<div class="content">
+<!--			<iframe style="border-right:1px solid rgba(255, 255, 255, .1)" th:src="left1" width="183px" height="1000px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>-->
+			<iframe th:src="adminMain" width="90%" height="1000px"  frameborder="0" scrolling="no" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
 		</div>
 	</div>
-<div th:replace="footer.html"></div>
-  
+</div>
+<div th:replace="footer"></div>
+
+<script type="text/javascript" th:inline="javascript">
+	var message = [[${message}]];
+	//等待页面加载
+	if(message != null)
+		alert(message);
+</script>
 </body>
 </html>

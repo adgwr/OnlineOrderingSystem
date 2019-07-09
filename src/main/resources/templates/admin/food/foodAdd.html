@@ -3,19 +3,21 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <title>Add Food</title>
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <title>Food Add</title>
+    <style type="text/css">body {margin-bottom:300px;}</style>
 </head>
 <body>
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title">菜品管理</h3>
+            <h3 class="page-title">菜品管理 >> 添加菜品</h3>
+            <form action="/admin/food/foodDisplay">
+                <button type="submit" th:text="返回"></button>
+            </form>
+            <br>
             <div class="row">
                 <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">添加菜品</h3>
-                    </div>
                     <div class="panel-body">
                         <form action="/admin/food/foodAdd" name="formAdd" method="post" enctype="multipart/form-data">
                             <table class="table" width="70%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC">
@@ -42,7 +44,7 @@
 
                                 <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
                                     <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        定价：
+                                        定价(￥)：
                                     </td>
                                     <td width="75%" bgcolor="#FFFFFF" align="left">
                                         <input type="text" name="foodPrice" size="60"/>

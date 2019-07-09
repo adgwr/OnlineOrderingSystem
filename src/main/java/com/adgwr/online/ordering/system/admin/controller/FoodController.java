@@ -5,18 +5,15 @@ import com.adgwr.online.ordering.system.admin.service.FoodBelongService;
 import com.adgwr.online.ordering.system.admin.service.FoodService;
 import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.Food;
-import com.adgwr.online.ordering.system.domain.FoodBelong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -84,6 +81,7 @@ public class FoodController {
     @RequestMapping(value = "admin/food/foodDelete", method = RequestMethod.GET)
     public String foodDelete(String fId, Model model){
         int id = Integer.parseInt(fId);
+        foodBelongService.deleteFoodBelong(Integer.parseInt(fId));
         foodService.deleteFood(id);
         turnFoodDisplay(model);
         return "admin/food/foodDisplay";
@@ -156,5 +154,12 @@ public class FoodController {
         List<Food> foodSearchResult = foodService.getFoodByName(info);
         model.addAttribute("foodSearchResult",foodSearchResult);
         return "admin/food/foodSearchResult";
+    }
+
+    @RequestMapping(value = "foodDisplay" , method = RequestMethod.GET)
+    public String foodDisplayPage(Model model){
+        List<Food> foodList = foodService.getAllFood();
+        model.addAttribute("foodList",foodList);
+        return "admin/food/foodDisplay";
     }
 }

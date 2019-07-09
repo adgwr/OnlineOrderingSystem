@@ -29,7 +29,7 @@
                         <br/>
 						<form action="${pageContext.request.contextPath}/SearchFood" method="post">
 							<div align="center">
-								&nbsp; <label> </label> <label> 输入关键字: <input
+								&nbsp; <label> </label> <label> 输入菜品名称: <input
 									type='text' name='info' value='' />
 								</label> <label> &nbsp; <input type="submit" type="button"
 									value="查询" />

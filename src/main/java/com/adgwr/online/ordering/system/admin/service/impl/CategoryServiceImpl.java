@@ -22,18 +22,10 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public void addCategory(int categoryId, String categoryName){
-        Example example=new Example(Category.class);
-        example.createCriteria().andEqualTo("categoryId",categoryId);
-        //从数据查询
-        Category category = categoryMapper.selectOneByExample(example);
-        if(category == null){
-            Category category1 = new Category();
-            category1.setCategoryId(categoryId);
-            category1.setCategoryName(categoryName);
-            categoryMapper.insert(category1);
-        }
-
+    public void addCategory(String categoryName){
+        Category category = new Category();
+        category.setCategoryName(categoryName);
+        categoryMapper.insert(category);
     }
 
     @Override

@@ -54,7 +54,7 @@ public class AdminController {
         //管理员登录
         if (adminAccount != null && adminAccount.getIssuper() == 0) {
             session.setAttribute("adminAccount", adminAccount);
-            model.addAttribute("message", "登录成功");
+            //model.addAttribute("message", "登录成功");
             index(model);
             return "admin/index";
         }
@@ -62,7 +62,7 @@ public class AdminController {
         //超级管理员登录
         if (adminAccount != null && adminAccount.getIssuper() == 1) {
             session.setAttribute("adminAccount", adminAccount);
-            model.addAttribute("message", "登录成功");
+           // model.addAttribute("message", "登录成功");
             index(model);
             return "admin/index1";
         }
@@ -73,7 +73,7 @@ public class AdminController {
             try {
                 session.setAttribute("customer", customer);
                 //用model向页面传参
-                model.addAttribute("message", "登录成功");
+               // model.addAttribute("message", "登录成功");
                 //返回pcHomepage页面
                 return "pcHomepage";
             } catch (Exception e) {
@@ -90,6 +90,12 @@ public class AdminController {
         return null;
     }
 
+    @RequestMapping(value = "admin/logout",method = RequestMethod.GET)
+    public String adminLogout(HttpSession session) {
+        session.removeAttribute("adminAccount");
+        return "redirect:/pcHomepage";
+    }
+
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(Model model){
         Byte b = 0;
@@ -98,17 +104,26 @@ public class AdminController {
         return "admin/adminMain";
     }
 
+    @RequestMapping(value = "index11", method = RequestMethod.GET)
+    public String index11(Model model){
+        Byte b = 0;
+        List<AdminAccount> adminAccountList = adminService.getAdminByIsSuper(b);
+        model.addAttribute("adminAccountList",adminAccountList);
+        return "admin/index1";
+    }
     /**
-     * s删除用户，并返回用户列表
+     * 删除用户，并返回用户列表
      * @author: crj
      * @param id
      * @return
      */
-    @RequestMapping(value = "admin/delete/{id}", method = RequestMethod.GET)
-    public String deleteAdmin(@PathVariable("id") String id, Model model) {
+    @RequestMapping(value = "delete{id}", method = RequestMethod.GET)
+    public String deleteAdmin(@PathVariable("id") String id, Model model,
+                              RedirectAttributes redirectAttributes) {
         adminService.deleteAdmin(id);
+        model.addAttribute("message","删除成功！");
         index(model);
-        return "admin/index1";
+        return "admin/adminMain";
     }
 
 
@@ -117,7 +132,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "admin/edit/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "{id}",method = RequestMethod.GET)
     public String edit(@PathVariable("id") String id, Model model){
         model.addAttribute("adminAccount",adminService.getAdminById(id));
         model.addAttribute("title","修改账户");
@@ -125,14 +140,26 @@ public class AdminController {
         return "admin/editAdmin";
     }
 
-    @RequestMapping(value = "admin/editAdmin", method = RequestMethod.POST)
+    @RequestMapping(value = "editAdmin", method = RequestMethod.POST)
     public String edit(String adminId,
                        @RequestParam(value = "pwd") String pwd,
                        @RequestParam(value = "tel") String tel,
                        Model model){
         adminService.editAdminAccount(adminId,pwd,tel);
+        model.addAttribute("message","修改成功！");
         index(model);
-        return "admin/index";
+        return "admin/index1";
+    }
+
+    /**
+     * 取消编辑，返回主页面
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "return", method = RequestMethod.GET)
+    public String returnMain(Model model){
+        index(model);
+        return "admin/index1";
     }
 
     /**
@@ -166,11 +193,11 @@ public class AdminController {
         if (flag) {
 //            redirectAttributes.addFlashAttribute("message","注册成功");
             //用model向页面传参
-            model.addAttribute("message","注册成功");
+            model.addAttribute("message","注册成功!");
             index(model);
-            return "admin/index";//返回到索引页面
+            return "admin/adminMain";//返回到索引页面
         }else{
-            redirectAttributes.addFlashAttribute("message", "用户名已存在，请重新输入");
+            model.addAttribute("message", "用户名已存在，请重新输入");
             return "admin/registerAdmin";//返回到注册页面
         }
     }
@@ -186,8 +213,22 @@ public class AdminController {
         return "admin/modifyPassword";
     }
 
-    @RequestMapping(value = "ModifyPwdAdmin", method = RequestMethod.POST)
-    public String modifyPswdAdmin(@RequestParam(value = "adminId") String adminId, String oldPswd, String newPswd, Model model) {
+    @RequestMapping(value = "modifyPassword1", method = RequestMethod.GET)
+    public String modifyPassword1(HttpSession session, Model model) {
+        modifyPassword(session, model);
+        return "admin/modifyPassword1";
+    }
+
+    /**
+     * 修改管理员密码
+     * @param adminId
+     * @param oldPswd
+     * @param newPswd
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "ModifyPwdAdmin1", method = RequestMethod.POST)
+    public String modifyPswdAdmin1(@RequestParam(value = "adminId") String adminId, String oldPswd, String newPswd, Model model) {
         AdminAccount adminAccount = adminService.getAdminById(adminId);
         if(adminAccount!=null){
             //MD5加密
@@ -199,12 +240,29 @@ public class AdminController {
                 adminService.updateAdmin(adminAccount);
                 model.addAttribute("error", "修改成功");
                 index(model);
-                return "admin/index";
+                return "admin/adminMain";
             }else
                 model.addAttribute("error", "密码错误");
         }else
             model.addAttribute("error", "登录已失效,请重新登录");
         return "admin/modifyPassword";
+    }
+
+    /**
+     * 修改管理员密码
+     * @param adminId
+     * @param oldPswd
+     * @param newPswd
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "ModifyPwdAdmin", method = RequestMethod.POST)
+    public String modifyPswdAdmin(@RequestParam(value = "adminId") String adminId, String oldPswd, String newPswd, Model model) {
+        modifyPswdAdmin1(adminId, oldPswd, newPswd, model);
+        if(modifyPswdAdmin1(adminId, oldPswd, newPswd, model).equals("admin/index1"))
+            return "admin/index";
+        else
+            return "admin/modifyPassword";
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
@@ -217,6 +275,24 @@ public class AdminController {
             AdminAccount searchAdmin = adminService.getAdminById(searchKey);
             model.addAttribute("searchAdmin", searchAdmin);
             return "admin/searchResult";
+    }
+
+    @RequestMapping(value = "left1", method = RequestMethod.GET)
+    public String pages1(Model model){
+        index(model);
+        return "admin/left1";
+    }
+
+    @RequestMapping(value = "adminMain", method = RequestMethod.GET)
+    public String pages2(Model model){
+        index(model);
+        return "admin/adminMain";
+    }
+
+    @RequestMapping(value = "left", method = RequestMethod.GET)
+    public String pages3(Model model){
+        index(model);
+        return "admin/left";
     }
 
 }

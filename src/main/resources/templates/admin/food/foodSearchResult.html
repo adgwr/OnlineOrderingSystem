@@ -3,14 +3,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/main.css"/>
-    <title>查询结果</title>
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <title>Food Search Result</title>
+    <style type="text/css">body {margin-bottom:300px;}</style>
 </head>
 <body>
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
             <h3 class="page-title">菜品管理 >> 查询结果</h3>
+            <form action="/admin/food/foodDisplay">
+                <button type="submit" th:text="返回"></button>
+            </form>
+            <br>
             <div class="row">
                 <div class="panel">
                     <div class="panel-heading">
@@ -27,6 +32,7 @@
                                 <th>描述</th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             <tbody>
                             <tr th:each="food:${foodSearchResult}">
@@ -35,7 +41,7 @@
                                 <td th:text="${food.getFdName()}"></td>
                                 <td th:text="${food.getFdSubname()}"></td>
 
-                                <td><input type="hidden" th:value="${food.getFdImage()}" name="foodIm"></td>
+                                <input type="hidden" th:value="${food.getFdImage()}" name="foodIm">
                                 <td><img th:src="'/foodImage/'+${food.getFdImage()}" width=200px height=200px></td>
 
                                 <td th:text="'￥'+${food.getFdPrice()}"></td>

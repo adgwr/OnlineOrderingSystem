@@ -48,7 +48,7 @@
 
 				<div class="reg-box" id="verifyCheck" style="margin-top: 20px;">
 
-					<form name="f" action="/admin/editAdmin" method="POST">
+					<form name="f" action="/editAdmin" method="POST">
 						<input type="hidden" name="adminId" th:value="${adminId}">
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl" style="color: #777777;"><b
@@ -95,8 +95,8 @@
 						<div class="item col-xs-12">
 							<span class="intelligent-label f-fl">&nbsp;</span>
 							<div class="f-fl item-ifo">
-								<a th:href="@{'concel'}" target="rightFrame"
-									class="btn btn-red f-r3" id="btn_part2">取消</a>
+								<a th:href="@{'return'}" target="rightFrame"
+									class="btn btn-red f-r3" id="btn_part2">返回</a>
 							</div>
 						</div>
 

@@ -1,6 +1,5 @@
 package com.adgwr.online.ordering.system.admin.service;
 
-import com.adgwr.online.ordering.system.domain.AdminAccount;
 import com.adgwr.online.ordering.system.domain.Category;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public interface CategoryService {
      * @param categoryId
      * @param categoryName
      */
-    void addCategory(int categoryId, String categoryName);
+    void addCategory(String categoryName);
 
     /**
      * 根据categoryId删除菜品类别

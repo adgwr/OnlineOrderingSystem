@@ -2,14 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/admin/css/main.css" />
-    <title>编辑菜品类别</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <title>Food Category Edit</title>
+    <style type="text/css">body {margin-bottom:300px;}</style>
 </head>
 <body>
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
             <h3 class="page-title">菜品管理 >> 编辑菜品类别</h3>
+            <form action="/admin/food/foodDisplay">
+                <button type="submit" th:text="返回"></button>
+            </form>
             <div class="row">
                 <div class="panel">
                     <div class="panel-heading">

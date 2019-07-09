@@ -1,19 +1,28 @@
 ﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
 <script type="text/javascript" th:inline="javascript">
 	function DeleteAdmin() {
 
 		document.getElementById()
 	}
+	function search() {
+		if ($("#searchKey").val() == "") {
+			alert('请输入用户名 !');
+			return;
+		}
+		document.f1.submit();
+	}
 </script>
 <head>
-<link rel="stylesheet" href="../../static/admin/css/main.css"/>
+<!--<link rel="stylesheet" href="../../static/admin/css/main.css"/>-->
+	<link rel="stylesheet" href="../../admin/css/main.css"/>
 <style>
 a{
 		text-decoration:none;
 }
 </style>
-<title>Insert title here</title>
+<title>adminMain</title>
 </head>
 <body>
 <div class="main">
@@ -24,6 +33,25 @@ a{
 				<div class="panel">
 					<div class="panel-heading">
 						<h3 class="panel-title">管理员列表</h3>
+					</div>
+					<div class="panel-body">
+						<div>
+							<div>
+								<div>
+									<button><a th:href="@{'createForm'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>注册新管理员</span></a></button>
+								</div>
+								<br/>
+							</div>
+						</div>
+						<div>
+							<div>
+								<form name="f1" th:action="@{/search}" method="get">
+									<span class="intelligent-label f-fl" style="color: #777777;">输入用户名:</span>
+									<input type="text" name="searchKey" id="searchKey"/>
+									<button><a th:href="@{'search'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>搜索</span></a></button>
+								</form>
+							</div>
+						</div>
 					</div>
 					<div class="panel-body">
 						<table class="table">
@@ -41,8 +69,8 @@ a{
 							<tr th:each="adminAccount:${adminAccountList}">
 								<td th:width="100px" th:text="${adminAccount.adminId}"></td>
 								<td th:width="100px" th:text="${adminAccount.adTel}"></td>
-								<td><a th:href="@{'admin/edit/'+${adminAccount.adminId}}">编辑</a></td>
-								<td><a th:href="@{'admin/delete/'+${adminAccount.adminId}}">删除</a></td>
+								<td><a th:href="@{${adminAccount.adminId}}">编辑</a></td>
+								<td><a th:href="@{'delete'+${adminAccount.adminId}}">删除</a></td>
 							</tr>
 							</tbody>
 						</table>
@@ -52,5 +80,25 @@ a{
 		</div>
 	</div>
 </div>
+<!--<script type="text/javascript" th:inline="javascript">-->
+<!--	function sleep(ms) {-->
+<!--		return new Promise(resolve =>-->
+<!--				setTimeout(resolve, ms)-->
+<!--	)-->
+<!--	}-->
+
+<!--	var message = [[${message}]];-->
+<!--	//等待页面加载-->
+<!--	sleep(500).then(() => {-->
+<!--		if (message != null) {-->
+<!--		alert(message);-->
+<!--		if(message=="请输入用户名！"){-->
+<!--			alert("请输入用户名！")；-->
+<!--		}else{-->
+<!--			openLogin();-->
+<!--		}-->
+<!--	}-->
+<!--	});-->
+<!--</script>-->
 </body>
 </html>

@@ -13,4 +13,14 @@
     <result column="fd_description" jdbcType="VARCHAR" property="fdDescription" />
     <result column="isshow" jdbcType="TINYINT" property="isshow" />
   </resultMap>
+
+  <sql id="Base_Column_List_FoodSearch" >
+    food_id, fd_name, fd_subname, fd_image, fd_price, fd_description, isshow
+  </sql>
+  <select id="foodSearchByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_FoodSearch" />
+    from food
+    where fd_name = #{fd_name,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -8,7 +8,6 @@ import com.adgwr.online.ordering.system.mapper.MyOrderMapper;
 import com.adgwr.online.ordering.system.mapper.ReceiverMapper;
 import com.adgwr.online.ordering.system.vo.OrderWithReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -36,46 +35,44 @@ public class OrderServiceImpl implements OrderService {
     private FoodMapper foodMapper;
 
     @Override
-    public List<OrderWithReceiver> showPaidList(){
+    public List<OrderWithReceiver> showPaidList() {
 
         List<MyOrder> orderList = myOrderMapper.selectByState("已付款");
         return getList(orderList);
     }
 
     @Override
-    public List<MyOrder> showFinishedOrderList() {
-        return myOrderMapper.selectByState("已完成");
-    }
-
-    @Override
-    public List<OrderWithReceiver> showReceivedList(){
+    public List<OrderWithReceiver> showReceivedList() {
 
         List<MyOrder> orderList = myOrderMapper.selectByState("已接单");
         return getList(orderList);
     }
 
     @Override
-    public List<OrderWithReceiver> showDeliveringList(){
+    public List<OrderWithReceiver> showDeliveringList() {
 
         List<MyOrder> orderList = myOrderMapper.selectByState("正在配送");
         return getList(orderList);
     }
 
     @Override
-    public List<OrderWithReceiver> showFinishedList(){
+    public List<OrderWithReceiver> showFinishedList() {
 
-        List<MyOrder> orderList = myOrderMapper.selectByState("已完成");
+        List<MyOrder> orderList = myOrderMapper.selectByState("待评价");
+        List<MyOrder> orderList1 = myOrderMapper.selectByState("已完成");
+        orderList.addAll(orderList1);
         return getList(orderList);
     }
 
     /**
      * 通过orderList来得到最终可以返回Controller的list(String类型)
+     *
      * @param orderList
      * @return
      */
-    public List<OrderWithReceiver> getList(List<MyOrder> orderList){
+    public List<OrderWithReceiver> getList(List<MyOrder> orderList) {
         List<OrderWithReceiver> list = new ArrayList<OrderWithReceiver>();
-        for (int i = 0; i < orderList.size() ; i++){//遍历每个MyOrder并且把所有需要的属性值全部加到list里面
+        for (int i = 0; i < orderList.size(); i++) {//遍历每个MyOrder并且把所有需要的属性值全部加到list里面
             OrderWithReceiver ord = new OrderWithReceiver();
             MyOrder m = orderList.get(i);
             int orderId = m.getOrderId();
@@ -88,22 +85,22 @@ public class OrderServiceImpl implements OrderService {
             int r_id = m.getrId();
 
             //通过r_id来查找receiver的相关属性并加到list中
-            Example example=new Example(Receiver.class);
-            example.createCriteria().andEqualTo("rId",r_id);
+            Example example = new Example(Receiver.class);
+            example.createCriteria().andEqualTo("rId", r_id);
             ord.setReceiver(receiverMapper.selectOneByExample(example));
 
 
             //通过orderId来查找相应的Lineitem
-            Example example1=new Example(Lineitem.class);
-            example1.createCriteria().andEqualTo("orderId",orderId);
+            Example example1 = new Example(Lineitem.class);
+            example1.createCriteria().andEqualTo("orderId", orderId);
             List<Lineitem> lineitemList = lineitemMapper.selectByExample(example1);
 
             //用于存储订单项的信息
             String result = "";
-            for(Lineitem l: lineitemList){
+            for (Lineitem l : lineitemList) {
                 int foodId = l.getFoodId();
-                Example example2=new Example(Food.class);
-                example2.createCriteria().andEqualTo("foodId",foodId);
+                Example example2 = new Example(Food.class);
+                example2.createCriteria().andEqualTo("foodId", foodId);
                 Food food = foodMapper.selectOneByExample(example2);
                 result += food.getFdName() + "*" + l.getAmount() + "  ";
             }
@@ -114,21 +111,42 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void receiveOrder(int orderId){
-        Example example=new Example(MyOrder.class);
-        example.createCriteria().andEqualTo("orderId",orderId);
+    public void receiveOrder(int orderId) {
+        Example example = new Example(MyOrder.class);
+        example.createCriteria().andEqualTo("orderId", orderId);
         MyOrder myOrder = myOrderMapper.selectOneByExample(example);
         myOrder.setOrderState("已接单");
         myOrderMapper.updateByPrimaryKey(myOrder);
     }
 
     @Override
-    public void deliverOrder(int orderId){
-        Example example=new Example(MyOrder.class);
-        example.createCriteria().andEqualTo("orderId",orderId);
+    public void deliverOrder(int orderId) {
+        Example example = new Example(MyOrder.class);
+        example.createCriteria().andEqualTo("orderId", orderId);
         MyOrder myOrder = myOrderMapper.selectOneByExample(example);
-        myOrder.setOrderState("配送中");
+        myOrder.setOrderState("正在配送");
         myOrderMapper.updateByPrimaryKey(myOrder);
+    }
+
+    @Override
+    public List<OrderWithReceiver> searchOrders(String year, String month, String day) {
+        List<MyOrder> orders = myOrderMapper.selectByState("已完成");
+        List<MyOrder> orders1 = myOrderMapper.selectByState("待评价");
+        orders.addAll(orders1);
+        List<MyOrder> orderList = new ArrayList<>();
+        for (MyOrder o : orders) {
+            String[] tokens = (o.getOrderDate()).split("-");
+            String[] time = tokens[2].split(" ");
+            if (tokens[0].equals(year) && tokens[1].equals(month) && time[0].equals(day)) {
+                orderList.add(o);
+            }
+        }
+        return getList(orderList);
+    }
+
+    @Override
+    public List<MyOrder> showFinishedOrderList() {
+        return myOrderMapper.selectByState("已完成");
     }
 
     @Override

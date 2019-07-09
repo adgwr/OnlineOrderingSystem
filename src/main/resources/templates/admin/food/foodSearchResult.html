@@ -1,0 +1,78 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/main.css"/>
+    <title>查询结果</title>
+</head>
+<body>
+<div class="main">
+    <div class="main-content">
+        <div class="container-fluid">
+            <h3 class="page-title">菜品管理 >> 查询结果</h3>
+            <div class="row">
+                <div class="panel">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>菜名</th>
+                                <th>菜品子名字</th>
+                                <th>图片展示</th>
+                                <th>价格</th>
+                                <th>描述</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tbody>
+                            <tr th:each="food:${foodSearchResult}">
+                                <!--                                <td>${food.foodID}</td>-->
+                                <td th:text="${food.getFoodId()}"></td>
+                                <td th:text="${food.getFdName()}"></td>
+                                <td th:text="${food.getFdSubname()}"></td>
+
+                                <td><input type="hidden" th:value="${food.getFdImage()}" name="foodIm"></td>
+                                <td><img th:src="'/foodImage/'+${food.getFdImage()}" width=200px height=200px></td>
+
+                                <td th:text="'￥'+${food.getFdPrice()}"></td>
+
+                                <td th:text="${food.getFdDescription()}"></td>
+
+                                <td>
+
+                                    <form style="align: center; background-color: gray" action="/admin/food/turnFoodEdit">
+                                        <input type="hidden" name="oldFoodId" th:value="${food.getFoodId()}">
+                                        <input type="submit" value="修改">
+                                    </form>
+
+                                </td>
+                                <form action="/admin/food/foodDelete">
+                                    <td>
+                                        <input type="hidden" name="fId" th:value="${food.getFoodId()}">
+                                        <input type="submit" value="删除">
+                                    </td>
+                                </form>
+                                <form action="/admin/food/turnCategoryEdit" method="get">
+                                    <td>
+                                        <input type="hidden" name="food"
+                                               th:value="${food.getFoodId()}"> <input type="submit"
+                                                                                      value="编辑类别">
+                                    </td>
+                                </form>
+                            </tr>
+                            </c:forEach>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

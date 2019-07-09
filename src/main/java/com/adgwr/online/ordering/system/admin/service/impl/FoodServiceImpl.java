@@ -58,4 +58,9 @@ public class FoodServiceImpl implements FoodService {
     public List<Food> getAllFood(){
         return foodMapper.selectAll();
     }
+
+    @Override
+    public List<Food> getFoodByName(String foodName){
+        return foodMapper.foodSearchByName(foodName);
+    }
 }

@@ -28,6 +28,12 @@ public interface AdminService {
     List<AdminAccount> getAllAdmin();
 
     /**
+     * 获取账户列表
+     * @return
+     */
+    List<AdminAccount> getAdminByIsSuper(Byte b);
+
+    /**
      * 删除管理员账号
      * @param adminId
      */

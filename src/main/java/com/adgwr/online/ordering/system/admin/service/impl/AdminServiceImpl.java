@@ -54,6 +54,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<AdminAccount> getAdminByIsSuper(Byte b){
+        return adminAccountMapper.selectAdminByIsSuper(b);
+    }
+
+    @Override
     public void deleteAdmin(String adminId){
         Example example=new Example(AdminAccount.class);
         example.createCriteria().andEqualTo("adminId",adminId);

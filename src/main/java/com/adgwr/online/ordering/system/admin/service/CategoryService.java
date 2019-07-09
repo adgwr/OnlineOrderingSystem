@@ -1,6 +1,5 @@
 package com.adgwr.online.ordering.system.admin.service;
 
-import com.adgwr.online.ordering.system.domain.AdminAccount;
 import com.adgwr.online.ordering.system.domain.Category;
 
 import java.util.List;

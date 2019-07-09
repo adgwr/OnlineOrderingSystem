@@ -13,7 +13,6 @@ public class Lineitem {
     @Column(name = "food_id")
     private Integer foodId;
 
-    @Column(name = "amount")
     private Integer amount;
 
     @Column(name = "total_price")

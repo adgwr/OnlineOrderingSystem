@@ -28,11 +28,7 @@ public interface FoodService {
 
     /**
      * 修改菜品
-     * @param foodName
-     * @param subName
-     * @param foodImage
-     * @param foodPrice
-     * @param foodDescription
+     * @param food
      */
     void updateFood(Food food);
 
@@ -48,4 +44,11 @@ public interface FoodService {
      * @return
      */
     List<Food> getAllFood();
+
+    /**
+     * 根据food名称查找food
+     * @param foodName
+     * @return
+     */
+    List<Food> getFoodByName(String foodName);
 }

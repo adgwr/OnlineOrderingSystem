@@ -1,5 +1,6 @@
 package com.adgwr.online.ordering.system.vo;
 
+import java.io.Serializable;
 import java.util.List;
 import java.math.BigDecimal;
 /**
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
  * @description
  * @date 4/7/2019 下午3:54
  */
-public class CustumerConsumption implements Comparable<CustumerConsumption>{
+public class CustumerConsumption implements Comparable<CustumerConsumption> , Serializable {
     
 
     private String foodName;

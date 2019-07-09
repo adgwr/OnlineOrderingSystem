@@ -47,11 +47,11 @@ public class ConsumptionController {
 
         ModelAndView modelAndView = new ModelAndView("customer/consumptionStatics");
 
-        List<CustumerConsumption> consumptionsFroPie = statisticsService.getConsumptionWithScope(customer.getcId(), "all");
+        List<CustumerConsumption> consumptionsFroPie = statisticsService.getConsumptionWithScope("abc", "all");
 
         // 只显示两行
         PageHelper.startPage(pn, 2);
-        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope(customer.getcId(), selectScope);
+        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope("abc", selectScope);
         PageInfo page = new PageInfo(consumptions, 5);
         if(page.getPages() == 0) {
             modelAndView.addObject("hasCon", false);
@@ -65,6 +65,7 @@ public class ConsumptionController {
             modelAndView.addObject("hasEnd",end != page.getPages());
             modelAndView.addObject("startPage", start);
             modelAndView.addObject("endPage", end);
+            modelAndView.addObject("totalPages", page.getPages());
         }
         modelAndView.addObject("consumptions", consumptions);
         modelAndView.addObject("consumptionsFroPie", consumptionsFroPie);
@@ -88,7 +89,7 @@ public class ConsumptionController {
         Customer customer = (Customer) session.getAttribute("customer");
 
         PageHelper.startPage(pn, 2);
-        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope(customer.getcId(), selectScope);
+        List<CustumerConsumption> consumptions = statisticsService.getConsumptionWithScope("abc", selectScope);
 
         return consumptions;
     }

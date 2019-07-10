@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OnlineOrderingSystemApplication.class)
 
-public class OrderServiceTest {
+public class AdminOrderServiceTest {
 
     @Autowired
     private OrderService orderService;

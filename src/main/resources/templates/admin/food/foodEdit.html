@@ -1,0 +1,74 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html style="background-color: #fafafa">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Food Edit</title>
+</head>
+<body>
+<h3 class="page-title">菜品管理 >> 修改菜品信息</h3>
+<form action="/admin/food/foodDisplay">
+    <button type="submit" th:text="返回"></button>
+</form>
+<br>
+<form action="/admin/food/foodEdit" name="formAdd" method="post" enctype="multipart/form-data">
+    <table width="70%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC">
+        <input type="hidden" name="foodId" th:value="${oldFood.getFoodId()}"/>
+
+        <tr bgcolor="#EEF4EA">
+            <td colspan="3" background="${pageContext.request.contextPath}/images/wbg.gif" class='title'><span>&nbsp;</span></td>
+        </tr>
+        <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                菜品名称：
+            </td>
+            <td width="75%" bgcolor="#FFFFFF" align="left">
+                <input type="text" name="foodName" size="60" th:value="${oldFood.getFdName()}"/>
+            </td>
+        </tr>
+
+        <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                菜品子名称：
+            </td>
+            <td width="75%" bgcolor="#FFFFFF" align="left">
+                <input type="text" name="foodSubName" size="60" th:value="${oldFood.getFdSubname()}"/>
+            </td>
+        </tr>
+
+        <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                定价：
+            </td>
+            <td width="75%" bgcolor="#FFFFFF" align="left">
+                <input type="text" name="foodPrice" size="60" th:value="${oldFood.getFdPrice()}"/>
+            </td>
+        </tr>
+
+        <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                描述：
+            </td>
+            <td width="75%" bgcolor="#FFFFFF" align="left">
+                <input type="text" name="foodDesc" size="60" th:value="${oldFood.getFdDescription()}"/>
+            </td>
+        </tr>
+
+        <tr bgcolor="#FFFFFF" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                更新图片：
+            <td><input type="file" name="file"/>请重新选择图片</td>
+        </tr>
+        <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+            <td width="25%" bgcolor="#FFFFFF" align="right">
+                &nbsp;
+            </td>
+            <td width="75%" bgcolor="#FFFFFF" align="left">
+                <input type="submit" value="保存"/>&nbsp;
+                <input type="reset" value="重置"/>&nbsp;
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

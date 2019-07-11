@@ -3,83 +3,194 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
-    <title>Food Add</title>
-    <style type="text/css">body {margin-bottom:300px;}</style>
+    <title>Order Manage</title>
+    <style type="text/css">
+        .information {
+            height: 350px;
+            overflow: auto;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .information::-webkit-scrollbar {
+            background-color: #b5b1b1;
+        }
+
+        .information::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background-color: black;
+        }
+
+        .information::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b5b1b1;
+        }
+
+        .informationTable {
+            width: 70%;
+            border-radius: 5px;
+            border: #ddd 1px solid;
+            font-size: 15px;
+            color: #ddd;
+            overflow: auto;
+            margin: 0px auto;
+            border-collapse:collapse;
+        }
+
+        .informationTable td, .informationTable th {
+            padding: 20px 6px;
+            border: #ddd 1px solid;
+        }
+
+        .information td{
+            width:80%;
+        }
+        .information th{
+            width:20%;
+        }
+
+        .buttonStyle {
+            width: 80px;
+            height: 35px;
+            margin-top: 18px;
+            background-color: transparent;
+            color: #cfcfcf;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            vertical-align: middle;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #606060;
+            overflow: hidden;
+        }
+
+        .buttonStyle:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .pagination {
+            padding: 40px 0;
+            display: inline-block;
+        }
+
+        .pagination li {
+            display: inline;
+        }
+
+        .pagination a {
+            display: inline-block;
+            height: 33px;
+            padding: 0px 13px;
+            background: #000;
+            text-decoration: none;
+            line-height: 33px;
+            text-align: center;
+            min-width: 30px;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .pagination a:hover, .pagination a.current {
+            background: #999;
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul.pagination li a.active {
+            background-color: #999;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .textIn {
+            background-color: transparent;
+            border-radius: 5px;
+            border: 1px solid #606060;
+            width: 70%;
+            height: 30px;
+            padding: 5px 0px 5px 10px;
+            color: #fff;
+        }
+
+        #area::-webkit-scrollbar {
+            background-color: #b5b1b1;
+        }
+
+        #area::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background-color: black;
+        }
+
+        #area::-webkit-scrollbar-thumb {
+            border-radius: 1px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b5b1b1;
+        }
+    </style>
 </head>
-<body>
-<div class="main">
-    <div class="main-content">
-        <div class="container-fluid">
-            <h3 class="page-title">菜品管理 >> 添加菜品</h3>
-            <form action="/admin/food/foodDisplay">
-                <button type="submit" th:text="返回"></button>
-            </form>
-            <br>
-            <div class="row">
-                <div class="panel">
-                    <div class="panel-body">
-                        <form action="/admin/food/foodAdd" name="formAdd" method="post" enctype="multipart/form-data">
-                            <table class="table" width="70%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC">
-                                <tr bgcolor="#EEF4EA">
-                                    <td colspan="3" background="${pageContext.request.contextPath}/images/wbg.gif" class='title'><span>&nbsp;</span></td>
-                                </tr>
-                                <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        菜品名称：
-                                    </td>
-                                    <td width="75%" bgcolor="#FFFFFF" align="left">
-                                        <input type="text" name="foodName" size="60"/>
-                                    </td>
-                                </tr>
+<body class="information" style="background: #212121; overflow:auto;">
+<div style="text-align: center;overflow: hidden;">
+    <h1 style="font-size: 30px; color:#ddd; overflow:hidden;">菜品添加</h1>
+    <div>
+        <form action="/admin/food/foodEdit" enctype="multipart/form-data" method="post" name="formAdd">
+            <table class="informationTable">
+                <input name="foodId" type="hidden"/>
 
-                                <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        菜品子名称：
-                                    </td>
-                                    <td width="75%" bgcolor="#FFFFFF" align="left">
-                                        <input type="text" name="foodSubName" size="60"/>
-                                    </td>
-                                </tr>
+                <tr>
+                    <th>
+                        菜品名称
+                    </th>
+                    <td>
+                        <input class="textIn" name="foodName" type="text"/>
+                    </td>
+                </tr>
 
-                                <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        定价(￥)：
-                                    </td>
-                                    <td width="75%" bgcolor="#FFFFFF" align="left">
-                                        <input type="text" name="foodPrice" size="60"/>
-                                    </td>
-                                </tr>
+                <tr>
+                    <th>
+                        菜品子名称
+                    </th>
+                    <td>
+                        <input class="textIn" name="foodSubName" type="text"/>
+                    </td>
+                </tr>
 
-                                <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        描述：
-                                    </td>
-                                    <td width="75%" bgcolor="#FFFFFF" align="left">
-                                        <input type="text" name="foodDesc" size="60"/>
-                                    </td>
-                                </tr>
+                <tr>
+                    <th>
+                        定价
+                    </th>
+                    <td>
+                        <input class="textIn" name="foodPrice" type="number"/>
+                    </td>
+                </tr>
 
-                                <tr bgcolor="#FFFFFF" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        添加图片：
-                                    <td><input type="file" name="file"/></td>
-                                </tr>
-                                <tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
-                                    <td width="25%" bgcolor="#FFFFFF" align="right">
-                                        &nbsp;
-                                    </td>
-                                    <td width="75%" bgcolor="#FFFFFF" align="left">
-                                        <input type="submit" value="提交" onclick="checkForm()"/>&nbsp;
-                                        <input type="reset" value="重置"/>&nbsp;
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                </div>
+                <tr>
+                    <th>
+                        描述
+                    </th>
+                    <td>
+                        <textarea style="width:70%; height:60px;" id="area" class="textIn" name="foodDesc"></textarea>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>更新图片：</th>
+                    <td><input name="file" type="file"/></td>
+                </tr>
+            </table>
+            <div style="text-align: center">
+                <input class="buttonStyle" type="submit" value="提交"/>
+                <input style="margin-left:10px;" class="buttonStyle" type="reset" value="重置"/>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 </body>

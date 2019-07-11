@@ -98,8 +98,8 @@
 
 					<div aria-label="Page navigation" style="width:100%;text-align: center">
 						<ul class="pagination">
-							<li th:if="${pageInfo.hasPreviousPage}">
-								<a th:if="${pageInfo.hasPreviousPage}" th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}-1)}"
+							<li th:if="${pageInfo.navigateFirstPage > 1}">
+								<a th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}-1)}"
 								   aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 								</a>
@@ -111,8 +111,8 @@
 								<a th:href="@{/admin/CategoryDisplay(pn=${page})}" th:if="${page!=pageInfo.pageNum}"
 								   th:text="${page}"></a>
 							</li>
-							<li th:if="${pageInfo.hasNextPage}">
-								<a th:if="${pageInfo.hasNextPage}" th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}+1)}" aria-label="Next">
+							<li th:if="${pageInfo.pages > pageInfo.navigateLastPage}">
+								<a th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}+1)}" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>

@@ -2,157 +2,199 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
+    <!--    <meta charset="utf-8"/>-->
+    <!--    <title>Register Admin</title>-->
+    <!--        <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/gloab.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
+    <!--    <script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
+    <!--    <script src="../../admin/js/register.js"></script>-->
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/admin/css/main.css"/>
-    <title>Food Display</title>
-    <style type="text/css">body {
-        margin-bottom: 300px;
-    }</style>
+    <!--    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />-->
+    <title>Order Manage</title>
+    <style type="text/css">
+        .information {
+            height: 350px;
+            overflow: auto;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .information::-webkit-scrollbar {
+            background-color: #b5b1b1;
+        }
+        .information::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background-color: black;
+        }
+        .information::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b5b1b1;
+        }
+        .informationTable {
+            border-radius: 5px;
+            border: none;
+            font-size: 15px;
+            color: #ddd;
+            overflow: auto;
+            margin: 0px auto;
+        }
+        .informationTable tr {
+            border-bottom: #999 1px dotted;
+        }
+        .informationTable td, .informationTable th {
+            padding: 20px 6px;
+            border-bottom: #999 1px dotted;
+        }
+        .buttonStyle {
+            width: 90px;
+            height: 35px;
+            margin-top: 18px;
+            background-color: transparent;
+            color: #cfcfcf;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            vertical-align: middle;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #606060;
+            overflow: hidden;
+        }
+        .buttonStyle:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #333;
+            overflow: hidden;
+        }
+        .pagination {
+            padding: 40px 0;
+            display: inline-block;
+        }
+
+        .pagination li {
+            display: inline;
+        }
+
+        .pagination a {
+            display: inline-block;
+            height: 33px;
+            padding: 0px 13px;
+            background: #000;
+            text-decoration: none;
+            line-height: 33px;
+            text-align: center;
+            min-width: 30px;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .pagination a:hover, .pagination a.current {
+            background: #999;
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul.pagination li a.active {
+            background-color: #999;
+            color: #000;
+            text-decoration: none;
+        }
+        .textIn{
+            background-color: transparent;
+            border-radius: 5px;
+            border: 1px solid #606060;
+            width: 200px;
+            padding: 5px 0px 5px 10px;
+            color: #fff;
+        }
+    </style>
 </head>
-<style type="text/css">
-    .pagination {
-        padding: 40px 0;
-        display: inline-block;
-    }
-
-    .pagination li {
-        display: inline;
-    }
-
-    .pagination a {
-        display: inline-block;
-        height: 33px;
-        padding: 0px 13px;
-        background: #000;
-
-        line-height: 33px;
-        text-align: center;
-        min-width: 30px;
-        font-size: 16px;
-        color: #aaa;
-    }
-
-    .pagination a:hover, .pagination a.current {
-        background: #999;
-        color: #000;
-    }
-
-    ul.pagination li a.active {
-        background-color: #999;
-        color: #000;
-    }
-</style>
-<body>
-<div class="main">
-    <div class="main-content">
-        <div class="container-fluid">
-            <h1 class="page-title">菜品管理</h1>
-            <table>
-                <tr>
-                    <td>
-                        <form action="/admin/food/foodSearch" method="get">
-                            <div align="center">
-                                &nbsp; <label> </label> <label> 输入菜品名称: <input
-                                    type='text' name='info' value=''/>
-                            </label> <label> &nbsp; <input type="submit" value="查询"/>
-
-                            </label>
-                                <br/>
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/admin/food/turnFoodAdd">
-                            <input type="submit" value="添加菜品">
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="row">
-            <div class="panel-body" style="height: 560px; overflow-y:scroll">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">菜品列表</h3>
-                    </div>
-                    <br/>
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>菜名</th>
-                                <th>菜品子名字</th>
-                                <th>图片展示</th>
-                                <th>价格</th>
-                                <th>描述</th>
-                                <th>操作</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="food:${foodList}">
-                                <!--                                <td>${food.foodID}</td>-->
-                                <td th:text="${food.getFoodId()}"></td>
-                                <td th:text="${food.getFdName()}"></td>
-                                <td th:text="${food.getFdSubname()}"></td>
-                                <input type="hidden" th:value="${food.getFdImage()}" name="foodIm">
-                                <td><img th:src="'/foodImage/'+${food.getFdImage()}" width=200px height=200px></td>
-
-                                <td th:text="'￥'+${food.getFdPrice()}"></td>
-
-                                <td th:text="${food.getFdDescription()}"></td>
-
-                                <td>
-                                    <form style="align: center; background-color: gray"
-                                          action="/admin/food/turnFoodEdit">
-                                        <input type="hidden" name="oldFoodId" th:value="${food.getFoodId()}">
-                                        <input type="submit" value="修改">
-                                    </form>
-
-                                </td>
-                                <form action="/admin/food/foodDelete">
-                                    <td>
-                                        <input type="hidden" name="fId" th:value="${food.getFoodId()}">
-                                        <input type="submit" value="删除">
-                                    </td>
-                                </form>
-                                <form action="/admin/food/turnCategoryEdit" method="get">
-                                    <td>
-                                        <input type="hidden" name="food" th:value="${food.getFoodId()}">
-                                        <input type="submit" value="编辑类别">
-                                    </td>
-                                </form>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center">
-                        <ul class="pagination">
-                            <li th:if="${hasStart}">
-                                <a th:if="${hasStart}" th:href="@{/admin/food/foodDisplay(pn=${startPage}-1)}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li th:each="page:${#numbers.sequence(startPage,endPage)}">
-                                <a th:href="@{/admin/food/foodDisplay(pn=${page})}" th:if="${page==currentPage}"
-                                   class="active"
-                                   th:text="${page}"></a>
-                                <a th:href="@{/admin/food/foodDisplay(pn=${page})}" th:if="${page!=currentPage}"
-                                   th:text="${page}"></a>
-                            </li>
-                            <li th:if="${hasEnd}">
-                                <a th:if="${hasEnd}" th:href="@{/admin/food/foodDisplay(pn=${endPage}+1)}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body style="background: #212121; overflow:hidden;">
+<div style="text-align: center;overflow: hidden;">
+    <h1 style="font-size: 30px; color:#ddd; overflow:hidden;">菜品管理</h1>
+    <div style="display: inline-flex">
+<!--        <form action="/admin/food/foodSearch" method="get" style="text-align: center;">-->
+        <form action="/admin/food/foodDisplay" method="get" style="text-align: center;">
+                <input class="textIn" name='info' type='text' value=''/>
+                <input class="buttonStyle" style="margin-top:0px; margin-left:10px;vertical-align: middle;" type="submit" value="查询"/>
+        </form>
+        <form action="/admin/food/turnFoodAdd" style="margin-left:10px;">
+            <input class="buttonStyle" style="margin-top:0px; vertical-align: middle;" type="submit" value="添加菜品">
+        </form>
     </div>
+    <div class="information">
+        <table class="informationTable" style="width:80%;">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>菜名</th>
+                <th>菜品子名字</th>
+                <th>图片展示</th>
+                <th>价格</th>
+                <th>修改</th>
+                <th>删除</th>
+                <th>编辑类别</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="food:${foodList}">
+                <td th:text="${food.getFoodId()}"></td>
+                <td th:text="${food.getFdName()}"></td>
+                <td th:text="${food.getFdSubname()}"></td>
+                <input type="hidden" th:value="${food.getFdImage()}" name="foodIm">
+                <td><img th:src="'/foodImage/'+${food.getFdImage()}" width=130px height=100px></td>
+
+                <td th:text="'￥'+${food.getFdPrice()}"></td>
+                <td>
+                    <form style="align: center;"
+                          action="/admin/food/turnFoodEdit">
+                        <input type="hidden" name="oldFoodId" th:value="${food.getFoodId()}">
+                        <input class="buttonStyle" type="submit" value="修改">
+                    </form>
+                </td>
+                <td>
+                    <form action="/admin/food/foodDelete" onsubmit="return confirm('确定删除该菜品？');">
+                        <input type="hidden" name="fId" th:value="${food.getFoodId()}">
+                        <input class="buttonStyle" type="submit" value="删除">
+                    </form>
+                </td>
+                <td>
+                    <form action="/admin/food/turnCategoryEdit" method="get">
+                        <input type="hidden" name="food" th:value="${food.getFoodId()}">
+                        <input class="buttonStyle" type="submit" value="编辑类别">
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--    页面导航栏开始-->
+        <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center" >
+            <ul class="pagination">
+                <li th:if="${hasStart}">
+                    <a th:if="${hasStart}" th:href="@{/admin/food/foodDisplay(pn=${startPage}-1, info=${info})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                    <a th:href="@{/admin/food/foodDisplay(pn=${page}, info=${info})}" th:if="${page==currentPage}"
+                       class="active"
+                       th:text="${page}"></a>
+                    <a th:href="@{/admin/food/foodDisplay(pn=${page}, info=${info})}" th:if="${page!=currentPage}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:if="${hasEnd}">
+                    <a th:if="${hasEnd}" th:href="@{/admin/food/foodDisplay(pn=${endPage}+1, info=${info})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    <!--    页面导航栏结束-->
 </div>
 </body>
 </html>

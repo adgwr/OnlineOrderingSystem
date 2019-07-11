@@ -38,11 +38,13 @@ public class FoodController {
     private FoodBelongService foodBelongService;
 
     @RequestMapping(value = "admin/food/foodDisplay", method = RequestMethod.GET)
-    public String turnFoodDisplay(Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn){
+    public String turnFoodDisplay(Model model,
+                                  @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                                  @RequestParam(value = "info",defaultValue = "") String info){
         PageHelper.startPage(pn, 5);
         PageHelper.orderBy("food_id asc");
 
-        List<Food> foodList = foodService.getAllFood();
+        List<Food> foodList = foodService.getFoodByName(info);
 
         PageInfo page = new PageInfo(foodList, 3);
         if(page.getPages() == 0) {
@@ -60,6 +62,7 @@ public class FoodController {
         }
 
         model.addAttribute("foodList",foodList);
+        model.addAttribute("info", info);
         return "admin/food/foodDisplay";
     }
 
@@ -92,7 +95,7 @@ public class FoodController {
             //6.把文件名放在model里，以便后续显示用
             foodService.addFood(foodName,foodSubName,fileName,foodPrice,foodDesc);
             model.addAttribute("fileName", fileName);
-            turnFoodDisplay(model,1);
+            turnFoodDisplay(model,1,"");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return "上传失败," + e.getMessage();
@@ -108,7 +111,7 @@ public class FoodController {
         int id = Integer.parseInt(fId);
         foodBelongService.deleteFoodBelong(Integer.parseInt(fId));
         foodService.deleteFood(id);
-        turnFoodDisplay(model,1);
+        turnFoodDisplay(model,1,"");
         return "admin/food/foodDisplay";
     }
 
@@ -146,7 +149,7 @@ public class FoodController {
             file.transferTo(destFile);
             food.setFdImage(fileName);
             foodService.updateFood(food);
-            turnFoodDisplay(model,1);
+            turnFoodDisplay(model,1,"");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return "上传失败," + e.getMessage();
@@ -172,22 +175,24 @@ public class FoodController {
         for(int i = 0; i < item.length; i++){
             foodBelongService.addFoodBelong(foodId, item[i]);
         }
-        turnFoodDisplay(model,1);
+        turnFoodDisplay(model,1,"");
         return "admin/food/foodDisplay";
     }
 
-    @RequestMapping(value = "admin/food/foodSearch", method = RequestMethod.GET)
-    public String foodSearch(String info, Model model){
-        List<Food> foodSearchResult = foodService.getFoodByName(info);
-        model.addAttribute("foodSearchResult",foodSearchResult);
-        return "admin/food/foodSearchResult";
-    }
+//    @RequestMapping(value = "admin/food/foodSearch", method = RequestMethod.GET)
+//    public String foodSearch(@RequestParam(value = "info") String info,
+//                             @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+//                             Model model){
+//        List<Food> foodSearchResult = foodService.getFoodByName(info);
+//        model.addAttribute("foodSearchResult",foodSearchResult);
+//        return turnFoodDisplay(model,1,info);
+//    }
 
     @RequestMapping(value = "foodDisplay" , method = RequestMethod.GET)
     public String foodDisplayPage(Model model){
 //        List<Food> foodList = foodService.getAllFood();
 //        model.addAttribute("foodList",foodList);
-        turnFoodDisplay(model,1);
+        turnFoodDisplay(model,1,"");
         return "admin/food/foodDisplay";
     }
 }

@@ -86,10 +86,10 @@ public class BalanceController {
 
     @RequestMapping(value = "payOrder", method = RequestMethod.POST)
     public String payOrder(@RequestParam("orderId")Integer orderId,
-                           HttpServletRequest request,
+//                           HttpServletRequest request,
                            Model model) {
-        HttpSession session = request.getSession();
-        String cId = ((Customer)session.getAttribute("customer")).getcId();
+//        HttpSession session = request.getSession();
+//        String cId = ((Customer)session.getAttribute("customer")).getcId();
         MyOrder myOrder= orderService.getOrderById(orderId);
         Receiver receiver = receiverService.getReceiverById(myOrder.getrId());
         BigDecimal totalPrice = orderService.getOrderPrice(orderId);

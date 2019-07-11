@@ -152,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
             o.setFoods(foods);
             ordersWithFoodAndReceivers.add(o);
         }
+        java.util.Collections.sort(ordersWithFoodAndReceivers);
         return ordersWithFoodAndReceivers;
     }
 

@@ -12,6 +12,9 @@ public class Collections {
     @Column(name = "food_id")
     private Integer foodId;
 
+    public static void sort() {
+    }
+
     /**
      * @return c_id
      */

@@ -3,6 +3,9 @@ package com.adgwr.online.ordering.system.vo;
 import com.adgwr.online.ordering.system.domain.MyOrder;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ import java.util.List;
  * @author lyc
  * @version 1.0
  */
-public class OrderWithFoodAndReceiver {
+public class OrderWithFoodAndReceiver implements Comparable<OrderWithFoodAndReceiver> {
 
     /**
      * 订单id
@@ -186,5 +189,23 @@ public class OrderWithFoodAndReceiver {
      */
     public void setState(String state) {
         this.state = state;
+    }
+
+
+    @Override
+    public int compareTo(OrderWithFoodAndReceiver o) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date thisOne = df.parse(this.getDate());
+            Date that = df.parse(o.getDate());
+            if (thisOne.after(that)) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

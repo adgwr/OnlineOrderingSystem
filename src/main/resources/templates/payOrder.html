@@ -5,11 +5,13 @@
 <title>订单支付</title>
 <link href="css/public.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="css/base.css" />
-<script type="text/javascript" src="js/jquery_cart.js"></script>
+<script type="text/javascript" src="js/jquery_cart.js">
+</script>
 <link rel="stylesheet" type="text/css" href="css/buyConfirm.css" />
 <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
 <script src="js/unslider.min.js" type="text/javascript"></script>
 <script src="js/index.js" type="text/javascript"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="templets/cloud_04/style/lib.css" />
 <link rel="stylesheet" type="text/css"
@@ -28,7 +30,7 @@
 	<div class="border_top_cart">
 
 		<div class="container payment-con">
-			<form target="_blank" action="/paySuccessfully" id="pay-form" method="post"
+			<form target="_self" action="/paySuccessfully" id="pay-form" method="post"
 				style="margin-top: 100px;">
 				<div class="order-info">
 					<div class="msg">
@@ -87,8 +89,10 @@
 					</div>
 					<div class="box-ft clearfix">
 						<input type="hidden" name="orderPrice"
-							th:value="${totalPrice}" /> <input type="hidden"
-							name="orderId" th:value="${orderId}" /> <input
+							th:value="${totalPrice}" />
+						<input type="hidden"
+							name="orderId" th:value="${orderId}" />
+						<input
 							type="submit" class="btn btn-primary" value="下一步" id="payBtn">
 						<a th:href="@{/cancelOrder(orderId=${orderId})}"
 							class="btn btn-lineDakeLight" style="float:left">取消订单</a> <span class="tip"></span>

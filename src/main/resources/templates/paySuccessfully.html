@@ -12,6 +12,14 @@
 <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
 <script src="js/unslider.min.js" type="text/javascript"></script>
 <script src="js/index.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		//防止页面后退
+		history.pushState(null, null, document.URL);
+		window.addEventListener('popstate', function () {
+			history.pushState(null, null, document.URL);
+		});
+
+	</script>
 <link rel="stylesheet" type="text/css"
 	href="templets/cloud_04/style/lib.css" />
 <link rel="stylesheet" type="text/css"

@@ -7,11 +7,15 @@ import com.adgwr.online.ordering.system.domain.Food;
 import com.adgwr.online.ordering.system.domain.Lineitem;
 import com.adgwr.online.ordering.system.domain.MyOrder;
 import com.adgwr.online.ordering.system.vo.Sale;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.Calendar;
 
 import java.text.ParseException;
@@ -41,9 +45,28 @@ public class SalesController {
      * @return
      */
     @RequestMapping(value = "admin/salesView", method = RequestMethod.GET)
-    public String salesView(Model model) throws ParseException {
+    public String salesView(Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn) throws ParseException {
+        PageHelper.startPage(pn, 5);
+        PageHelper.orderBy("food_id asc");
+
         //获取当天的已完成订单
         List<Sale> saleList = salesSelected(getOrderListDaily());
+
+        PageInfo page = new PageInfo(saleList, 3);
+        if(page.getPages() == 0) {
+            model.addAttribute("hasFood", false);
+        }
+        else {
+            model.addAttribute("hasFood", true);
+            model.addAttribute("currentPage",page.getPageNum());
+            int start = (pn-1)/5*5+1;
+            int end = Math.min(start+4,page.getPages());
+            model.addAttribute("hasStart",start != 1);
+            model.addAttribute("hasEnd",end != page.getPages());
+            model.addAttribute("startPage", start);
+            model.addAttribute("endPage", end);
+        }
+
         model.addAttribute("saleList",saleList);
         model.addAttribute("viewMethod", "本日");
         return "admin/salesView";

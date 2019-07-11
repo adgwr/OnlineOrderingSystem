@@ -86,17 +86,17 @@ public class AdminOrderController {
      * @param model
      * @return
      */
-//    @RequestMapping(value = "receiveOrder", method = RequestMethod.POST)
-//    public String receiveOrder(String[] paidOrder, Model model) {
-//        if(paidOrder == null){
-//            model.addAttribute("message", "您没有选中任何订单");
-//            return showOrderLists("", model);
-//        }
-//        for (String s : paidOrder) {
-//            adminOrderService.receiveOrder(Integer.parseInt(s));
-//        }
-//        return showOrderLists("", model);
-//    }
+    @RequestMapping(value = "receiveOrder", method = RequestMethod.POST)
+    public String receiveOrder(String[] paidOrder, Model model) {
+        if(paidOrder == null){
+            model.addAttribute("message", "您没有选中任何订单");
+            return showOrderLists("toAccept",1, model);
+        }
+        for (String s : paidOrder) {
+            adminOrderService.receiveOrder(Integer.parseInt(s));
+        }
+        return showOrderLists("toAccept", 1, model);
+    }
 
     /**
      * 将已接单的订单改为配送中状态
@@ -105,17 +105,17 @@ public class AdminOrderController {
      * @param model
      * @return
      */
-//    @RequestMapping(value = "deliverOrder", method = RequestMethod.POST)
-//    public String deliverOrder(String[] receiveOrder, Model model) {
-//        if(receiveOrder == null){
-//            model.addAttribute("message", "您没有选中任何订单");
-//            return showOrderLists("", model);
-//        }
-//        for (String s : receiveOrder) {
-//            adminOrderService.deliverOrder(Integer.parseInt(s));
-//        }
-//        return showOrderLists("", model);
-//    }
+    @RequestMapping(value = "deliverOrder", method = RequestMethod.POST)
+    public String deliverOrder(String[] receiveOrder, Model model) {
+        if(receiveOrder == null){
+            model.addAttribute("message", "您没有选中任何订单");
+            return showOrderLists("toDeliver", 1, model);
+        }
+        for (String s : receiveOrder) {
+            adminOrderService.deliverOrder(Integer.parseInt(s));
+        }
+        return showOrderLists("toDeliver", 1, model);
+    }
 
 
     /**

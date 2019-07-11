@@ -49,8 +49,16 @@
     }
 </style>
 <body class="nobanner">
-<div th:if="${session.adminAccount == null}" th:replace="banner.html"></div>
-<div th:if="${session.adminAccount != null}" th:replace="bannerAdmin.html"></div>
+<!--<div th:if="${session.customer != null}" th:replace="banner.html"></div>-->
+<!--<div th:unless="${session.customer != null}">-->
+<!--<div th:if="${session.adminAccount != null}" th:replace="bannerAdmin.html"></div>-->
+<!--</div>-->
+<div  th:if="${session.adminAccount != null}">
+    <div th:replace="bannerAdmin.html"></div>
+</div>
+<div th:unless="${session.adminAccount != null}">
+    <div th:replace="banner.html"></div>
+</div>
 <div id="sitecontent">
     <div class="npagePage Pageanli" id="mproject">
         <div class="content">

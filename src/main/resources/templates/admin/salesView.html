@@ -1,72 +1,129 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--	<meta charset="UTF-8">-->
-<!--	<link rel="stylesheet" type="text/css" href="/css/main.css" />-->
-<!--	<meta charset="utf-8"/>-->
-<!--	<title>SalesView</title>-->
-<!--	<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
-<!--	<link href="../../admin/css/gloab.css" rel="stylesheet">-->
-<!--	<link href="../../admin/css/regUsr.css" rel="stylesheet">-->
-<!--	<script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
-<!--	<script src="../../admin/js/register.js"></script>-->
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
-	<title>Sales View</title>
-	<style type="text/css">body {margin-bottom:300px;}</style>
+    <!--	<meta charset="UTF-8">-->
+    <!--	<link rel="stylesheet" type="text/css" href="/css/main.css" />-->
+    <!--	<meta charset="utf-8"/>-->
+    <!--	<title>SalesView</title>-->
+    <!--	<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--	<link href="../../admin/css/gloab.css" rel="stylesheet">-->
+    <!--	<link href="../../admin/css/regUsr.css" rel="stylesheet">-->
+    <!--	<script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
+    <!--	<script src="../../admin/js/register.js"></script>-->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css"/>
+    <title>Sales View</title>
+    <style type="text/css">body {
+        margin-bottom: 300px;
+    }</style>
 </head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
 <body>
 <div class="main">
-	<div class="main-content">
-		<div class="container-fluid">
-			<h1 class="page-title">销售情况查询</h1>
-			<div class="row">
-				<div class="panel-body" style="height: 560px; overflow-y:scroll">
-				<div class="panel">
-					<div class="panel-heading">
-						<h3 class="panel-title">销售情况</h3>
+    <div class="main-content">
+        <div class="container-fluid">
+            <h1 class="page-title">销售情况查询</h1>
+            <div class="row">
+                <div class="panel-body" style="height: 560px; overflow-y:scroll">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">销售情况</h3>
 
-					</div>
+                        </div>
 
-					<div class="panel-body">
-						<table align="center">
-							<tr>
-								<td width="150px">查询范围</td>
-								<td width="350px">
-									<form method="get" name="SearchSales" th:action="@{'/searchSales'}">
-										<select name="viewMethod">
-											<option value="today">today</option>
-											<option value="this week">this week</option>
-											<option value="this month">this month</option>
-										</select>
-										<input type="submit" value="Search">
-									</form>
-								<th th:text="${viewMethod}+'的销售情况'"></th>
-								</td>
-							</tr>
-						</table>
+                        <div class="panel-body">
+                            <table align="center">
+                                <tr>
+                                    <td width="150px">查询范围</td>
+                                    <td width="350px">
+                                        <form method="get" name="SearchSales" th:action="@{'/searchSales'}">
+                                            <select name="viewMethod">
+                                                <option value="today">today</option>
+                                                <option value="this week">this week</option>
+                                                <option value="this month">this month</option>
+                                            </select>
+                                            <input type="submit" value="Search">
+                                        </form>
+                                    <th th:text="${viewMethod}+'的销售情况'"></th>
+                                    </td>
+                                </tr>
+                            </table>
 
-						<table class="table">
-							<thead>
-							<tr>
-								<th>菜品ID</th>
-								<th>菜品名</th>
-								<th>销售数量</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr th:each="sale:${saleList}">
-								<td th:text="${sale.getFoodId()}"></td>
-								<td th:text="${sale.getFoodName()}"></td>
-								<td th:text="${sale.getAmount()}"></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>菜品ID</th>
+                                    <th>菜品名</th>
+                                    <th>销售数量</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="sale:${saleList}">
+                                    <td th:text="${sale.getFoodId()}"></td>
+                                    <td th:text="${sale.getFoodName()}"></td>
+                                    <td th:text="${sale.getAmount()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center">
+                            <ul class="pagination">
+                                <li th:if="${hasStart}">
+                                    <a th:if="${hasStart}" th:href="@{/admin/salesView(pn=${startPage}-1)}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                                    <a th:href="@{/admin/salesView(pn=${page})}" th:if="${page==currentPage}"
+                                       class="active"
+                                       th:text="${page}"></a>
+                                    <a th:href="@{/admin/salesView(pn=${page})}" th:if="${page!=currentPage}"
+                                       th:text="${page}"></a>
+                                </li>
+                                <li th:if="${hasEnd}">
+                                    <a th:if="${hasEnd}" th:href="@{/admin/salesView(pn=${endPage}+1)}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

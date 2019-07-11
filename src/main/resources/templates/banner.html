@@ -67,7 +67,7 @@
                 <a href="/register">注册 </a>
             </li>
             <li class="navitem" th:if="${session.customer!=null}">
-                <a href="/customerIndex">欢迎<span th:text="${session.customer.cId}"></span>回来 </a>
+                <a href="/customerIndex">欢迎<span th:text="${session.customer.getcId()}"></span>回来 </a>
             </li>
             <li class="navitem" th:if="${session.customer!=null}">
                 <a href="/logout" target="_self" th:if="${session.customer!=null}">退出登录</a>

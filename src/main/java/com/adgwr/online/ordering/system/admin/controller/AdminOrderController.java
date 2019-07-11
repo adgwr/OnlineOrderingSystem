@@ -142,8 +142,6 @@ public class AdminOrderController {
             model.addAttribute("hasEnd",end != pageInfo.getPages());
             model.addAttribute("startPage", start);
             model.addAttribute("endPage", end);
-            System.out.println("列表大小:" + orders.size());
-            System.out.println("startPage: " + start + " endPage: " + end);
         }
 
         model.addAttribute("orders", orders);

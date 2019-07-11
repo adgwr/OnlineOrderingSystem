@@ -127,4 +127,18 @@ public class AdminServiceImpl implements AdminService {
         adminAccountMapper.updateByPrimaryKey(adminAccount);
     }
 
+    @Override
+    public List<AdminAccount> getAdminByName(String adminName){
+        adminName = "%" + adminName + "%";
+        Example example = new Example(AdminAccount.class);
+        example.createCriteria().orLike("adminId",adminName);
+        List<AdminAccount> adminAccounts = adminAccountMapper.selectByExample(example);
+        for(int i=0;i<adminAccounts.size();i++){
+            if(adminAccounts.get(i).getIssuper() == 1){
+                adminAccounts.remove(i);
+            }
+        }
+        return adminAccounts;
+    }
+
 }

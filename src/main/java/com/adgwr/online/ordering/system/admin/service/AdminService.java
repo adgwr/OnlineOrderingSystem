@@ -68,4 +68,12 @@ public interface AdminService {
      * @param adminAccount
      */
     void updateAdmin(AdminAccount adminAccount);
+
+    /**
+     * 根据用户名查找管理员账号
+     * @param adminName
+     * @return
+     */
+    List<AdminAccount> getAdminByName(String adminName);
+
 }

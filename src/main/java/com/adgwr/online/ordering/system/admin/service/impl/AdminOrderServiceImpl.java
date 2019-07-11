@@ -149,7 +149,10 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Override
     public List<MyOrder> showFinishedOrderList() {
-        return myOrderMapper.selectByState("已完成");
+        List<MyOrder> myOrderList = new ArrayList<MyOrder>();
+        myOrderList.addAll(myOrderMapper.selectByState("已完成"));
+        myOrderList.addAll(myOrderMapper.selectByState("待评价"));
+        return myOrderList;
     }
 
     @Override

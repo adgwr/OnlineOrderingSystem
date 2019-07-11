@@ -286,9 +286,10 @@ public class AdminController {
             model.addAttribute("searchAdmin", searchAdmin);
             return "admin/searchResult";
         }
-            AdminAccount searchAdmin = adminService.getAdminById(searchKey);
-            model.addAttribute("searchAdmin", searchAdmin);
-            return "admin/searchResult";
+
+        List<AdminAccount> searchAdmins = adminService.getAdminByName(searchKey);
+        model.addAttribute("searchAdmins",searchAdmins);
+        return "admin/searchResult";
     }
 
     @RequestMapping(value = "left1", method = RequestMethod.GET)

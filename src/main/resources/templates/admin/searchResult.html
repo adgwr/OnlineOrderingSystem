@@ -21,9 +21,22 @@ a{
 					<div class="panel-heading">
 						<h3 class="panel-title">账号信息</h3>
 						<br>
-						<div>
-							<p><strong>用户名:</strong><span th:text="${searchAdmin.adminId}"></span></p>
-							<p><strong>电话:</strong><span th:text="${searchAdmin.adTel}"></span></p>
+						<div class="panel-body">
+							<table class="table">
+								<thead>
+								<tr>
+									<th>用户名</th>
+									<th>电话</th>
+								</tr>
+								<tbody>
+								<tr th:each="searchAdmin:${searchAdmins}">
+									<!--                                <td>${food.foodID}</td>-->
+									<td th:text="${searchAdmin.adminId}"></td>
+									<td th:text="${searchAdmin.adTel}"></td>
+								</tr>
+								</tbody>
+
+							</table>
 						</div>
 						<div class="f-fl item-ifo">
 							<a th:href="@{'return'}" class="btn btn-red f-r3" id="btn_part2">返回</a>

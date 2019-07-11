@@ -22,6 +22,14 @@
 	src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./templets/cloud_04/js/org.js"
 	data-main="indexMain"></script>
+	<script type="text/javascript">
+		//防止页面后退
+		history.pushState(null, null, document.URL);
+		window.addEventListener('popstate', function () {
+			history.pushState(null, null, document.URL);
+		});
+
+	</script>
 </head>
 
 <body>

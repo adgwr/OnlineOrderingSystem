@@ -200,8 +200,10 @@ public class OrderWithFoodAndReceiver implements Comparable<OrderWithFoodAndRece
             Date that = df.parse(o.getDate());
             if (thisOne.after(that)) {
                 return -1;
-            } else {
+            } else if (thisOne.before(that)) {
                 return 1;
+            } else {
+                return 0;
             }
         } catch (ParseException e) {
             e.printStackTrace();

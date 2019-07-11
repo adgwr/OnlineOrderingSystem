@@ -72,10 +72,10 @@ public class OrderServiceImpl implements OrderService {
             s.setFoodId(b.getFoodId());
             s.setcId(cId);
             shoppingcartMapper.deleteByPrimaryKey(s);
-            return orderId;
-        }
 
-        return -1;
+        }
+        return orderId;
+//        return -1;
     }
 
     @Override

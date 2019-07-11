@@ -4,11 +4,43 @@
 <head>
 <!--<link rel="stylesheet" href="../../static/admin/css/main.css"/>-->
 	<link rel="stylesheet" href="../admin/css/main.css"/>
-<style>
-a{
-		text-decoration:none;
-}
-</style>
+	<style type="text/css">
+		a{
+			text-decoration:none;
+		}
+
+		.pagination {
+			padding: 40px 0;
+			display: inline-block;
+		}
+
+		.pagination li {
+			display: inline;
+		}
+
+		.pagination a {
+			display: inline-block;
+			height: 33px;
+			padding: 0px 13px;
+			background: #000;
+
+			line-height: 33px;
+			text-align: center;
+			min-width: 30px;
+			font-size: 16px;
+			color: #aaa;
+		}
+
+		.pagination a:hover, .pagination a.current {
+			background: #999;
+			color: #000;
+		}
+
+		ul.pagination li a.active {
+			background-color: #999;
+			color: #000;
+		}
+	</style>
 <title>adminMain</title>
 </head>
 <body>
@@ -38,6 +70,29 @@ a{
 
 							</table>
 						</div>
+<!--						分页搜索的页面导航-->
+						<div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center">
+							<ul class="pagination">
+								<li th:if="${hasStart}">
+									<a th:if="${hasStart}" th:href="@{/search(pn=${startPage}-1, searchKey=${searchKey})}" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+								<li th:each="page:${#numbers.sequence(startPage,endPage)}">
+									<a th:href="@{/search(pn=${page}, searchKey=${searchKey})}" th:if="${page==currentPage}"
+									   class="active"
+									   th:text="${page}"></a>
+									<a th:href="@{/search(pn=${page}, searchKey=${searchKey})}" th:if="${page!=currentPage}"
+									   th:text="${page}"></a>
+								</li>
+								<li th:if="${hasEnd}">
+									<a th:if="${hasEnd}" th:href="@{/search(pn=${endPage}+1, searchKey=${searchKey})}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+<!--						分页搜索的导航结束-->
 						<div class="f-fl item-ifo">
 							<a th:href="@{'return'}" class="btn btn-red f-r3" id="btn_part2">返回</a>
 						</div>

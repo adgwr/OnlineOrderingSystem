@@ -280,15 +280,31 @@ public class AdminController {
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
-    public String search(String searchKey, Model model){
+    public String search(String searchKey, Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn){
         if (searchKey == "") {
             AdminAccount searchAdmin = new AdminAccount();
             model.addAttribute("searchAdmin", searchAdmin);
-            return "admin/searchResult";
+            return "adminarchResult";
+        }
+        PageHelper.startPage(pn, 5);
+        List<AdminAccount> searchAdmins = adminService.getAdminByName(searchKey);
+        PageInfo page = new PageInfo(searchAdmins, 3);
+        if(page.getPages() == 0) {
+            model.addAttribute("hasFood", false);
+        }
+        else {
+            model.addAttribute("hasFood", true);
+            model.addAttribute("currentPage",page.getPageNum());
+            int start = (pn-1)/5*5+1;
+            int end = Math.min(start+4,page.getPages());
+            model.addAttribute("hasStart",start != 1);
+            model.addAttribute("hasEnd",end != page.getPages());
+            model.addAttribute("startPage", start);
+            model.addAttribute("endPage", end);
         }
 
-        List<AdminAccount> searchAdmins = adminService.getAdminByName(searchKey);
         model.addAttribute("searchAdmins",searchAdmins);
+        model.addAttribute("searchKey", searchKey);
         return "admin/searchResult";
     }
 

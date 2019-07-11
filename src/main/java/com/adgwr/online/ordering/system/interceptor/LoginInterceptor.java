@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * 登录拦截器
+ * 拦截器
  * @author Administrator
  */
 public class LoginInterceptor implements HandlerInterceptor {
@@ -34,10 +34,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         String url = request.getRequestURL().toString();
-        Enumeration<String> parameterNames = request.getParameterNames();
-        boolean b = parameterNames.hasMoreElements();
-
-        System.out.println(url);
         Object customer = session.getAttribute("customer");
         Object adminAccount = session.getAttribute("adminAccount");
         if(customer==null && adminAccount==null){

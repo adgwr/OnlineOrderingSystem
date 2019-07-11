@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../static/admin/css/main.css">
+<title>left</title>
+<style type="text/css">
+a{
+	text-decoration:none;
+	color: #d2d2d2;
+}
+</style>
+</head>
+<body style="background:transparent;">
+<!-- LEFT SIDEBAR -->
+				<br/>
+				<br/>
+				<br/>
+	<div id="sidebar-nav" class="sidebar" >
+		<div class="sidebar-scroll">
+			<nav>
+				<ul class="nav">
+					<li><a th:href="@{'admin/food/foodDisplay'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>菜品列表</span></a></li>
+					<br/>
+					<li><a th:href="@{'admin/CategoryDisplay'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>类别管理</span></a></li>
+					<br/>
+					<li><a th:href="@{'showOrderList'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>订单管理</span></a></li>
+					<br/>
+					<li><a th:href="@{'admin/salesView'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>销售情况</span></a></li>
+					<br/>
+					<li><a th:href="@{'modifyPassword1'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>修改密码</span></a></li>
+					<br/>
+				</ul>
+			</nav>
+		</div>
+	</div>
+<!-- END LEFT SIDEBAR -->
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html style="background-color:#212121">
+<head>
+    <script type="text/javascript" th:inline="javascript">
+        function sleep(ms) {
+            return new Promise(resolve =>
+                setTimeout(resolve, ms)
+            )
+        }
+
+        var message = [[${message}]];
+        //等待页面加载
+        sleep(500).then(() => {
+            if (message != null) {
+                alert(message);
+                if(message=="修改成功,即将跳转个人信息页"){
+                    window.location.href="customerIndex";
+                }
+            }
+        });
+    </script>
+    <link th:href="@{{APP_PATH}/customer/css/bootstrap.min.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/customer/css/gloab.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <link th:href="@{{APP_PATH}/customer/css/regUsr.css(APP_PATH=${APP_PATH})}" type="text/css" rel="stylesheet">
+    <script th:src="@{{APP_PATH}/customer/js/jquery-1.11.1.min.js(APP_PATH=${APP_PATH})}"></script>
+    <script th:src="@{{APP_PATH}/customer/js/register.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
+    <script type="text/javascript">
+        function edit() {
+            if ($("#tel").val() == "" && $("#pwd").val() == "") {
+                alert('请至少修改一项 !');
+                return;
+            }
+            document.f.submit();
+        }
+        $(function () {
+            var tel = document.getElementById('requestTel').value;
+            var email = document.getElementById('requestEmail').value;
+
+            if (typeof tel == "null") {
+
+            }
+        })
+    </script>
+    <style>
+        .btn-red {
+            background-color: #C72828;
+            border-color: #1997d7;
+            color: #fff;
+            font-size: 18px;
+            height: 44px;
+            line-height: 44px;
+            width: 270px;
+            padding: 0;
+        }
+    </style>
+    <title>编辑个人信息</title>
+</head>
+<body>
+<body class="bgf4" style="background-color:#212121">
+<div class="login-box f-mt10 f-pb50">
+    <div class="main bgf" style="background-color:#212121">
+        <div class="reg-box-pan display-inline">
+            <div class="reg-box" id="verifyCheck" style="margin-top: 20px;">
+<!--                <%&#45;&#45; <input type="hidden" value="${param.tel }" id="requestTel"/> &#45;&#45;%>-->
+<!--                <%&#45;&#45; <input type="hidden" value="${param.email }" id="requestEmail"/> &#45;&#45;%>-->
+                <form name="f" action="/editCustomer" method="POST">
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>原电话:</span>
+                        <div class="f-fl item-ifo">
+                            <input type="text" name="oldTel" maxlength="20"
+                                   class="txt03 f-r3 required" tabindex="1"
+                                   data-valid="isNonEmpty||between:3-20||isUname"
+                                   id="userName" th:value="${session.customer.cTel}"
+                                   disabled="disabled" style="background-color:transparent;"/> <span
+                                class="ie8 icon-close close hide"></span>
+                        </div>
+                    </div>
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl" style="color:#fff;"><b class="ftx04">*</b>原邮件:</span>
+                        <div class="f-fl item-ifo">
+                            <input type="text" name="oldEmail" maxlength="20"
+                                   class="txt03 f-r3 required" tabindex="1"
+                                   data-valid="isNonEmpty||between:3-20||isUname"
+                                   id="userEmail" th:value="${session.customer.email}"
+                                   disabled="disabled" style="background-color:transparent;"/> <span
+                                class="ie8 icon-close close hide"></span>
+                        </div>
+                    </div>
+
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl" style="color:#fff;">新的电话:</span>
+                        <div class="f-fl item-ifo">
+                            <input type="text" name="newTel" id="tel"
+                                   maxlength="20" class="txt03 f-r3 required" tabindex="3"
+                                   style="ime-mode: disabled;background-color:transparent;">
+                        </div>
+                    </div>
+
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl" style="color:#fff;">新的邮件地址:</span>
+                        <div class="f-fl item-ifo">
+                            <input type="text" name="newEmail" id="email"
+                                   maxlength="20" class="txt03 f-r3 required" tabindex="2"
+                                   style="ime-mode: disabled;background-color:transparent;"/>
+                        </div>
+                    </div>
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl">&nbsp;</span>
+                        <div class="f-fl item-ifo">
+                            <!-- 								<a href="javascript:;" onclick="edit();" class="btn btn-blue f-r3" id="btn_part1">Apply</a> -->
+                            <input type="hidden" name="id" id="id" value="${user.c_id }">
+                            <input type="button" onclick="edit();" class="btn btn-blue f-r3" id="btn_part1" value="修改"/>
+                        </div>
+                    </div>
+                    <div class="item col-xs-12">
+                        <span class="intelligent-label f-fl">&nbsp;</span>
+                        <!--<div class="f-fl item-ifo">
+                            <a style="border:none" href="index"
+                               target="rightFrame" class="btn btn-red f-r3" id="btn_part2">取消</a>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

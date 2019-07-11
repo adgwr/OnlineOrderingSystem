@@ -1,0 +1,148 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/lib.css" />
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/376.css" />
+    <script type="text/javascript"
+            src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="templets/cloud_04/js/org.js"
+            data-main="baseMain"></script>
+    <title>菜品-网上订单系统</title>
+</head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
+<body class="nobanner">
+<!--替代jsp:include-->
+<div th:replace="banner.html"></div>
+<div id="sitecontent">
+    <div class="npagePage Pageanli" id="mproject">
+        <div class="content">
+            <div class="header" id="plheader">
+                <p class="title">我的订单</p>
+                <p class="subtitle">My Orders</p>
+            </div>
+            <div th:if="${!hasOrder}" style="margin-top: 100px;text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="暂无订单"></label>
+            </div>
+            <div th:if="${hasOrder}" id="showOrders">
+                <table>
+                    <tr id="line1">
+                        <th>商品</th>
+                        <th>价格</th>
+                        <th>收件人</th>
+                        <th>时间</th>
+                        <th>交货方式</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <tr th:class="otherLine" th:each="order:${orders}">
+                        <td><table>
+                            <tr th:each="lineItem:${order.foods}">
+                                <td th:text="${lineItem}"/>
+                            </tr>
+                        </table></td>
+
+                        <td th:text="${order.price}"/>
+                        <td th:text="${order.receiver}"/>
+                        <td th:text="${order.date}"/>
+                        <td th:text="${order.shipment}"/>
+                        <td th:text="${order.state}"/>
+
+                        <td th:switch="${order.state}">
+                            <div th:case="未付款">
+                                <form action="/payOrder" method="post" >
+                                    <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                    <input id="pay" type="submit" value="立即付款" />
+                                </form>
+                                <form action="/cancelOrder" method="post" onsubmit="return confirm('是否取消改订单？')">
+                                    <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                    <input class="cancel" type="submit" value="取消订单" />
+                                </form>
+                            </div>
+                            <form th:case="已付款" action="/cancelOrder" method="post" onsubmit="return confirm('是否取消改订单？')">
+                                <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                <input class="cancel" type="submit" value="取消订单" />
+                            </form>
+                            <form th:case="已接单" action="/cancelOrder" method="post" onsubmit="return confirm('是否取消改订单？')">
+                                <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                <input class="cancel" type="submit" value="取消订单" />
+                            </form>
+                            <form th:case="正在配送" action="/changeOrderState" method="post" onsubmit="return confirm('是否确认收货？')">
+                                <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                                <input id="finish" type="submit" value="确认收货" />
+                            </form>
+                            <form th:case="待评价" action="/prepareAssess" method="post" onsubmit="return confirm('是否进行评价？')">
+                                <input th:type="hidden" th:name="orderId" th:value="${order.orderId}" />
+                                <input id="comment" type="submit" value="立即评价" />
+                            </form>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="clear"></div>
+            <div id="pages"></div>
+            <div th:if="${hasOrder}" aria-label="Page navigation" style="width:100%;text-align: center">
+                <ul class="pagination">
+                    <li th:if="${hasStart}">
+                        <a th:if="${hasStart}" th:href="@{/getOrder(pn=${startPage}-1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a th:href="@{/getOrder(pn=${page})}" th:if="${page==currentPage}"
+                           class="active"
+                           th:text="${page}"></a>
+                        <a th:href="@{/getOrder(pn=${page})}" th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a th:if="${hasEnd}" th:href="@{/getOrder(pn=${endPage}+1)}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html"></div>
+</body>
+</html>

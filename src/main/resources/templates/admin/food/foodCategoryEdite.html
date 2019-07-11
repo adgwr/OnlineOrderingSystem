@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <title>Food Category Edit</title>
+    <style type="text/css">body {margin-bottom:300px;}</style>
+</head>
+<body>
+<div class="main">
+    <div class="main-content">
+        <div class="container-fluid">
+            <h3 class="page-title">菜品管理 >> 编辑菜品类别</h3>
+            <form action="/admin/food/foodDisplay">
+                <button type="submit" th:text="返回"></button>
+            </form>
+            <div class="row">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">选择类别</h3>
+                        <p><strong>ID:</strong><span th:text="${foodForCategory.getFoodId()}"></span></p>
+                        <p><strong>菜名:</strong><span th:text="${foodForCategory.getFdName()}"></span></p>
+                    </div>
+                    <div class="panel-body">
+
+                        <form action="/admin/food/categoryEdit" method="get">
+                            <table class="table">
+                                    <tr th:each="category:${categoryList}">
+                                        <td width="69">
+                                            <input type="checkbox" name="item" th:value="${category.getCategoryId()}"></td>
+                                        <td width="431" th:text="${category.getCategoryName()}"></td>
+                                    </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="foodId" th:value="${foodForCategory.getFoodId()}">
+                                        <input type="submit" value="提交">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta content="text/html; charset=utf-8">
+    <title>网上订餐系统</title>
+    <link th:href="@{{APP_PATH}/css/public.css(APP_PATH=${APP_PATH})}"
+          type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{{APP_PATH}/css/base.css(APP_PATH=${APP_PATH})}"/>
+    <script type="text/javascript"
+            th:src="@{{APP_PATH}/js/jquery_cart.js(APP_PATH=${APP_PATH})}"></script>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{{APP_PATH}/css/checkOut.css(APP_PATH=${APP_PATH})}"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{{APP_PATH}/templets/cloud_04/style/lib.css(APP_PATH=${APP_PATH})}"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{{APP_PATH}/templets/cloud_04/style/style.css(APP_PATH=${APP_PATH})}"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{{APP_PATH}/templets/cloud_04/style/376.css(APP_PATH=${APP_PATH})}"/>
+    <script type="text/javascript"
+            th:src="@{{APP_PATH}/templets/cloud_04/js/jquery-1.11.3.min.js(APP_PATH=${APP_PATH})}"></script>
+    <script type="text/javascript" th:src="@{{APP_PATH}/templets/cloud_04/js/org.js(APP_PATH=${APP_PATH})}"
+            data-main="baseMain"></script>
+</head>
+<body>
+
+<body class="nobanner">
+<div th:replace="banner.html"></div>
+
+<div id="sitecontent">
+    <div class="npagePage">
+        <div class="content">
+            <div class="header" id="plheader">
+                <p class="title">购物车</p>
+                <p class="subtitle">SHOPPINGCART</p>
+            </div>
+            <!--收货地址body部分开始-->
+            <div class="border_top_cart">
+                <div class="container">
+                    <div class="checkout-box">
+                        <form id="checkoutForm" name="checkoutForm" action="deleteShoppingCart" method="post">
+
+                            <div class="checkout-box-ft">
+                                <!-- 商品清单 -->
+                                <div id="checkoutGoodsList" class="checkout-goods-box">
+                                    <div class="xm-box">
+                                        <div class="box-bd">
+                                            <dl class="checkout-goods-list">
+                                                <dt class="clearfix">
+											<span class="col col-4">
+                                                <input type="checkbox" id="selectAllItems" name="selectAllItems"
+                                                       onclick="selectall();renewprice();"/>全选
+                                            </span>
+                                                    <span class="col col-1">商品名称</span>
+                                                    <span class="col col-2">价格</span>
+                                                    <span class="col col-3">数量</span>
+                                                    <span class="col col-4">小计（元）</span>
+                                                </dt>
+                                                <dd class="item clearfix" th:each="lineItem : ${lineItemList}">
+                                                    <div class="item-row">
+                                                        <div class="col col-4">
+                                                            <input id="itemselected" name="itemselected" type="checkbox"
+                                                                   th:value="${lineItem.food.getFoodId()}"
+                                                                   onclick="renewprice();"
+                                                                   th:price="${lineItem.totalPrice}"/>
+                                                        </div>
+                                                            <div class="col col-1">
+                                                                <div class="g-pic">
+                                                                    <img th:src="@{foodImage/{imagePath}(imagePath=${lineItem.getFood().getFdImage()})}"
+                                                                         width="40"
+                                                                         height="40"/>
+                                                                </div>
+                                                                <div class="g-info">
+                                                                    <a href="#" th:text="${lineItem.food.getFdName()}">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col col-2">
+                                                                <span th:text="${lineItem.food.getFdPrice()}"></span>
+                                                                元
+                                                            </div>
+                                                            <div class="col col-3">
+                                                                <div class="col col-5">
+                                                                    <a th:href="@{modifyShoppingCart(modifyType=add,foodId=${lineItem.getFood().foodId})}">
+                                                                        <img th:src="@{{APP_PATH}/images/+.png(APP_PATH=${APP_PATH})}"/></a>
+                                                                </div>
+
+                                                                <div class="col col-6">
+                                                                    <span th:text="${lineItem.shoppingcart.getAmount()}"></span>
+                                                                </div>
+                                                                <div class="col col-5" align="center">
+                                                                    <a th:href="@{modifyShoppingCart(modifyType=minus,foodId=${lineItem.getFood().foodId})}">
+                                                                        <img th:src="@{{APP_PATH}/images/-.png(APP_PATH=${APP_PATH})}"/></a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col col-4">
+                                                                <span th:text="${lineItem.totalPrice}"></span>
+                                                                元
+                                                            </div>
+
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <div class="checkout-count clearfix">
+                                                <!-- checkout-count-extend -->
+                                                <div class="checkout-price">
+                                                    <p class="checkout-total">
+                                                        总额：<span><strong id="orderPrice">0</strong>元</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- 商品清单 END -->
+                                <input type="hidden" id="couponType" name="Checkout[couponsType]"/>
+                                <input type="hidden" id="couponValue"
+                                       name="Checkout[couponsValue]"/>
+                                <div class="checkout-confirm">
+
+                                    <input class="btn btn-primary" value="删除所选项" id="checkoutToPay"
+                                           onclick="deleteSC();"/>
+                                    <a href="javascript:void(0);" onclick="categoryClicked();"
+                                       class="btn btn-lineDakeLight btn-back-cart">继续添加</a>
+                                    <input class="btn btn-primary" value="结算" onclick="makeorder();"
+                                           id="checkoutToPay"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <script th:src="@{{APP_PATH}/js/base.min.js(APP_PATH=${APP_PATH})}"></script>
+
+                <script type="text/javascript" th:src="@{{APP_PATH}/js/address_all.js(APP_PATH=${APP_PATH})}"></script>
+                <script type="text/javascript" th:src="@{{APP_PATH}/js/checkout.min.js(APP_PATH=${APP_PATH})}"></script>
+            </div>
+        </div>
+    </div>
+</div>
+<!--收货地址body部分结束-->
+<div th:replace="footer.html"></div>
+<script type="text/javascript" th:inline="javascript">
+
+    function sleep(ms) {
+        return new Promise(resolve =>
+            setTimeout(resolve, ms)
+        )
+    }
+
+    var message = [[${message}]];
+    //等待页面加载
+    sleep(300).then(() => {
+        if (message != null) {
+            alert(message);
+        }
+    });
+
+    function selectall() {
+        var selectbox = document.getElementById('selectAllItems');
+        var checkboxs = document.getElementsByName('itemselected');
+
+        if (selectbox.checked == true) {
+            for (var i = 0; i < checkboxs.length; i++) {
+                checkboxs[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < checkboxs.length; i++) {
+                checkboxs[i].checked = false;
+            }
+        }
+    }
+
+    function deleteSC() {
+        var Flag = false;
+        var checkboxs = document.getElementsByName('itemselected');
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (checkboxs[i].checked) {
+                Flag = true;
+                break;
+            }
+        }
+        if(Flag == false) {
+            alert('您还未选择任何食品！');
+        } else {
+            document.checkoutForm.action = "deleteShoppingCart";
+            document.checkoutForm.submit();
+        }
+
+    }
+
+    function makeorder() {
+        var Flag = false;
+        var checkboxs = document.getElementsByName('itemselected');
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (checkboxs[i].checked) {
+                Flag = true;
+                break;
+            }
+        }
+        if (Flag == false) {
+            alert('您还未选择任何食品！');
+        } else {
+            document.checkoutForm.action = "prepareBalance";
+            document.checkoutForm.submit();
+        }
+    }
+
+    function renewprice() {
+        var checkboxs = document.getElementsByName('itemselected');
+        var totalprice = 0.00;
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (checkboxs[i].checked) {
+                totalprice = parseFloat(checkboxs[i].getAttribute("price")) + parseFloat(totalprice);
+            }
+        }
+        //totalPrice.toFixed(2);
+        document.getElementById("orderPrice").innerHTML = totalprice.toFixed(2);
+    }
+</script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script th:src="@{{APP_PATH}/js/unslider.min.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
+<script th:src="@{{APP_PATH}/js/index.js(APP_PATH=${APP_PATH})}" type="text/javascript"></script>
+
+
+</body>
+</html>

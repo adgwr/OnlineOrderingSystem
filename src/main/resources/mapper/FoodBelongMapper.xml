@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adgwr.online.ordering.system.mapper.FoodBelongMapper">
+  <resultMap id="BaseResultMap" type="com.adgwr.online.ordering.system.domain.FoodBelong">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="food_id" jdbcType="INTEGER" property="foodId" />
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+  </resultMap>
+
+  <sql id="Base_Column_List_FoodBelong" >
+    food_id, category_id
+  </sql>
+  <select id="selectFoodBelongByFoodId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_FoodBelong" />
+    from food_belong
+    where food_id = #{food_id,jdbcType=INTEGER}
+  </select>
+</mapper>

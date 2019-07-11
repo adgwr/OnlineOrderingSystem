@@ -1,0 +1,64 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html style="background-color:#212121">
+<head>
+<style>
+#title{
+	margin-top:30px;
+	margin-bottom:10px;
+	text-align: center;
+	font-family: "Times New Roman", "微软雅黑";
+	color: #fff;
+	font-size: 26px;
+}
+#subtitle{
+		text-align: center;
+	    font-size: 14px;
+	    color: #B4B4B4;
+	    font-family: "Times New Roman", "微软雅黑";
+	    margin-bottom:25px;
+}
+table {
+	border: 3px solid #606060;
+	color: #fff;
+	background-color: transparent;
+	width: 90%;
+	border-collapse: collapse;
+	margin: auto;
+	border-radius: 5px;
+}
+table tr th{
+	border: 2px solid #606060;
+	font-size: 20px;
+	padding: 10px;
+	font-family: "Times New Roman", "微软雅黑";
+}
+table tr td {
+	border: 2px solid #606060;
+	font-size: 15px;
+	text-align:center;
+	font-family: "Times New Roman", "微软雅黑"; 
+}
+</style>
+<title>Insert title here</title>
+</head>
+<body>
+	<p id="title">用户信息</p>
+	<p id="subtitle">USER INFORMATION</p>
+	<table>
+			<tr>
+				<th>用户名</th>
+				<td th:text="${session.customer.cId}"></td>
+			</tr>
+			<tr>
+				<th>电话</th>
+				<td th:text="${session.customer.cTel}"></td>
+			</tr>
+			<tr>
+				<th>电子邮箱</th>
+				<td th:text="${session.customer.email}"></td>
+<!--				<%&#45;&#45; <td><a href="${pageContext.request.contextPath}/customer/editCustomer.jsp">编辑</a></td> &#45;&#45;%>-->
+			</tr>
+	</table>
+</body>
+</html>

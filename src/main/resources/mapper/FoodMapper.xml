@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adgwr.online.ordering.system.mapper.FoodMapper">
+  <resultMap id="BaseResultMap" type="com.adgwr.online.ordering.system.domain.Food">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="food_id" jdbcType="INTEGER" property="foodId" />
+    <result column="fd_name" jdbcType="VARCHAR" property="fdName" />
+    <result column="fd_subname" jdbcType="VARCHAR" property="fdSubname" />
+    <result column="fd_image" jdbcType="VARCHAR" property="fdImage" />
+    <result column="fd_price" jdbcType="DECIMAL" property="fdPrice" />
+    <result column="fd_description" jdbcType="VARCHAR" property="fdDescription" />
+    <result column="sale_volume" jdbcType="INTEGER" property="saleVolume" />
+    <result column="isshow" jdbcType="TINYINT" property="isshow" />
+  </resultMap>
+
+  <sql id="Base_Column_List_FoodSearch" >
+    food_id, fd_name, fd_subname, fd_image, fd_price, fd_description, isshow
+  </sql>
+  <select id="foodSearchByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_FoodSearch" />
+    from food
+    where fd_name = #{fd_name,jdbcType=VARCHAR}
+  </select>
+</mapper>

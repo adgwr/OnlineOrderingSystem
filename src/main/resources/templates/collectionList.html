@@ -1,0 +1,127 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/lib.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/style.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="templets/cloud_04/style/376.css"/>
+    <script type="text/javascript"
+            src="templets/cloud_04/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="templets/cloud_04/js/org.js"
+            data-main="baseMain"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>菜品-网上订单系统</title>
+</head>
+<style type="text/css">
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+
+    .pagination a {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+</style>
+<body class="nobanner">
+<div th:replace="banner.html"></div>
+<div id="sitecontent">
+    <div class="npagePage Pageanli" id="mproject">
+        <div class="content">
+            <div class="header" id="plheader">
+                <p class="title">收藏</p>
+                <p class="subtitle">COLLECTION</p>
+            </div>
+            <div th:if="${!hasCollection}" style="margin-top: 100px;text-align: center">
+                <label style="margin:auto; font-size: 30px; color:#aaa;"th:text="暂无菜品"></label>
+            </div>
+            <div th:if="${hasCollection}" id="projectlist" class="module-content" style="margin-top: 70px">
+                <div class="wrapper">
+                    <ul class="content_list">
+                        <li th:each="food : ${foods}" class="projectitem">
+                            <a th:href="@{/foodDetail(foodId=${food.foodId})}">
+                                <div class="project_img">
+                                    <img th:src="@{foodImage/{fdImage}(fdImage=${food.getFdImage()})}" width="500"
+                                         height="320"/>
+                                </div>
+                                <div class="project_info">
+                                    <div>
+                                        <p class="title" th:text="${food.getFdName()}"></p>
+                                        <p class="subtitle" th:text="${food.getFdSubname()}"></p>
+                                    </div>
+                                </div>
+                            </a> <a href="" target="_blank" class="details">更多
+                            <i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div id="pages"></div>
+        </div>
+    </div>
+
+    <div th:if="${hasCollection}" aria-label="Page navigation" style="width:100%;text-align: center">
+        <ul class="pagination">
+            <li th:if="${hasStart}">
+                <a th:if="${hasStart}" th:href="@{/getCollections(pn=${startPage}-1)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                <a th:href="@{/getCollections(pn=${page})}" th:if="${page==currentPage}"
+                   class="active"
+                   th:text="${page}"></a>
+                <a th:href="@{/getCollections(pn=${page})}" th:if="${page!=currentPage}"
+                   th:text="${page}"></a>
+            </li>
+            <li th:if="${hasEnd}">
+                <a th:if="${hasEnd}" th:href="@{/getCollections(pn=${endPage}+1)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="footer.html"></div>
+<script type="text/javascript">
+    function foodclicked(foodId) {
+        form = $("<form></form>")
+        form.attr('action', 'AddShoppingCart')
+        form.attr('method', 'post')
+        form.attr('accept-charset', 'UTF-8')
+        input1 = $("<input type='hidden' name='foodId'/>")
+        input1.attr("value", foodID)
+        form.append(input1)
+        form.appendTo("body")
+        form.css('display', 'none')
+        form.submit()
+    }
+</script>
+</body>
+</html>

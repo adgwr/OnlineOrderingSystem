@@ -1,0 +1,348 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html style="background-color:#212121">
+
+<script src="js/jquery.js"type="text/javascript"></script>
+<head>
+
+    <link href="../../customer/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="../../customer/css/gloab.css" type="text/css" rel="stylesheet">
+    <link href="../../customer/css/regUsr.css" type="text/css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>消费统计</title>
+</head>
+<style>
+    select#selectScope{
+        width                    : 85px;
+        height                   : 30px;
+        text-align               : left;
+        vertical-align           : middle;
+        border                   : 1px solid #94c1e7;
+        font-size                : 14px;
+        font-family: "Times New Roman", "微软雅黑";
+        /*font-weight              : 500;*/
+        color                    : RGBA(102,102,102,0.7);
+        cursor                   : pointer;
+        outline                  : none;
+        background: #212121;
+        margin-right: 5px;
+    }
+    table#statics{
+        color: whitesmoke;
+        width:60%;
+        border-radius: 5px;
+        border: 1px solid whitesmoke;
+        text-align: center;
+        float: left;
+        margin-top: 30px;
+    }
+    #statics tr td{
+        padding:15px 5px;
+        border: 1px solid whitesmoke;
+    }
+    .pagination {
+        padding: 40px 0;
+        display: inline-block;
+    }
+
+    .pagination li {
+        display: inline-block;
+    }
+
+    .pagination a,.pagination div {
+        display: inline-block;
+        height: 33px;
+        padding: 0px 13px;
+        background: #000;
+
+        line-height: 33px;
+        text-align: center;
+        min-width: 30px;
+        font-size: 16px;
+        color: #aaa;
+        border:none;
+    }
+
+    .pagination a:hover, .pagination a.current {
+        background: #999;
+        color: #000;
+        border:none;
+        cursor: pointer;
+    }
+
+    ul.pagination li a.active {
+        background-color: #999;
+        color: #000;
+    }
+
+    #search{
+        width: 75px;
+        height: 30px;
+        background-color: transparent;
+        color: #cfcfcf;
+        font-size: 14px;
+        border: 1px solid rgba(255, 255, 255, .2);
+        cursor: pointer;
+        transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        vertical-align: middle;
+        padding :5px;
+        border-radius: 5px;
+        border: 1px solid #606060;
+    }
+
+    #search:hover{
+        background-color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 255, 255, .1);
+        color: #333;
+    }
+</style>
+<body class="bgf4" style="background-color:#212121">
+<div class="login-box f-mt10 f-pb50">
+    <div class="main bgf" style="background-color:#212121; width:100%;">
+        <div class="reg-box-pan display-inline">
+            <div class="reg-box" style="margin-top: 20px;">
+<!--                查询部分-->
+                <form id="scope" action="/statics" method="get">
+                    <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>
+                    <select id="selectScope" th:name="selectScope" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:300px; margin:0px 30px;"
+                    th:value="${selectScope}">
+                        <option th:value="today" style="color: white;">今天</option>
+                        <option th:value="week" style="color: white;">本周</option>
+                        <option th:value="month" style="color: white;">当月</option>
+                        <option th:value="all" style="color: white;">所有</option>
+                    </select>
+                    <input type="submit" value="查询" id="search">
+                </form>
+            </div>
+            <div class="content" style="">
+                <table id="statics">
+                    <tr>
+                        <td width="50%">菜品名称</td>
+                        <td width="25%">消费数量</td>
+                        <td width="25%">总消费金额（￥）</td>
+                    </tr>
+                    <tr id="tr1"></tr>
+                    <tr id="tr2"></tr>
+                </table>
+<!--                饼状图-->
+                    <canvas id="cake" width="400px" height="250px"
+                            style="width:400px; height:250px; border:none; float: right; margin-left: 40px"></canvas>
+<!--                页面导航栏-->
+                <div class="clear"></div>
+                <div id="pages"></div>
+        </div>
+            <div th:if="${hasCon}" aria-label="Page navigation" style="width:60%;text-align: center; margin-top:20px;">
+            <ul class="pagination">
+                <li>
+                    <a onclick="javascript:nextPage(false)" id="previousPage" style="display: none">上一页</a>
+                    <div>第
+                        <input type="text" id="inputPage" placeholder="1" style="text-align:center; border:1px solid; width: 25px;height:33px;background: transparent;">&nbsp;页
+                        <span th:text="'，共 '+ ${totalPages}"></span>  页
+                    </div>
+                    <a href="javascript:void(0);" onclick="javascript:forPage()">跳转</a>
+                    <a onclick="javascript:nextPage(true)" id="nextPage">下一页 </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script th:inline="javascript">
+    var cons = [[${consumptionsFroPie}]];
+    if (cons.length == 0) {
+        alert("您还没有消费.");
+    }
+    // console.log(cons.length);
+    // 画图的商品数量
+    var len;
+    if (cons.length > 5) {
+        len = 5;
+    } else {
+        len = cons.length;
+    }
+
+    // 存放比例的数组
+    var portion = new Array();
+    // portion[0] = 0;
+    // 总的价格
+    var totalP = 0;
+    for (var i = 0; i < len; i++) {
+        totalP += cons[i].totalPrice;
+    }
+    for (var i = 0; i < len; i++) {
+        portion[i] = parseFloat((cons[i].totalPrice / totalP).toFixed(2));
+    }
+
+
+    // 要使用的属性
+    // var portion = [0, 0.2, 0.3, 0.1, 0.2];
+    // 颜色列表
+    var fillSytle = ["#f46443", "#3e27f1", "#FFFF00", "#00C5CD", "#ed4eef", "#d2dbd3"];
+    // var FNames = ["", "米饭", "紫菜蛋汤", "干锅", "红烧肉"];
+
+    // 得到dom元素
+    var cake = document.getElementById("cake");
+    if (cake == null) {
+        console.log("cake is not found");
+    }
+    var ctx = cake.getContext("2d");
+
+    // 画圆饼图
+    var startArg = 0;
+    for (var i = 0; i < len; i++) {
+        // console.log(FNames[i] + " " + portion[i]);
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 100, startArg*2*Math.PI, 2*(startArg + portion[i])*Math.PI);
+        ctx.fillStyle = fillSytle[i];
+        // ctx.closePath();
+        ctx.fill();
+        startArg += portion[i];
+    }
+    if (startArg < 1) {
+        // 画剩下饼图的一部分
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 100, startArg * 2 * Math.PI, 0);
+        ctx.fillStyle = fillSytle[portion.length];
+        // ctx.closePath();
+        ctx.fill();
+    }
+
+    // 编写文字
+    for (var j = 0; j < len; j++) {
+        // 画标识
+        ctx.beginPath();
+        ctx.fillStyle = fillSytle[j];
+        // x, y, h, w
+        ctx.fillRect(230, 60 + 25 * (j), 20, 15);
+        // 文字
+        ctx.font = '14px Miscrosoft Yahei';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(cons[j].foodName + " " + (portion[j]*100).toFixed(2) + " %", 230 + 30, 68 + 25 * (j), 130);
+        ctx.fill();
+    }
+
+    if (startArg < 1){
+        // 画其他部分标识
+        ctx.beginPath();
+        // 填色要早进行
+        ctx.fillStyle = fillSytle[len];
+        // x, y, h, w
+        ctx.fillRect(230, 60 + 25 * (portion.length), 20, 15);
+        // 文字
+        ctx.font = '14px Miscrosoft Yahei';
+        ctx.textBaseline = 'middle';
+        ctx.fillText("其他 " + ((1-startArg)*100).toFixed(2) + " %", 230 + 30, 68 + 25 * (portion.length), 130);
+        ctx.fill();
+        // 只要最后调用一次就行
+        ctx.closePath();
+    }
+
+    window.onload=function () {
+        // 设置下拉框选项
+        var selected = [[${selectScope}]];
+
+        if (selected != null) {
+            var sel = document.getElementById("selectScope");
+            for (i = 0; i <= sel.options.length; i++) {
+                if (sel.options[i].value == selected) {
+                    sel.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+
+        // 第一次进入显示后端的两个
+        var cons = [[${consumptions}]];
+        if (cons[0] != null && cons[0] != undefined) {
+            $('#tr1').html(tdHtml(cons[0]));
+        } else {
+            $('#tr1').html("");
+        }
+        if (cons[1] != null && cons[1] != undefined) {
+            $('#tr2').html(tdHtml(cons[1]));
+        } else {
+            $('#tr2').html("");
+        }
+    };
+
+    // 手动输入跳转页
+    function forPage() {
+        var input = document.getElementById("inputPage");
+        var inputPage = parseInt(input.value);
+        var total = [[${totalPages}]];
+        if ( inputPage <= parseInt(total) && inputPage > 0) {
+            // console.log("输入页面： " + inputPage);
+            getPage(inputPage);
+            input.attr("placeholder", this.value);
+
+        } else {
+            alert("范围错误！");
+        }
+    }
+
+    // 上一页或者下一页, true 是下一页， false 是上一页
+    function nextPage(flag) {
+        var input = document.getElementById("inputPage");
+        var total = parseInt([[${totalPages}]]);
+        var cur = parseInt(input.placeholder);
+        // console.log(cur + " total: " + total);
+        if (flag) {
+                getPage(cur + 1);
+        } else {
+            getPage(cur - 1);
+        }
+    }
+
+    // ajax 更新table数据
+    function getPage(page) {
+        var s = [[${selectScope}]];
+        var total = parseInt([[${totalPages}]]);
+        if (s == null) {
+            s = "all";
+        }
+        $.ajax({
+            type : "get",
+            url : "staticsWithPage",
+            data : {"pn":page, "selectScope":s},
+            success : function (response) {
+                // console.log(response);
+                // 例子只显示2行
+                if (response[0] != null && response[0] != undefined) {
+                    $('#tr1').html(tdHtml(response[0]));
+                } else {
+                    $('#tr1').html("");
+                }
+                if (response[1] != null && response[1] != undefined) {
+                    $('#tr2').html(tdHtml(response[1]));
+                } else {
+                    $('#tr2').html("");
+                }
+                if (page == total) {
+                    $("#nextPage").hide();
+                } else {
+                    $("#nextPage").show();
+                }
+                if (page == 1) {
+                    $("#previousPage").hide();
+                } else {
+                    $("#previousPage").show();
+                }
+                $("#inputPage").attr("placeholder", page);
+            }
+        });
+    }
+    // 生成<td>标签
+    function tdHtml(con) {
+        return "<td >" + con.foodName + "</td>\n" +
+            "    <td >"+ con.foodNum+"</td>\n" +
+            "    <td >"+ con.totalPrice+"</td>";
+    }
+
+</script>
+</body>
+</html>

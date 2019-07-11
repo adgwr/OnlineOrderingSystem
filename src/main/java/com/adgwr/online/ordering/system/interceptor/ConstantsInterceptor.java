@@ -6,6 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 初始化常量的拦截器
@@ -19,11 +21,6 @@ public class ConstantsInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
-        Object customer = session.getAttribute("customer");
-        if(customer==null){
-
-        }
         return true;
     }
 

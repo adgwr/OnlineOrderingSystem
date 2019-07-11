@@ -62,6 +62,7 @@ public class CommentServiceImpl implements CommentService {
     public List<FoodComment> getFoodComment(int foodId) {
         Example example = new Example(Comments.class);
         example.createCriteria().andEqualTo("foodId", foodId);
+        example.setOrderByClause("comment_date desc");
 
         List<Comments> commentsList = commentsMapper.selectByExample(example);
         List<FoodComment> comments = new ArrayList<>();

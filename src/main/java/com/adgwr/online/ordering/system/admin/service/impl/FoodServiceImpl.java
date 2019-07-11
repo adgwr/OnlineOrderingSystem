@@ -35,9 +35,19 @@ public class FoodServiceImpl implements FoodService {
 
     }
 
+    /**
+     * 删除food只是将属性isshow设置为0， 不展示
+     * @param foodId
+     */
     @Override
     public void deleteFood(int foodId){
-        foodMapper.deleteByPrimaryKey(foodId);
+        Food f = new Food();
+        f.setFoodId(foodId);
+        byte b = 0;
+        f.setIsshow(b);
+        foodMapper.updateByPrimaryKeySelective(f);
+
+//        foodMapper.deleteByPrimaryKey(foodId);
     }
 
     @Override
@@ -56,7 +66,10 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public List<Food> getAllFood(){
-        return foodMapper.selectAll();
+        Example example = new Example(Food.class);
+        byte b = 1;
+        example.createCriteria().andEqualTo("isshow", b);
+        return foodMapper.selectByExample(example);
     }
 
     @Override

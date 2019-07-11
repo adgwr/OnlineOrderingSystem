@@ -92,10 +92,10 @@ public class OrderServiceImpl implements OrderService {
                 order.setOrderState(OrderState.DELIVERING.getDec());
                 break;
             case "正在配送":
-                order.setOrderState(OrderState.PREPARING.getDec());
+                order.setOrderState(OrderState.COMMENT.getDec());
                 break;
             case "已接单":
-                order.setOrderState(OrderState.COMMENT.getDec());
+//                order.setOrderState(OrderState.COMMENT.getDec());
                 break;
             case "待评价":
                 order.setOrderState(OrderState.COMPLETE.getDec());

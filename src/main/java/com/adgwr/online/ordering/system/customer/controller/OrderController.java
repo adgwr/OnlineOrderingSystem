@@ -123,7 +123,7 @@ public class OrderController {
     @RequestMapping(value = "changeOrderState", method = RequestMethod.POST)
     public String changeOrderState(@RequestParam("orderId") Integer orderId) {
         orderService.changeOrderState(orderId);
-        return "getOrder";
+        return "redirect:getOrder";
     }
 
     @RequestMapping(value = "/customer/Test", method = RequestMethod.GET)

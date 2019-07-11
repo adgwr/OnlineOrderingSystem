@@ -35,24 +35,19 @@ public class AdminOrderController {
 
         List<OrderWithReceiver> orders = null;
         PageHelper.startPage(pn, 8);
-        PageHelper.orderBy("order_date asc");
-        String goPage = "admin/";
+        PageHelper.orderBy("order_date DESC");
         switch (selectState){
             case "toAccept":
                 orders = adminOrderService.showPaidList();
-                goPage += "orderToAccept";
                 break;
             case "toDeliver":
                 orders = adminOrderService.showReceivedList();
-                goPage += "oderToDeliver";
                 break;
             case "delivering":
                 orders = adminOrderService.showDeliveringList();
-                goPage += "orderIsDelivering";
                 break;
             case "completed":
                 orders = adminOrderService.showFinishedList();
-                goPage += "orderCompleted";
                 break;
                 default:
                     break;
@@ -131,7 +126,7 @@ public class AdminOrderController {
             String selYear,String selMonth,String selDay, Model model){
         List<OrderWithReceiver> orders = null;
         PageHelper.startPage(pn, 1);
-        PageHelper.orderBy("order_date asc");
+        PageHelper.orderBy("order_date DESC");
 
         orders = adminOrderService.searchOrders(selYear,selMonth,selDay);
 

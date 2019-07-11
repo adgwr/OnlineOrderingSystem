@@ -4,44 +4,59 @@
 <head>
     <!--    <meta charset="utf-8"/>-->
     <!--    <title>Register Admin</title>-->
-<!--        <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
-<!--        <link href="../../admin/css/gloab.css" rel="stylesheet">-->
-<!--        <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/gloab.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
     <!--    <script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
     <!--    <script src="../../admin/js/register.js"></script>-->
     <meta charset="UTF-8">
     <!--    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />-->
     <title>Order Manage</title>
     <style type="text/css">
+        .information {
+            height: 350px;
+            overflow: auto;
+            text-align: center;
+        }
 
-        #information::-webkit-scrollbar{
-            background-color:#b5b1b1;
+        .information::-webkit-scrollbar {
+            background-color: #b5b1b1;
         }
-        #information::-webkit-scrollbar-track{
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+
+        .information::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             border-radius: 3px;
-            background-color:black;
+            background-color: black;
         }
-        #information::-webkit-scrollbar-thumb
-        {
+
+        .information::-webkit-scrollbar-thumb {
             border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-            background-color:#b5b1b1;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b5b1b1;
         }
-        .informationTable{
+
+        .informationTable {
             border-radius: 5px;
             border: none;
             font-size: 15px;
             color: #ddd;
+            overflow: auto;
+            margin: 0px auto;
         }
-        .informationTable td,.informationTable th{
-            padding:20px 6px;
+
+        .informationTable tr {
             border-bottom: #999 1px dotted;
         }
-        .buttonStyle{
+
+        .informationTable td, .informationTable th {
+            padding: 20px 6px;
+            border-bottom: #999 1px dotted;
+        }
+
+        .buttonStyle {
             width: 90px;
             height: 35px;
-            margin-top: 30px;
+            margin-top: 18px;
             background-color: transparent;
             color: #cfcfcf;
             font-size: 14px;
@@ -49,36 +64,42 @@
             cursor: pointer;
             transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
             vertical-align: middle;
-            padding :5px;
+            padding: 5px;
             border-radius: 5px;
             border: 1px solid #606060;
+            overflow: hidden;
         }
 
-        .buttonStyle:hover{
+        .buttonStyle:hover {
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(255, 255, 255, .1);
             color: #333;
+            overflow: hidden;
         }
 
-        #search{
-            width: 75px;
-            height: 30px;
-            background-color: transparent;
-            color: #cfcfcf;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, .2);
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-            vertical-align: middle;
-            padding :5px;
-            border-radius: 5px;
-            border: 1px solid #606060;
+        .pagination a {
+            display: inline-block;
+            height: 33px;
+            padding: 0px 13px;
+            background: #000;
+            line-height: 33px;
+            text-align: center;
+            min-width: 30px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #aaa;
         }
 
-        #search:hover{
-            background-color: rgba(255, 255, 255, 1);
-            border: 1px solid rgba(255, 255, 255, .1);
-            color: #333;
+        .pagination a:hover, .pagination a.current {
+            background: #999;
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul.pagination li a.active {
+            background-color: #999;
+            color: #000;
+            text-decoration: none;
         }
     </style>
 
@@ -198,26 +219,28 @@
         }
     </script>
 </head>
-<body style="background: #212121;">
-<div style="text-align: center;">
-    <h1 style="font-size: 30px; color:#ddd;">订单管理</h1>
+<body style="background: #212121; overflow:hidden;">
+<div style="text-align: center;overflow: hidden;">
+    <h1 style="font-size: 30px; color:#ddd; overflow:hidden;">订单管理</h1>
     <!--                查询部分-->
-    <form id="scope" action="/showOrderList" method="get">
-<!--        <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>-->
-        <span style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>
-        <select id="selectState" th:name="selectState" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:100px; margin:0px 30px;"
+    <form action="/showOrderList" id="scope" method="get" style="overflow:hidden;">
+        <!--        <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>-->
+        <span style="color:#fff; vertical-align:middle; font-size:20px;"><b class="ftx04">*</b>查询范围:</span>
+        <select id="selectState" style="background-color:#212121; color: whitesmoke; border-radious:3px; width:200px; margin:20px 30px; vertical-align: middle; height:30px;"
+                th:name="selectState"
                 th:value="${selectState}">
-            <option value="toAccept" style="color: white;">待接单</option>
-            <option value="toDeliver" style="color: white;">待配送</option>
-            <option value="delivering" style="color: white;">配送中</option>
-            <option value="completed" style="color: white;">已完成</option>
+            <option style="color: white;" value="toAccept">待接单</option>
+            <option style="color: white;" value="toDeliver">待配送</option>
+            <option style="color: white;" value="delivering">配送中</option>
+            <option style="color: white;" value="completed">已完成 / 待评价</option>
         </select>
-        <input type="submit" value="查询" id="search">
+        <input class="buttonStyle" style="margin-top: 0px;vertical-align: middle;" type="submit" value="查询">
     </form>
     <!-- 			查询部分结束 -->
-        <div th:switch="${selectState}" id="information" style="height: 560px; overflow: scroll;">
-            <!-- 待接单部分 -->
-            <form  th:case="toAccept" method="post" action="/receiveOrder">
+    <div th:switch="${selectState}" style="text-align: center;">
+        <!-- 待接单部分 -->
+        <form action="/receiveOrder" method="post" th:case="toAccept">
+            <div class="information" style="height:400px; overflow: auto;">
                 <table class="informationTable">
                     <thead>
                     <tr>
@@ -234,8 +257,8 @@
                     </tr>
                     </thead>
                     <tr th:each="paid:${orders}">
-                        <td width="40"><input type="checkbox" name="paidOrder"
-                                              th:value="${paid.orderID}"></td>
+                        <td width="40"><input name="paidOrder" th:value="${paid.orderID}"
+                                              type="checkbox"></td>
                         <td th:text="${paid.getOrderID()}"></td>
                         <td th:text="${paid.getCustomerID()}"></td>
                         <td th:text="${paid.receiver.getrName()}"></td>
@@ -247,11 +270,40 @@
                         <td th:text="${paid.getOrderContent()}"></td>
                     </tr>
                 </table>
-                <input class="buttonStyle" type="submit" name="paid_submit" value="接单"/>
-            </form>
-            <!-- 待接单部分结束 -->
-            <!-- 待配送部分开始 -->
-            <form th:case="toDeliver"  method="post" action="deliverOrder">
+            </div>
+            <div aria-label="Page navigation" style="width:100%;text-align: center;display:inline-flex; overflow:hidden;" th:if="${hasOrders}"
+                 th:unless="${searchDate}">
+                <ul class="pagination" style="width:85%">
+                    <li th:if="${hasStart}">
+                        <a aria-label="Previous"
+                           th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}"
+                           th:if="${hasStart}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a class="active"
+                           th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page==currentPage}"
+                           th:text="${page}"></a>
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a aria-label="Next" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}"
+                           th:if="${hasEnd}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+                <input class="buttonStyle" name="paid_submit" style="float: right;" type="submit" value="接单"/>
+            </div>
+        </form>
+        <!-- 待接单部分结束 -->
+        <!-- 待配送部分开始 -->
+        <form action="deliverOrder" method="post" th:case="toDeliver">
+            <div class="information">
                 <table class="informationTable">
                     <thead>
                     <tr>
@@ -268,8 +320,8 @@
                     </tr>
                     </thead>
                     <tr th:each="receive:${orders}">
-                        <td width="40"><input type="checkbox" name="receiveOrder"
-                                              th:value="${receive.getOrderID()}"></td>
+                        <td width="40"><input name="receiveOrder" th:value="${receive.getOrderID()}"
+                                              type="checkbox"></td>
                         <td th:text="${receive.getOrderID()}"></td>
                         <td th:text="${receive.getCustomerID()}"></td>
                         <td th:text="${receive.receiver.getrName()}"></td>
@@ -281,11 +333,40 @@
                         <td th:text="${receive.getOrderContent()}"></td>
                     </tr>
                 </table>
-                <input class="buttonStyle" type="submit" name="receive_submit" value="配送"/>
-            </form>
-            <!--  待配送部分结束-->
-            <!-- 正在配送中开始 -->
-            <table th:case="delivering" class="informationTable">
+            </div>
+            <div aria-label="Page navigation" style="width:100%;text-align: center;display:inline-flex; overflow:hidden;" th:if="${hasOrders}"
+                 th:unless="${searchDate}">
+                <ul class="pagination" style="width:85%">
+                    <li th:if="${hasStart}">
+                        <a aria-label="Previous"
+                           th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}"
+                           th:if="${hasStart}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a class="active"
+                           th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page==currentPage}"
+                           th:text="${page}"></a>
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a aria-label="Next" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}"
+                           th:if="${hasEnd}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+                <input class="buttonStyle" name="receive_submit" style="float:right;" type="submit" value="配送"/>
+            </div>
+        </form>
+        <!--  待配送部分结束-->
+        <!-- 正在配送中开始 -->
+        <div th:case="delivering" class="information">
+            <table class="informationTable">
                 <thead>
                 <tr>
                     <th>订单ID</th>
@@ -311,34 +392,66 @@
                     <td th:text="${delivering.getOrderContent()}"></td>
                 </tr>
             </table>
-            <!-- 正在配送中结束 -->
-            <!-- 已完成订单开始 -->
-            <div th:case="completed">
-                <table align="center">
-<!--                    日期查询-->
-                    <tr>
-                        <td style="font-size: 25px; color:#ddd;">Search Date</td>
-                        <td width="450px">
-                            <form method="POST" name="SearchOrders" action="/searchOrders">
+            <div aria-label="Page navigation" style="width:100%;text-align: center;display:inline-flex; overflow:hidden;" th:if="${hasOrders}"
+                 th:unless="${searchDate}">
+                <ul class="pagination" style="width:85%">
+                    <li th:if="${hasStart}">
+                        <a aria-label="Previous"
+                           th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}"
+                           th:if="${hasStart}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a class="active"
+                           th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page==currentPage}"
+                           th:text="${page}"></a>
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a aria-label="Next" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}"
+                           th:if="${hasEnd}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 正在配送中结束 -->
+        <!-- 已完成订单开始 -->
+        <div th:case="completed">
+            <table align="center">
+                <!--                    日期查询-->
+                <tr>
+                    <td style="font-size: 20px; color:#ddd;">*查询日期:</td>
+                    <td width="450px">
+                        <form action="/searchOrders" method="POST" name="SearchOrders">
 
-                                <select id="selYear" name="selYear" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
-                                <select id="selMonth" name="selMonth" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
-                                <select id="selDay" name="selDay" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
-                                <script type="text/javascript">
-                                    var selYear = window.document.getElementById("selYear");
-                                    var selMonth = window.document.getElementById("selMonth");
-                                    var selDay = window.document.getElementById("selDay");
-                                    var dt = new Date();
-                                    new DateSelector(selYear, selMonth, selDay, dt);
-                                </script>
-                                <input type="submit" value="搜索" id="search">
-                            </form>
-                        </td>
-                    </tr>
-                </table>
+                            <select id="selYear" name="selYear"
+                                    style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; height:30px; margin:0px 10px;"></select>
+                            <select id="selMonth" name="selMonth"
+                                    style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; height:30px; margin:0px 10px;"></select>
+                            <select id="selDay" name="selDay"
+                                    style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; height:30px; margin:0px 10px;"></select>
+                            <script type="text/javascript">
+                                var selYear = window.document.getElementById("selYear");
+                                var selMonth = window.document.getElementById("selMonth");
+                                var selDay = window.document.getElementById("selDay");
+                                var dt = new Date();
+                                new DateSelector(selYear, selMonth, selDay, dt);
+                            </script>
+                            <input class="buttonStyle" style="vertical-align: center;margin-top: 0px;margin-left:10px;" id="search" type="submit" value="搜索">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div class="information">
                 <table class="informationTable">
                     <thead>
-<!--                    thread 用来定义表头-->
+                    <!--                    thread 用来定义表头-->
                     <tr>
                         <th>订单ID</th>
                         <th>用户ID</th>
@@ -364,71 +477,76 @@
                     </tr>
                     </tbody>
                 </table>
-                <!--            设置日期的分页导航开始-->
-                <div th:if="${searchDate}">
-                <div th:if="${hasOrders}" aria-label="Page navigation" style="width:100%;text-align: center">
-                    <ul class="pagination">
-                        <li th:if="${hasStart}">
-<!--                            <a th:if="${hasStart}" th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}" aria-label="Previous">-->
-                            <a th:if="${hasStart}" th:onclick="'javascript:searchWithDate('+${startPage}-1+')'" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li th:each="page:${#numbers.sequence(startPage,endPage)}">
-                            <a th:href="'javascript:searchWithDate('+${page}+')'" th:if="${page==currentPage}"
-                               class="active"
-                               th:text="${page}"></a>
-                            <a th:href="'javascript:searchWithDate('+${page}+')'" th:if="${page!=currentPage}"
-                               th:text="${page}"></a>
-                        </li>
-                        <li th:if="${hasEnd}">
-                            <a th:if="${hasEnd}" th:href="'javascript:searchWithDate('+${endPage}+1+')'" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </div>
-                <!--            设置日期的分页导航结束-->
-
             </div>
-            <!-- 已完成订单结束 -->
-
-<!--            分页导航开始-->
-            <div th:if="${hasOrders}" th:unless="${searchDate}" aria-label="Page navigation" style="width:100%;text-align: center">
-                <ul class="pagination">
+            <div aria-label="Page navigation" style="width:100%;text-align: center;display:inline-flex; overflow:hidden;" th:if="${hasOrders}"
+                 th:unless="${searchDate}">
+                <ul class="pagination" style="width:85%">
                     <li th:if="${hasStart}">
-                        <a th:if="${hasStart}" th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}" aria-label="Previous">
+                        <a aria-label="Previous"
+                           th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}"
+                           th:if="${hasStart}">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:each="page:${#numbers.sequence(startPage,endPage)}">
-                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}" th:if="${page==currentPage}"
-                           class="active"
+                        <a class="active"
+                           th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page==currentPage}"
                            th:text="${page}"></a>
-                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}" th:if="${page!=currentPage}"
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}"
+                           th:if="${page!=currentPage}"
                            th:text="${page}"></a>
                     </li>
                     <li th:if="${hasEnd}">
-                        <a th:if="${hasEnd}" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}" aria-label="Next">
+                        <a aria-label="Next" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}"
+                           th:if="${hasEnd}">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </div>
-<!--            分页导航结束-->
-
+            <!--            设置日期的分页导航开始-->
+            <div th:if="${searchDate}">
+                <div aria-label="Page navigation" style="width:100%;text-align: center" th:if="${hasOrders}">
+                    <ul class="pagination">
+                        <li th:if="${hasStart}">
+                            <!--                            <a th:if="${hasStart}" th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}" aria-label="Previous">-->
+                            <a aria-label="Previous" th:if="${hasStart}"
+                               th:onclick="'javascript:searchWithDate('+${startPage}-1+')'">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                            <a class="active" th:href="'javascript:searchWithDate('+${page}+')'"
+                               th:if="${page==currentPage}"
+                               th:text="${page}"></a>
+                            <a th:href="'javascript:searchWithDate('+${page}+')'" th:if="${page!=currentPage}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li th:if="${hasEnd}">
+                            <a aria-label="Next" th:href="'javascript:searchWithDate('+${endPage}+1+')'"
+                               th:if="${hasEnd}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--            设置日期的分页导航结束-->
 
         </div>
+        <!-- 已完成订单结束 -->
+
+    </div>
 </div>
 </body>
-<script type="text/javascript" th:inline="javascript">
+<script th:inline="javascript" type="text/javascript">
     var message = [[${message}]];
     //等待页面加载
-    if(message != null)
+    if (message != null)
         alert(message);
 
-    window.onload=function () {
+    window.onload = function () {
         // 设置下拉框选项
         var selected = [[${selectState}]];
         // console.log(selected);
@@ -449,7 +567,7 @@
      * @param pn
      */
     function searchWithDate(pn) {
-        if (pn == parseInt([[${currentPage}]])){
+        if (pn == parseInt([[${currentPage}]])) {
             return;
         }
         var selYear = [[${selYear}]];

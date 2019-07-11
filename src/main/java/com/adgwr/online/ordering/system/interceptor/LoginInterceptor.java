@@ -18,16 +18,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static final String APP_PATH="http://localhost";
 
-    private static final List<String> URL_LIST_WITH_PARM= Arrays.asList(
+    private static final List<String> URL_LIST_WITH_PARA= Arrays.asList(
             APP_PATH+"/login",
-            APP_PATH+"/register",
             APP_PATH+"/getFoods",
             APP_PATH+"/foodDetail"
     );
 
-    private static final List<String> URL_LIST_WITHOUT_PARM= Arrays.asList(
+    private static final List<String> URL_LIST_WITHOUT_PARA= Arrays.asList(
             APP_PATH+"/pcHomepage",
             APP_PATH+"/menu",
+            APP_PATH+"/register",
             APP_PATH+"/");
 
     @Override
@@ -41,8 +41,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         Object customer = session.getAttribute("customer");
         Object adminAccount = session.getAttribute("adminAccount");
         if(customer==null && adminAccount==null){
-            if(URL_LIST_WITH_PARM.contains(url) && request.getParameterNames().hasMoreElements()
-        || URL_LIST_WITHOUT_PARM.contains(url)){
+            if(URL_LIST_WITH_PARA.contains(url) && request.getParameterNames().hasMoreElements()
+        || URL_LIST_WITHOUT_PARA.contains(url)){
                 return true;
             }else{
                 response.sendRedirect("/pcHomepage");

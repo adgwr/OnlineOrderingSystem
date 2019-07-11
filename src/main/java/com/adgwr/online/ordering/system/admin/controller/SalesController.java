@@ -47,7 +47,7 @@ public class SalesController {
     @RequestMapping(value = "admin/salesView", method = RequestMethod.GET)
     public String salesView(Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn) throws ParseException {
         PageHelper.startPage(pn, 5);
-        PageHelper.orderBy("food_id asc");
+        PageHelper.orderBy("order_id asc");
 
         //获取当天的已完成订单
         List<Sale> saleList = salesSelected(getOrderListDaily());

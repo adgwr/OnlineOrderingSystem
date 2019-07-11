@@ -14,6 +14,40 @@
 		alert(message);
 </script>
 
+<style type="text/css">
+	.pagination {
+		padding: 40px 0;
+		display: inline-block;
+	}
+
+	.pagination li {
+		display: inline;
+	}
+
+	.pagination a {
+		display: inline-block;
+		height: 33px;
+		padding: 0px 13px;
+		background: #000;
+
+		line-height: 33px;
+		text-align: center;
+		min-width: 30px;
+		font-size: 16px;
+		color: #aaa;
+	}
+
+	.pagination a:hover, .pagination a.current {
+		background: #999;
+		color: #000;
+	}
+
+	ul.pagination li a.active {
+		background-color: #999;
+		color: #000;
+	}
+</style>
+
 <body>
 <div class="main">
 	<div class="main-content">
@@ -61,6 +95,30 @@
 							</tbody>
 						</table>
 					</div>
+
+					<div aria-label="Page navigation" style="width:100%;text-align: center">
+						<ul class="pagination">
+							<li th:if="${pageInfo.hasPreviousPage}">
+								<a th:if="${pageInfo.hasPreviousPage}" th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}-1)}"
+								   aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							<li th:each="page:${pageInfo.navigatepageNums}">
+								<a th:href="@{/admin/CategoryDisplay(pn=${page})}" th:if="${page==pageInfo.pageNum}"
+								   class="active"
+								   th:text="${page}"></a>
+								<a th:href="@{/admin/CategoryDisplay(pn=${page})}" th:if="${page!=pageInfo.pageNum}"
+								   th:text="${page}"></a>
+							</li>
+							<li th:if="${pageInfo.hasNextPage}">
+								<a th:if="${pageInfo.hasNextPage}" th:href="@{/admin/CategoryDisplay(pn=${pageInfo.pageNum}+1)}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+
 				</div>
 			</div>
 		</div>

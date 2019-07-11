@@ -109,12 +109,12 @@
         <!-- environment end -->
 
 <!-- jsp 支持 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>&lt;!&ndash;热部署&ndash;&gt;-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional><!--热部署-->
+        </dependency>
 <!--        &lt;!&ndash; jsp 支持&ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>javax.servlet</groupId>-->
@@ -148,6 +148,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.adgwr.online.ordering.system.OnlineOrderingSystemApplication</mainClass>
+                    <fork>true</fork>
                 </configuration>
             </plugin>
 

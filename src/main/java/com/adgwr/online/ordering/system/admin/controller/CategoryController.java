@@ -4,11 +4,14 @@ import com.adgwr.online.ordering.system.admin.service.CategoryService;
 import com.adgwr.online.ordering.system.admin.service.FoodBelongService;
 import com.adgwr.online.ordering.system.domain.Category;
 import com.adgwr.online.ordering.system.domain.FoodBelong;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,9 +28,14 @@ public class CategoryController {
     private FoodBelongService foodBelongService;
 
     @RequestMapping(value = "admin/CategoryDisplay", method = RequestMethod.GET)
-    public String category(Model model) {
+    public String category(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
+        PageHelper.startPage(pn, 4);
+        PageHelper.orderBy("category_id asc");
+
         List<Category> categoryList = categoryService.getAllCategory();
-        model.addAttribute("categoryList", categoryList);
+
+        PageInfo page = new PageInfo(categoryList, 5);
+        model.addAttribute("categoryList", categoryList).addAttribute("pageInfo",page);
         return "admin/category/categoryDisplay";
     }
 
@@ -44,11 +52,11 @@ public class CategoryController {
         if(categoryName.equals("")) {
             error = "菜品类别名称不能为空";
             model.addAttribute("error",error);
-            return category(model);
+            return category(1,model);
         }else {
             category.setCategoryName(categoryName);
             categoryService.updateCategory(category);
-            return category(model);
+            return category(1,model);
         }
     }
 
@@ -60,11 +68,11 @@ public class CategoryController {
             if(id2.equals(foodBelong.getCategoryId().toString())) {
                 error = "该菜品类别有相关菜品实例";
                 model.addAttribute("error",error);
-                return category(model);
+                return category(1,model);
             }
         }
         categoryService.deleteCategory(Integer.parseInt(id2));
-        category(model);
+        category(1,model);
         return "admin/category/categoryDisplay";
     }
 
@@ -87,7 +95,7 @@ public class CategoryController {
                 }
             }
             categoryService.addCategory(categoryName);
-            return category(model);
+            return category(1,model);
         }
     }
 }

@@ -17,7 +17,39 @@
 <head>
 <!--<link rel="stylesheet" href="../../static/admin/css/main.css"/>-->
 	<link rel="stylesheet" href="../../admin/css/main.css"/>
-<style>
+<style type="text/css">
+	.pagination {
+		padding: 40px 0;
+		display: inline-block;
+	}
+
+	.pagination li {
+		display: inline;
+	}
+
+	.pagination a {
+		display: inline-block;
+		height: 33px;
+		padding: 0px 13px;
+		background: #000;
+
+		line-height: 33px;
+		text-align: center;
+		min-width: 30px;
+		font-size: 16px;
+		color: #aaa;
+	}
+
+	.pagination a:hover, .pagination a.current {
+		background: #999;
+		color: #000;
+	}
+
+	ul.pagination li a.active {
+		background-color: #999;
+		color: #000;
+	}
+
 a{
 		text-decoration:none;
 }
@@ -75,8 +107,59 @@ a{
 							</tr>
 							</tbody>
 						</table>
+
+
+
 					</div>
+
+					<div aria-label="Page navigation" style="width:100%;text-align: center">
+						<ul class="pagination">
+							<li th:if="${pageInfo.hasPreviousPage}">
+								<a th:if="${pageInfo.hasPreviousPage}" th:href="@{/adminMain(pn=${pageInfo.pageNum}-1)}"
+								   aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							<li th:each="page:${pageInfo.navigatepageNums}">
+								<a th:href="@{/adminMain(pn=${page})}" th:if="${page==pageInfo.pageNum}"
+								   class="active"
+								   th:text="${page}"></a>
+								<a th:href="@{/adminMain(pn=${page})}" th:if="${page!=pageInfo.pageNum}"
+								   th:text="${page}"></a>
+							</li>
+							<li th:if="${pageInfo.hasNextPage}">
+								<a th:if="${pageInfo.hasNextPage}" th:href="@{/adminMain(pn=${pageInfo.pageNum}+1)}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+
 				</div>
+
+<!--					<div aria-label="Page navigation" style="width:100%;text-align: center">-->
+<!--						<ul class="pagination">-->
+<!--							<li th:if="${pageInfo.hasPreviousPage}">-->
+<!--								<a th:if="${pageInfo.hasPreviousPage}" th:href="@{/menu(pn=${pageInfo.pageNum}-1,categorySelected=${categorySelected})}"-->
+<!--								   aria-label="Previous">-->
+<!--									<span aria-hidden="true">&laquo;</span>-->
+<!--								</a>-->
+<!--							</li>-->
+<!--							<li th:each="page:${pageInfo.navigatepageNums}">-->
+<!--								<a th:href="@{/menu(pn=${page},categorySelected=${categorySelected})}" th:if="${page==pageInfo.pageNum}"-->
+<!--								   class="active"-->
+<!--								   th:text="${page}"></a>-->
+<!--								<a th:href="@{/menu(pn=${page},categorySelected=${categorySelected})}" th:if="${page!=pageInfo.pageNum}"-->
+<!--								   th:text="${page}"></a>-->
+<!--							</li>-->
+<!--							<li th:if="${pageInfo.hasNextPage}">-->
+<!--								<a th:if="${pageInfo.hasNextPage}" th:href="@{/menu(pn=${pageInfo.pageNum}+1,categorySelected=${categorySelected})}" aria-label="Next">-->
+<!--									<span aria-hidden="true">&raquo;</span>-->
+<!--								</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</div>-->
+
 				</div>
 				</div>
 		</div>

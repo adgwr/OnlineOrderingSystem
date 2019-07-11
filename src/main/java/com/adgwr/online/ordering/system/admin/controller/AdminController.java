@@ -4,6 +4,8 @@ import com.adgwr.online.ordering.system.admin.service.AdminService;
 import com.adgwr.online.ordering.system.customer.service.CustomerService;
 import com.adgwr.online.ordering.system.domain.AdminAccount;
 import com.adgwr.online.ordering.system.domain.Customer;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,7 +67,7 @@ public class AdminController {
         if (adminAccount != null && adminAccount.getIssuper() == 0) {
             session.setAttribute("adminAccount", adminAccount);
             //model.addAttribute("message", "登录成功");
-            index(model);
+            index(1,model);
             return "admin/index";
         }
 
@@ -73,7 +75,7 @@ public class AdminController {
         if (adminAccount != null && adminAccount.getIssuper() == 1) {
             session.setAttribute("adminAccount", adminAccount);
            // model.addAttribute("message", "登录成功");
-            index(model);
+            index(1,model);
             return "admin/index1";
         }
 
@@ -107,10 +109,12 @@ public class AdminController {
     }
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index(Model model){
+    public String index(Integer pn,Model model){
         Byte b = 0;
+        PageHelper.startPage(pn, 4);
         List<AdminAccount> adminAccountList = adminService.getAdminByIsSuper(b);
-        model.addAttribute("adminAccountList",adminAccountList);
+        PageInfo page = new PageInfo(adminAccountList, 5);
+        model.addAttribute("adminAccountList",adminAccountList).addAttribute("pageInfo",page);
         return "admin/adminMain";
     }
 
@@ -132,7 +136,7 @@ public class AdminController {
                               RedirectAttributes redirectAttributes) {
         adminService.deleteAdmin(id);
         model.addAttribute("message","删除成功！");
-        index(model);
+        index(1,model);
         return "admin/adminMain";
     }
 
@@ -157,7 +161,7 @@ public class AdminController {
                        Model model){
         adminService.editAdminAccount(adminId,pwd,tel);
         model.addAttribute("message","修改成功！");
-        index(model);
+        index(1,model);
         return "admin/adminMain";
     }
 
@@ -168,7 +172,7 @@ public class AdminController {
      */
     @RequestMapping(value = "return", method = RequestMethod.GET)
     public String returnMain(Model model){
-        index(model);
+        index(1,model);
         return "admin/adminMain";
     }
 
@@ -204,7 +208,7 @@ public class AdminController {
 //            redirectAttributes.addFlashAttribute("message","注册成功");
             //用model向页面传参
             model.addAttribute("message","注册成功!");
-            index(model);
+            index(1,model);
             return "admin/adminMain";//返回到索引页面
         }else{
             model.addAttribute("message", "用户名已存在，请重新输入");
@@ -249,7 +253,7 @@ public class AdminController {
                 adminAccount.setPassword(newpassword);
                 adminService.updateAdmin(adminAccount);
                 model.addAttribute("error", "修改成功");
-                index(model);
+                index(1,model);
                 return "admin/adminMain";
             }else
                 model.addAttribute("error", "密码错误");
@@ -289,20 +293,29 @@ public class AdminController {
 
     @RequestMapping(value = "left1", method = RequestMethod.GET)
     public String pages1(Model model){
-        index(model);
+        index(1,model);
         return "admin/left1";
     }
 
     @RequestMapping(value = "adminMain", method = RequestMethod.GET)
-    public String pages2(Model model){
-        index(model);
+    public String pages2(@RequestParam(value = "pn", defaultValue = "1") Integer pn,Model model){
+        index(pn,model);
         return "admin/adminMain";
     }
 
     @RequestMapping(value = "left", method = RequestMethod.GET)
     public String pages3(Model model){
-        index(model);
+        index(1,model);
         return "admin/left";
+    }
+
+    /**
+     * 普通管理员回到个人界面
+     * @return
+     */
+    @GetMapping(value = "adminIndex0")
+    public String adminIndex0() {
+        return "admin/index";
     }
 
 }

@@ -2,323 +2,424 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-<!--    <meta charset="utf-8"/>-->
-<!--    <title>Register Admin</title>-->
-<!--    <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link href="../../admin/css/gloab.css" rel="stylesheet">-->
-<!--    <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
-<!--    <script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
-<!--    <script src="../../admin/js/register.js"></script>-->
+    <!--    <meta charset="utf-8"/>-->
+    <!--    <title>Register Admin</title>-->
+<!--        <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
+<!--        <link href="../../admin/css/gloab.css" rel="stylesheet">-->
+<!--        <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
+    <!--    <script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
+    <!--    <script src="../../admin/js/register.js"></script>-->
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />
+    <!--    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />-->
     <title>Order Manage</title>
-    <style type="text/css">body {margin-bottom:300px;}</style>
+    <style type="text/css">
+
+        #information::-webkit-scrollbar{
+            background-color:#b5b1b1;
+        }
+        #information::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 3px;
+            background-color:black;
+        }
+        #information::-webkit-scrollbar-thumb
+        {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color:#b5b1b1;
+        }
+        .informationTable{
+            border-radius: 5px;
+            border: none;
+            font-size: 15px;
+            color: #ddd;
+        }
+        .informationTable td,.informationTable th{
+            padding:20px 6px;
+            border-bottom: #999 1px dotted;
+        }
+        .buttonStyle{
+            width: 90px;
+            height: 35px;
+            margin-top: 30px;
+            background-color: transparent;
+            color: #cfcfcf;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            vertical-align: middle;
+            padding :5px;
+            border-radius: 5px;
+            border: 1px solid #606060;
+        }
+
+        .buttonStyle:hover{
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #333;
+        }
+
+        #search{
+            width: 75px;
+            height: 30px;
+            background-color: transparent;
+            color: #cfcfcf;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            vertical-align: middle;
+            padding :5px;
+            border-radius: 5px;
+            border: 1px solid #606060;
+        }
+
+        #search:hover{
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #333;
+        }
+    </style>
 
     <script type="text/javascript">
         function DateSelector(selYear, selMonth, selDay) {
-        this.selYear = selYear;
-        this.selMonth = selMonth;
-        this.selDay = selDay;
-        this.selYear.Group = this;
-        this.selMonth.Group = this;
-        // 给年份、月份下拉菜单添加处理onchange事件的函数
-        if (window.document.all != null) {
-            this.selYear.attachEvent("onchange", DateSelector.Onchange);
-            this.selMonth.attachEvent("onchange", DateSelector.Onchange);
-        } else {
-            this.selYear.addEventListener("change", DateSelector.Onchange, false);
-            this.selMonth.addEventListener("change", DateSelector.Onchange, false);
+            this.selYear = selYear;
+            this.selMonth = selMonth;
+            this.selDay = selDay;
+            this.selYear.Group = this;
+            this.selMonth.Group = this;
+            // 给年份、月份下拉菜单添加处理onchange事件的函数
+            if (window.document.all != null) {
+                this.selYear.attachEvent("onchange", DateSelector.Onchange);
+                this.selMonth.attachEvent("onchange", DateSelector.Onchange);
+            } else {
+                this.selYear.addEventListener("change", DateSelector.Onchange, false);
+                this.selMonth.addEventListener("change", DateSelector.Onchange, false);
+            }
+            if (arguments.length == 4) {// 如果传入参数个数为4，最后一个参数必须为Date对象
+                this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
+            } else if (arguments.length == 6) {
+                //如果传入参数个数为6，最后三个参数必须为初始的年月日数值
+                this.InitSelector(arguments[3], arguments[4], arguments[5]);
+            } else {
+                // 默认使用当前日期
+                var dt = new Date();
+                this.InitSelector(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+            }
         }
-        if (arguments.length == 4) {// 如果传入参数个数为4，最后一个参数必须为Date对象
-            this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
-        } else if (arguments.length == 6) {
-            //如果传入参数个数为6，最后三个参数必须为初始的年月日数值
-            this.InitSelector(arguments[3], arguments[4], arguments[5]);
-        } else {
-            // 默认使用当前日期
-            var dt = new Date();
-            this.InitSelector(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+
+        // 增加一个最大年份的属性
+        DateSelector.prototype.MinYear = 2000;
+
+        // 增加一个最大年份的属性
+        DateSelector.prototype.MaxYear = (new Date()).getFullYear();
+
+        // 初始化年份
+        DateSelector.prototype.InitYearSelect = function () {
+            //循环添加OPION元素到年份select对象中
+            for (var i = this.MaxYear; i >= this.MinYear; i--) {
+                // 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到年份select对象
+                this.selYear.appendChild(op);
+            }
         }
-    }
 
-    // 增加一个最大年份的属性
-    DateSelector.prototype.MinYear = 2000;
-
-    // 增加一个最大年份的属性
-    DateSelector.prototype.MaxYear = (new Date()).getFullYear();
-
-    // 初始化年份
-    DateSelector.prototype.InitYearSelect = function () {
-        //循环添加OPION元素到年份select对象中
-        for (var i = this.MaxYear; i >= this.MinYear; i--) {
-            // 新建一个OPTION对象
-            var op = window.document.createElement("OPTION");
-            //设置OPTION对象的值
-            op.value = i;
-            //设置OPTION对象的内容
-            op.innerHTML = i;
-            //添加到年份select对象
-            this.selYear.appendChild(op);
+        // 初始化月份
+        DateSelector.prototype.InitMonthSelect = function () {// 循环添加OPION元素到月份select对象中
+            for (var i = 1; i < 13; i++) {// 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到月份select对象
+                this.selMonth.appendChild(op);
+            }
         }
-    }
 
-    // 初始化月份
-    DateSelector.prototype.InitMonthSelect = function () {// 循环添加OPION元素到月份select对象中
-        for (var i = 1; i < 13; i++) {// 新建一个OPTION对象
-            var op = window.document.createElement("OPTION");
-            //设置OPTION对象的值
-            op.value = i;
-            //设置OPTION对象的内容
-            op.innerHTML = i;
-            //添加到月份select对象
-            this.selMonth.appendChild(op);
+        // 根据年份与月份获取当月的天数
+        DateSelector.DaysInMonth = function (year, month) {
+            var date = new Date(year, month, 0);
+            return date.getDate();
         }
-    }
 
-    // 根据年份与月份获取当月的天数
-    DateSelector.DaysInMonth = function (year, month) {
-        var date = new Date(year, month, 0);
-        return date.getDate();
-    }
-
-    // 初始化天数
-    DateSelector.prototype.InitDaySelect = function () {
-        //使用parseInt函数获取当前的年份和月份
-        var year = parseInt(this.selYear.value);
-        var month = parseInt(this.selMonth.value);
-        // 获取当月的天数
-        var daysInMonth = DateSelector.DaysInMonth(year, month);
-        //清空原有的选项
-        this.selDay.options.length = 0;
-        //循环添加OPION元素到天数select对象中
-        for (var i = 1; i <= daysInMonth; i++) {
-            // 新建一个OPTION对象
-            var op = window.document.createElement("OPTION");
-            //设置OPTION对象的值
-            op.value = i;
-            //设置OPTION对象的内容
-            op.innerHTML = i;
-            //添加到天数select对象
-            this.selDay.appendChild(op);
-        }
-    }
-
-    // 处理年份和月份onchange事件的方法，它获取事件来源对象（即selYear或selMonth）
-    // 并调用它的Group对象（即DateSelector实例，请见构造函数）提供的InitDaySelect方法重新初始化天数
-    //参数e为event对象
-    DateSelector.Onchange = function (e) {
-        var selector = window.document.all != null ? e.srcElement : e.target;
-        selector.Group.InitDaySelect();
-    }
-
-    // 根据参数初始化下拉菜单选项
-    DateSelector.prototype.InitSelector = function (year, month, day) {
-        // 由于外部是可以调用这个方法，因此我们在这里也要将selYear和selMonth的选项清空掉
-        // 另外因为InitDaySelect方法已经有清空天数下拉菜单，因此这里就不用重复工作了
-        this.selYear.options.length = 0;
-        this.selMonth.options.length = 0;
-        // 初始化年、月
-        this.InitYearSelect();
-        this.InitMonthSelect();
-        // 设置年、月初始值
-        this.selYear.selectedIndex = this.MaxYear - year;
-        this.selMonth.selectedIndex = month - 1;
         // 初始化天数
-        this.InitDaySelect();
-        // 设置天数初始值
-        this.selDay.selectedIndex = day - 1;
-    }
+        DateSelector.prototype.InitDaySelect = function () {
+            //使用parseInt函数获取当前的年份和月份
+            var year = parseInt(this.selYear.value);
+            var month = parseInt(this.selMonth.value);
+            // 获取当月的天数
+            var daysInMonth = DateSelector.DaysInMonth(year, month);
+            //清空原有的选项
+            this.selDay.options.length = 0;
+            //循环添加OPION元素到天数select对象中
+            for (var i = 1; i <= daysInMonth; i++) {
+                // 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到天数select对象
+                this.selDay.appendChild(op);
+            }
+        }
+
+        // 处理年份和月份onchange事件的方法，它获取事件来源对象（即selYear或selMonth）
+        // 并调用它的Group对象（即DateSelector实例，请见构造函数）提供的InitDaySelect方法重新初始化天数
+        //参数e为event对象
+        DateSelector.Onchange = function (e) {
+            var selector = window.document.all != null ? e.srcElement : e.target;
+            selector.Group.InitDaySelect();
+        }
+
+        // 根据参数初始化下拉菜单选项
+        DateSelector.prototype.InitSelector = function (year, month, day) {
+            // 由于外部是可以调用这个方法，因此我们在这里也要将selYear和selMonth的选项清空掉
+            // 另外因为InitDaySelect方法已经有清空天数下拉菜单，因此这里就不用重复工作了
+            this.selYear.options.length = 0;
+            this.selMonth.options.length = 0;
+            // 初始化年、月
+            this.InitYearSelect();
+            this.InitMonthSelect();
+            // 设置年、月初始值
+            this.selYear.selectedIndex = this.MaxYear - year;
+            this.selMonth.selectedIndex = month - 1;
+            // 初始化天数
+            this.InitDaySelect();
+            // 设置天数初始值
+            this.selDay.selectedIndex = day - 1;
+        }
     </script>
 </head>
-<body>
-<div class="main">
-<!--    <div class="panel-body" style="height: 650px; overflow-y:scroll">-->
-    <div class="main-content">
-        <div class="container-fluid">
-            <h1 class="page-title">订单管理</h1>
-            <div class="row">
-                <div class="panel-body" style="height: 560px; overflow-y:scroll">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">待接单</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form method="post" action="/receiveOrder">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>订单ID</th>
-                                    <th>用户ID</th>
-                                    <th>收货人姓名</th>
-                                    <th>收货人地址</th>
-                                    <th>收货人电话</th>
-                                    <th>订单日期</th>
-                                    <th>订单状态</th>
-                                    <th>配送方法</th>
-                                    <th>订单项</th>
-                                </tr>
-                                </thead>
-                                <tr th:each="paid:${paidList}">
-                                    <td width="40"><input type="checkbox" name="paidOrder"
-                                                          th:value="${paid.orderID}"></td>
-                                    <td th:text="${paid.getOrderID()}"></td>
-                                    <td th:text="${paid.getCustomerID()}"></td>
-                                    <td th:text="${paid.receiver.getrName()}"></td>
-                                    <td th:text="${paid.receiver.getAddress()}"></td>
-                                    <td th:text="${paid.receiver.getrTel()}"></td>
-                                    <td th:text="${paid.getDate()}"></td>
-                                    <td th:text="${paid.getState()}"></td>
-                                    <td th:text="${paid.getShipMethod()}"></td>
-                                    <td th:text="${paid.getOrderContent()}"></td>
-                                </tr>
-                            </table>
+<body style="background: #212121;">
+<div style="text-align: center;">
+    <h1 style="font-size: 30px; color:#ddd;">订单管理</h1>
+    <!--                查询部分-->
+    <form id="scope" action="/showOrderList" method="get">
+<!--        <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>-->
+        <span style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>
+        <select id="selectState" th:name="selectState" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:100px; margin:0px 30px;"
+                th:value="${selectState}">
+            <option value="toAccept" style="color: white;">待接单</option>
+            <option value="toDeliver" style="color: white;">待配送</option>
+            <option value="delivering" style="color: white;">配送中</option>
+            <option value="completed" style="color: white;">已完成</option>
+        </select>
+        <input type="submit" value="查询" id="search">
+    </form>
+    <!-- 			查询部分结束 -->
+        <div th:switch="${selectState}" id="information" style="height: 560px; overflow: scroll;">
+            <!-- 待接单部分 -->
+            <form  th:case="toAccept" method="post" action="/receiveOrder">
+                <table class="informationTable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>订单ID</th>
+                        <th>用户ID</th>
+                        <th>收货人姓名</th>
+                        <th>收货人地址</th>
+                        <th>收货人电话</th>
+                        <th>订单日期</th>
+                        <th>订单状态</th>
+                        <th>配送方法</th>
+                        <th>订单信息</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="paid:${orders}">
+                        <td width="40"><input type="checkbox" name="paidOrder"
+                                              th:value="${paid.orderID}"></td>
+                        <td th:text="${paid.getOrderID()}"></td>
+                        <td th:text="${paid.getCustomerID()}"></td>
+                        <td th:text="${paid.receiver.getrName()}"></td>
+                        <td th:text="${paid.receiver.getAddress()}"></td>
+                        <td th:text="${paid.receiver.getrTel()}"></td>
+                        <td th:text="${paid.getDate()}"></td>
+                        <td th:text="${paid.getState()}"></td>
+                        <td th:text="${paid.getShipMethod()}"></td>
+                        <td th:text="${paid.getOrderContent()}"></td>
+                    </tr>
+                </table>
+                <input class="buttonStyle" type="submit" name="paid_submit" value="接单"/>
+            </form>
+            <!-- 待接单部分结束 -->
+            <!-- 待配送部分开始 -->
+            <form th:case="toDeliver"  method="post" action="deliverOrder">
+                <table class="informationTable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>订单ID</th>
+                        <th>用户ID</th>
+                        <th>收货人姓名</th>
+                        <th>收货人地址</th>
+                        <th>收货人电话</th>
+                        <th>订单日期</th>
+                        <th>订单状态</th>
+                        <th>配送方法</th>
+                        <th>订单项</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="receive:${orders}">
+                        <td width="40"><input type="checkbox" name="receiveOrder"
+                                              th:value="${receive.getOrderID()}"></td>
+                        <td th:text="${receive.getOrderID()}"></td>
+                        <td th:text="${receive.getCustomerID()}"></td>
+                        <td th:text="${receive.receiver.getrName()}"></td>
+                        <td th:text="${receive.receiver.getAddress()}"></td>
+                        <td th:text="${receive.receiver.getrTel()}"></td>
+                        <td th:text="${receive.getDate()}"></td>
+                        <td th:text="${receive.getState()}"></td>
+                        <td th:text="${receive.getShipMethod()}"></td>
+                        <td th:text="${receive.getOrderContent()}"></td>
+                    </tr>
+                </table>
+                <input class="buttonStyle" type="submit" name="receive_submit" value="配送"/>
+            </form>
+            <!--  待配送部分结束-->
+            <!-- 正在配送中开始 -->
+            <table th:case="delivering" class="informationTable">
+                <thead>
+                <tr>
+                    <th>订单ID</th>
+                    <th>用户ID</th>
+                    <th>收货人姓名</th>
+                    <th>收货人地址</th>
+                    <th>收货人电话</th>
+                    <th>订单日期</th>
+                    <th>订单状态</th>
+                    <th>配送方法</th>
+                    <th>订单项</th>
+                </tr>
+                </thead>
+                <tr th:each="delivering:${orders}">
+                    <td th:text="${delivering.getOrderID()}"></td>
+                    <td th:text="${delivering.getCustomerID()}"></td>
+                    <td th:text="${delivering.receiver.getrName()}"></td>
+                    <td th:text="${delivering.receiver.getAddress()}"></td>
+                    <td th:text="${delivering.receiver.getrTel()}"></td>
+                    <td th:text="${delivering.getDate()}"></td>
+                    <td th:text="${delivering.getState()}"></td>
+                    <td th:text="${delivering.getShipMethod()}"></td>
+                    <td th:text="${delivering.getOrderContent()}"></td>
+                </tr>
+            </table>
+            <!-- 正在配送中结束 -->
+            <!-- 已完成订单开始 -->
+            <div th:case="completed">
+                <table align="center">
+<!--                    日期查询-->
+                    <tr>
+                        <td style="font-size: 25px; color:#ddd;">Search Date</td>
+                        <td width="450px">
+                            <form method="POST" name="SearchOrders" action="/searchOrders">
 
-                            <input type="submit" name="paid_submit" value="接单">
-
-                        </form>
-                    </div>
+                                <select id="selYear" name="selYear" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
+                                <select id="selMonth" name="selMonth" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
+                                <select id="selDay" name="selDay" style="background-color:#212121; color: whitesmoke; border-radious:5px; width:70px; margin:0px 10px;"></select>
+                                <script type="text/javascript">
+                                    var selYear = window.document.getElementById("selYear");
+                                    var selMonth = window.document.getElementById("selMonth");
+                                    var selDay = window.document.getElementById("selDay");
+                                    var dt = new Date();
+                                    new DateSelector(selYear, selMonth, selDay, dt);
+                                </script>
+                                <input type="submit" value="搜索" id="search">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <table class="informationTable">
+                    <thead>
+<!--                    thread 用来定义表头-->
+                    <tr>
+                        <th>订单ID</th>
+                        <th>用户ID</th>
+                        <th>收货人姓名</th>
+                        <th>收货人地址</th>
+                        <th>收货人电话</th>
+                        <th>订单日期</th>
+                        <th>订单状态</th>
+                        <th>配送方法</th>
+                        <th>订单项</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="finished:${orders}">
+                        <td th:text="${finished.getOrderID()}"></td>
+                        <td th:text="${finished.getCustomerID()}"></td>
+                        <td th:text="${finished.receiver.getrName()}"></td>
+                        <td th:text="${finished.receiver.getAddress()}"></td>
+                        <td th:text="${finished.receiver.getrTel()}"></td>
+                        <td th:text="${finished.getDate()}"></td>
+                        <td th:text="${finished.getState()}"></td>
+                        <td th:text="${finished.getShipMethod()}"></td>
+                        <td th:text="${finished.getOrderContent()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--            设置日期的分页导航开始-->
+                <div th:if="${searchDate}">
+                <div th:if="${hasOrders}" aria-label="Page navigation" style="width:100%;text-align: center">
+                    <ul class="pagination">
+                        <li th:if="${hasStart}">
+<!--                            <a th:if="${hasStart}" th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}" aria-label="Previous">-->
+                            <a th:if="${hasStart}" th:onclick="'javascript:searchWithDate('+${startPage}-1+')'" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                            <a th:href="'javascript:searchWithDate('+${page}+')'" th:if="${page==currentPage}"
+                               class="active"
+                               th:text="${page}"></a>
+                            <a th:href="'javascript:searchWithDate('+${page}+')'" th:if="${page!=currentPage}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li th:if="${hasEnd}">
+                            <a th:if="${hasEnd}" th:href="'javascript:searchWithDate('+${endPage}+1+')'" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">待配送</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form method="post"
-                              action="deliverOrder">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>订单ID</th>
-                                    <th>用户ID</th>
-                                    <th>收货人姓名</th>
-                                    <th>收货人地址</th>
-                                    <th>收货人电话</th>
-                                    <th>订单日期</th>
-                                    <th>订单状态</th>
-                                    <th>配送方法</th>
-                                    <th>订单项</th>
-                                </tr>
-                                </thead>
-                                <tr th:each="receive:${receivedList}">
-                                    <td width="40"><input type="checkbox" name="receiveOrder"
-                                                          th:value="${receive.getOrderID()}"></td>
-                                    <td th:text="${receive.getOrderID()}"></td>
-                                    <td th:text="${receive.getCustomerID()}"></td>
-                                    <td th:text="${receive.receiver.getrName()}"></td>
-                                    <td th:text="${receive.receiver.getAddress()}"></td>
-                                    <td th:text="${receive.receiver.getrTel()}"></td>
-                                    <td th:text="${receive.getDate()}"></td>
-                                    <td th:text="${receive.getState()}"></td>
-                                    <td th:text="${receive.getShipMethod()}"></td>
-                                    <td th:text="${receive.getOrderContent()}"></td>
-                                </tr>
-                            </table>
-                            <input type="submit" name="receive_submit" value="配送">
-
-                        </form>
-                    </div>
                 </div>
-
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">配送中</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>订单ID</th>
-                                <th>用户ID</th>
-                                <th>收货人姓名</th>
-                                <th>收货人地址</th>
-                                <th>收货人电话</th>
-                                <th>订单日期</th>
-                                <th>订单状态</th>
-                                <th>配送方法</th>
-                                <th>订单项</th>
-                            </tr>
-                            </thead>
-                            <tr th:each="delivering:${deliveringList}">
-                                <td th:text="${delivering.getOrderID()}"></td>
-                                <td th:text="${delivering.getCustomerID()}"></td>
-                                <td th:text="${delivering.receiver.getrName()}"></td>
-                                <td th:text="${delivering.receiver.getAddress()}"></td>
-                                <td th:text="${delivering.receiver.getrTel()}"></td>
-                                <td th:text="${delivering.getDate()}"></td>
-                                <td th:text="${delivering.getState()}"></td>
-                                <td th:text="${delivering.getShipMethod()}"></td>
-                                <td th:text="${delivering.getOrderContent()}"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">已完成</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table align="center">
-                            <tr>
-                                <td width="150px">Search Date</td>
-                                <td width="350px">
-                                    <form method="POST" name="SearchOrders"
-                                          action="/searchOrders">
-
-                                        <select id="selYear" name="selYear"></select>
-                                        <select id="selMonth" name="selMonth"></select>
-                                        <select id="selDay" name="selDay"></select>
-                                        <script type="text/javascript">
-                                            var selYear = window.document.getElementById("selYear");
-                                            var selMonth = window.document.getElementById("selMonth");
-                                            var selDay = window.document.getElementById("selDay");
-                                            // 新建一个DateSelector类的实例，将三个select对象传进去
-                                            var dt = new Date();
-                                            new DateSelector(selYear, selMonth, selDay, dt);
-                                        </script>
-                                        <input type="submit" value="搜索">
-                                    </form>
-                                </td>
-                            </tr>
-                        </table>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>订单ID</th>
-                                <th>用户ID</th>
-                                <th>收货人姓名</th>
-                                <th>收货人地址</th>
-                                <th>收货人电话</th>
-                                <th>订单日期</th>
-                                <th>订单状态</th>
-                                <th>配送方法</th>
-                                <th>订单项</th>
-                            </tr>
-                            </thead>
-                            <tr th:each="finished:${finishedList}">
-                                <td th:text="${finished.getOrderID()}"></td>
-                                <td th:text="${finished.getCustomerID()}"></td>
-                                <td th:text="${finished.receiver.getrName()}"></td>
-                                <td th:text="${finished.receiver.getAddress()}"></td>
-                                <td th:text="${finished.receiver.getrTel()}"></td>
-                                <td th:text="${finished.getDate()}"></td>
-                                <td th:text="${finished.getState()}"></td>
-                                <td th:text="${finished.getShipMethod()}"></td>
-                                <td th:text="${finished.getOrderContent()}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <!--            设置日期的分页导航结束-->
 
             </div>
+            <!-- 已完成订单结束 -->
+
+<!--            分页导航开始-->
+            <div th:if="${hasOrders}" th:unless="${searchDate}" aria-label="Page navigation" style="width:100%;text-align: center">
+                <ul class="pagination">
+                    <li th:if="${hasStart}">
+                        <a th:if="${hasStart}" th:href="@{/showOrderList(pn=${startPage}-1, selectState=${selectState})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}" th:if="${page==currentPage}"
+                           class="active"
+                           th:text="${page}"></a>
+                        <a th:href="@{/showOrderList(pn=${page}, selectState=${selectState})}" th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a th:if="${hasEnd}" th:href="@{/showOrderList(pn=${endPage}+1, selectState=${selectState})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+<!--            分页导航结束-->
+
+
         </div>
-    </div>
-</div>
 </div>
 </body>
 <script type="text/javascript" th:inline="javascript">
@@ -326,5 +427,59 @@
     //等待页面加载
     if(message != null)
         alert(message);
+
+    window.onload=function () {
+        // 设置下拉框选项
+        var selected = [[${selectState}]];
+        // console.log(selected);
+
+        if (selected != null) {
+            var sel = document.getElementById("selectState");
+            for (var i = 0; i <= sel.options.length; i++) {
+                if (sel.options[i].value == selected) {
+                    sel.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+    };
+
+    /**
+     * 设定了一定时间后进行搜索的跳页函数,post方法
+     * @param pn
+     */
+    function searchWithDate(pn) {
+        if (pn == parseInt([[${currentPage}]])){
+            return;
+        }
+        var selYear = [[${selYear}]];
+        var selMonth = [[${selMonth}]];
+        var selDay = [[${selDay}]];
+        var temp = document.createElement("form");
+
+        temp.action = "/searchOrders";
+        temp.method = "post";
+        temp.style.display = "none";
+
+        var opt = document.createElement("textarea");
+        opt.name = "selYear";
+        opt.value = selYear;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "selMonth";
+        opt.value = selMonth;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "selDay";
+        opt.value = selDay;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "pn";
+        opt.value = pn;
+        temp.appendChild(opt);
+
+        document.body.appendChild(temp);
+        temp.submit();
+    }
 </script>
 </html>

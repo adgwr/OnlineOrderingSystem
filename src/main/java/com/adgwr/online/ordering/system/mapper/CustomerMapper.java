@@ -9,7 +9,7 @@ import tk.mybatis.MyMapper;
 
 import java.util.List;
 
-@CacheNamespace(implementation = RedisCache.class)
+//@CacheNamespace(implementation = RedisCache.class)
 public interface CustomerMapper extends MyMapper<Customer> {
 
     @Select("SELECT fd_name as foodName, sum(amount) as foodNum, sum(total_price) as totalPrice \n" +

@@ -45,12 +45,20 @@ public class SalesController {
      * @return
      */
     @RequestMapping(value = "admin/salesView", method = RequestMethod.GET)
-    public String salesView(Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn) throws ParseException {
+    public String salesView(Model model,
+                            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                            @RequestParam(value = "viewMethod", defaultValue = "today") String viewMethod) throws ParseException {
         PageHelper.startPage(pn, 5);
         PageHelper.orderBy("order_id asc");
 
-        //获取当天的已完成订单
-        List<Sale> saleList = salesSelected(getOrderListDaily());
+        List<Sale> saleList;
+        if(viewMethod.equals("today")) {
+            saleList = salesSelected(getOrderListDaily());
+        }else if(viewMethod.equals("thisWeek")) {
+            saleList = salesSelected(getOrderListWeek());
+        }else {
+            saleList = salesSelected(getOrderListMonth());
+        }
 
         PageInfo page = new PageInfo(saleList, 3);
         if(page.getPages() == 0) {
@@ -66,28 +74,8 @@ public class SalesController {
             model.addAttribute("startPage", start);
             model.addAttribute("endPage", end);
         }
-
+        model.addAttribute("viewMethod",viewMethod);
         model.addAttribute("saleList",saleList);
-        model.addAttribute("viewMethod", "本日");
-        return "admin/salesView";
-    }
-
-    @RequestMapping(value = "searchSales", method = RequestMethod.GET)
-    public String searchSales(String viewMethod, Model model) throws ParseException {
-        List<Sale> saleList;
-        if(viewMethod.equals("today")) {
-            saleList = salesSelected(getOrderListDaily());
-            model.addAttribute("viewMethod","本日");
-        }else if(viewMethod.equals("this week")) {
-            //获取当周的已完成订单
-            saleList = salesSelected(getOrderListWeek());
-            model.addAttribute("viewMethod","本周");
-        }else {
-            //获取当月的已完成订单
-            saleList = salesSelected(getOrderListMonth());
-            model.addAttribute("viewMethod","本月");
-        }
-        model.addAttribute("saleList", saleList);
         return "admin/salesView";
     }
 

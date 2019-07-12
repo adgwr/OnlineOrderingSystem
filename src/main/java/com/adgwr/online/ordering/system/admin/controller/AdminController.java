@@ -227,22 +227,16 @@ public class AdminController {
         return "admin/modifyPassword";
     }
 
-    @RequestMapping(value = "modifyPassword1", method = RequestMethod.GET)
-    public String modifyPassword1(HttpSession session, Model model) {
-        modifyPassword(session, model);
-        return "admin/modifyPassword1";
-    }
-
     /**
      * 修改管理员密码
-     * @param adminId
      * @param oldPswd
      * @param newPswd
      * @param model
      * @return
      */
-    @RequestMapping(value = "ModifyPwdAdmin1", method = RequestMethod.POST)
-    public String modifyPswdAdmin1(@RequestParam(value = "adminId") String adminId, String oldPswd, String newPswd, Model model) {
+    @RequestMapping(value = "ModifyPwdAdmin", method = RequestMethod.POST)
+    public String modifyPswdAdmin(HttpSession session, String oldPswd, String newPswd, Model model) {
+        String adminId = ((AdminAccount)session.getAttribute("adminAccount")).getAdminId();
         AdminAccount adminAccount = adminService.getAdminById(adminId);
         if(adminAccount!=null){
             //MD5加密
@@ -254,7 +248,7 @@ public class AdminController {
                 adminService.updateAdmin(adminAccount);
                 model.addAttribute("error", "修改成功");
                 index(1,model);
-                return "admin/adminMain";
+                return "forward:admin/food/foodDisplay";
             }else
                 model.addAttribute("error", "密码错误");
         }else
@@ -262,22 +256,6 @@ public class AdminController {
         return "admin/modifyPassword";
     }
 
-    /**
-     * 修改管理员密码
-     * @param adminId
-     * @param oldPswd
-     * @param newPswd
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "ModifyPwdAdmin", method = RequestMethod.POST)
-    public String modifyPswdAdmin(@RequestParam(value = "adminId") String adminId, String oldPswd, String newPswd, Model model) {
-        modifyPswdAdmin1(adminId, oldPswd, newPswd, model);
-        if(modifyPswdAdmin1(adminId, oldPswd, newPswd, model).equals("admin/index1"))
-            return "admin/index";
-        else
-            return "admin/modifyPassword";
-    }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public String search(String searchKey, Model model,@RequestParam(value = "pn", defaultValue = "1") Integer pn){

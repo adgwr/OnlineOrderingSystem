@@ -34,7 +34,7 @@ public class AdminOrderController {
                                  Model model) {
 
         List<OrderWithReceiver> orders = null;
-        PageHelper.startPage(pn, 8);
+        PageHelper.startPage(pn, 5);
         PageHelper.orderBy("order_date DESC");
         switch (selectState){
             case "toAccept":

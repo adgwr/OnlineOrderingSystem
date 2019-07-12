@@ -39,9 +39,7 @@
             color: #ddd;
             overflow: auto;
             margin: 0px auto;
-        }
-        .informationTable tr {
-            border-bottom: #999 1px dotted;
+            border-spacing:0;
         }
         .informationTable td, .informationTable th {
             padding: 20px 6px;
@@ -116,9 +114,8 @@
 <div style="text-align: center;overflow: hidden;">
     <h1 style="font-size: 30px; color:#ddd; overflow:hidden;">菜品管理</h1>
     <div style="display: inline-flex">
-<!--        <form action="/admin/food/foodSearch" method="get" style="text-align: center;">-->
         <form action="/admin/food/foodDisplay" method="get" style="text-align: center;">
-                <input class="textIn" name='info' type='text' value=''/>
+                <input class="textIn" name='info' type='text' th:value="${info}"/>
                 <input class="buttonStyle" style="margin-top:0px; margin-left:10px;vertical-align: middle;" type="submit" value="查询"/>
         </form>
         <form action="/admin/food/turnFoodAdd" style="margin-left:10px;">
@@ -172,29 +169,27 @@
             </tbody>
         </table>
     </div>
-    <!--    页面导航栏开始-->
-        <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center" >
-            <ul class="pagination">
-                <li th:if="${hasStart}">
-                    <a th:if="${hasStart}" th:href="@{/admin/food/foodDisplay(pn=${startPage}-1, info=${info})}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li th:each="page:${#numbers.sequence(startPage,endPage)}">
-                    <a th:href="@{/admin/food/foodDisplay(pn=${page}, info=${info})}" th:if="${page==currentPage}"
-                       class="active"
-                       th:text="${page}"></a>
-                    <a th:href="@{/admin/food/foodDisplay(pn=${page}, info=${info})}" th:if="${page!=currentPage}"
-                       th:text="${page}"></a>
-                </li>
-                <li th:if="${hasEnd}">
-                    <a th:if="${hasEnd}" th:href="@{/admin/food/foodDisplay(pn=${endPage}+1, info=${info})}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    <!--    页面导航栏结束-->
+    <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center" >
+        <ul class="pagination">
+            <li th:if="${hasStart}">
+                <a th:if="${hasStart}" th:href="@{/admin/food/foodDisplay(pn=${startPage}-1,info=${info})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                <a th:href="@{/admin/food/foodDisplay(pn=${page},info=${info})}" th:if="${page==currentPage}"
+                   class="active"
+                   th:text="${page}"></a>
+                <a th:href="@{/admin/food/foodDisplay(pn=${page},info=${info} )}" th:if="${page!=currentPage}"
+                   th:text="${page}"></a>
+            </li>
+            <li th:if="${hasEnd}">
+                <a th:if="${hasEnd}" th:href="@{/admin/food/foodDisplay(pn=${endPage}+1,info=${info})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

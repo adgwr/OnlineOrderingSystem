@@ -2,13 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../../static/admin/css/main.css">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../customer/css/main.css">
 <title>left</title>
 <style type="text/css">
 a{
 	text-decoration:none;
-	color: #d2d2d2;
 }
 </style>
 </head>
@@ -29,7 +28,7 @@ a{
 					<br/>
 					<li><a th:href="@{'admin/salesView'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>销售情况</span></a></li>
 					<br/>
-					<li><a th:href="@{'modifyPassword1'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>修改密码</span></a></li>
+					<li><a th:href="@{'admin/modifyPassword'}" target="rightFrame"><i class="lnr lnr-chart-bars"></i> <span>修改密码</span></a></li>
 					<br/>
 				</ul>
 			</nav>

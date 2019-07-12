@@ -37,7 +37,7 @@ public class FoodController {
     @Autowired
     private FoodBelongService foodBelongService;
 
-    @RequestMapping(value = "admin/food/foodDisplay", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/food/foodDisplay")
     public String turnFoodDisplay(Model model,
                                   @RequestParam(value = "pn", defaultValue = "1") Integer pn,
                                   @RequestParam(value = "info",defaultValue = "") String info){
@@ -60,9 +60,8 @@ public class FoodController {
             model.addAttribute("startPage", start);
             model.addAttribute("endPage", end);
         }
-
+        model.addAttribute("info",info);
         model.addAttribute("foodList",foodList);
-        model.addAttribute("info", info);
         return "admin/food/foodDisplay";
     }
 
@@ -179,14 +178,6 @@ public class FoodController {
         return "admin/food/foodDisplay";
     }
 
-//    @RequestMapping(value = "admin/food/foodSearch", method = RequestMethod.GET)
-//    public String foodSearch(@RequestParam(value = "info") String info,
-//                             @RequestParam(value = "pn", defaultValue = "1") Integer pn,
-//                             Model model){
-//        List<Food> foodSearchResult = foodService.getFoodByName(info);
-//        model.addAttribute("foodSearchResult",foodSearchResult);
-//        return turnFoodDisplay(model,1,info);
-//    }
 
     @RequestMapping(value = "foodDisplay" , method = RequestMethod.GET)
     public String foodDisplayPage(Model model){

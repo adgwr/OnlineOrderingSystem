@@ -29,14 +29,15 @@ public class CategoryController {
 
     @RequestMapping(value = "admin/CategoryDisplay", method = RequestMethod.GET)
     public String category(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
-        PageHelper.startPage(pn, 3);
-        PageHelper.orderBy("category_id asc");
+//        PageHelper.startPage(pn, 3);
+//        PageHelper.orderBy("category_id asc");
 
         List<Category> categoryList = categoryService.getAllCategory();
 
-        PageInfo pageInfo = new PageInfo(categoryList, 3);
+//        PageInfo pageInfo = new PageInfo(categoryList, 3);
 
-        model.addAttribute("categoryList", categoryList).addAttribute("pageInfo",pageInfo);
+        model.addAttribute("categoryList", categoryList);
+//                .addAttribute("pageInfo",pageInfo);
         return "admin/category/categoryDisplay";
     }
 

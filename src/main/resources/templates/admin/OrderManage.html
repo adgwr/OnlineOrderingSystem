@@ -42,6 +42,7 @@
             color: #ddd;
             overflow: auto;
             margin: 0px auto;
+            border-spacing:0;
         }
 
         .informationTable tr {
@@ -240,7 +241,7 @@
     <div th:switch="${selectState}" style="text-align: center;">
         <!-- 待接单部分 -->
         <form action="/receiveOrder" method="post" th:case="toAccept">
-            <div class="information" style="height:400px; overflow: auto;">
+            <div class="information" style="height:370px; overflow: auto;">
                 <table class="informationTable">
                     <thead>
                     <tr>

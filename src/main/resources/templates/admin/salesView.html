@@ -1,129 +1,344 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <!--	<meta charset="UTF-8">-->
-    <!--	<link rel="stylesheet" type="text/css" href="/css/main.css" />-->
-    <!--	<meta charset="utf-8"/>-->
-    <!--	<title>SalesView</title>-->
-    <!--	<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
-    <!--	<link href="../../admin/css/gloab.css" rel="stylesheet">-->
-    <!--	<link href="../../admin/css/regUsr.css" rel="stylesheet">-->
-    <!--	<script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
-    <!--	<script src="../../admin/js/register.js"></script>-->
+    <!--    <meta charset="utf-8"/>-->
+    <!--    <title>Register Admin</title>-->
+    <!--        <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/gloab.css" rel="stylesheet">-->
+    <!--        <link href="../../admin/css/regUsr.css" rel="stylesheet">-->
+    <!--    <script src="../../admin/js/jquery-1.11.1.min.js"></script>-->
+    <!--    <script src="../../admin/js/register.js"></script>-->
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/admin/css/main.css"/>
-    <title>Sales View</title>
-    <style type="text/css">body {
-        margin-bottom: 300px;
-    }</style>
+    <!--    <link rel="stylesheet" type="text/css" href="/admin/css/main.css" />-->
+    <title>Order Manage</title>
+    <style type="text/css">
+        .information {
+            height: 350px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        .information::-webkit-scrollbar {
+            background-color: #b5b1b1;
+        }
+
+        .information::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background-color: black;
+        }
+
+        .information::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b5b1b1;
+        }
+
+        .informationTable {
+            width:70%;
+            border-radius: 5px;
+            border: #ddd 1px solid;
+            border-collapse: collapse;
+            font-size: 15px;
+            color: #ddd;
+            overflow: auto;
+            margin: 0px auto;
+        }
+
+
+        .informationTable td, .informationTable th {
+            padding: 20px 6px;
+            border: #ddd 1px solid;
+        }
+
+        .buttonStyle {
+            width: 90px;
+            height: 35px;
+            margin-top: 18px;
+            background-color: transparent;
+            color: #cfcfcf;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            vertical-align: middle;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #606060;
+            overflow: hidden;
+        }
+
+        .buttonStyle:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .pagination a {
+            display: inline-block;
+            height: 33px;
+            padding: 0px 13px;
+            background: #000;
+            line-height: 33px;
+            text-align: center;
+            min-width: 30px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #aaa;
+        }
+
+        .pagination a:hover, .pagination a.current {
+            background: #999;
+            color: #000;
+            text-decoration: none;
+        }
+
+        ul.pagination li a.active {
+            background-color: #999;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function DateSelector(selYear, selMonth, selDay) {
+            this.selYear = selYear;
+            this.selMonth = selMonth;
+            this.selDay = selDay;
+            this.selYear.Group = this;
+            this.selMonth.Group = this;
+            // 给年份、月份下拉菜单添加处理onchange事件的函数
+            if (window.document.all != null) {
+                this.selYear.attachEvent("onchange", DateSelector.Onchange);
+                this.selMonth.attachEvent("onchange", DateSelector.Onchange);
+            } else {
+                this.selYear.addEventListener("change", DateSelector.Onchange, false);
+                this.selMonth.addEventListener("change", DateSelector.Onchange, false);
+            }
+            if (arguments.length == 4) {// 如果传入参数个数为4，最后一个参数必须为Date对象
+                this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
+            } else if (arguments.length == 6) {
+                //如果传入参数个数为6，最后三个参数必须为初始的年月日数值
+                this.InitSelector(arguments[3], arguments[4], arguments[5]);
+            } else {
+                // 默认使用当前日期
+                var dt = new Date();
+                this.InitSelector(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+            }
+        }
+
+        // 增加一个最大年份的属性
+        DateSelector.prototype.MinYear = 2000;
+
+        // 增加一个最大年份的属性
+        DateSelector.prototype.MaxYear = (new Date()).getFullYear();
+
+        // 初始化年份
+        DateSelector.prototype.InitYearSelect = function () {
+            //循环添加OPION元素到年份select对象中
+            for (var i = this.MaxYear; i >= this.MinYear; i--) {
+                // 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到年份select对象
+                this.selYear.appendChild(op);
+            }
+        }
+
+        // 初始化月份
+        DateSelector.prototype.InitMonthSelect = function () {// 循环添加OPION元素到月份select对象中
+            for (var i = 1; i < 13; i++) {// 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到月份select对象
+                this.selMonth.appendChild(op);
+            }
+        }
+
+        // 根据年份与月份获取当月的天数
+        DateSelector.DaysInMonth = function (year, month) {
+            var date = new Date(year, month, 0);
+            return date.getDate();
+        }
+
+        // 初始化天数
+        DateSelector.prototype.InitDaySelect = function () {
+            //使用parseInt函数获取当前的年份和月份
+            var year = parseInt(this.selYear.value);
+            var month = parseInt(this.selMonth.value);
+            // 获取当月的天数
+            var daysInMonth = DateSelector.DaysInMonth(year, month);
+            //清空原有的选项
+            this.selDay.options.length = 0;
+            //循环添加OPION元素到天数select对象中
+            for (var i = 1; i <= daysInMonth; i++) {
+                // 新建一个OPTION对象
+                var op = window.document.createElement("OPTION");
+                //设置OPTION对象的值
+                op.value = i;
+                //设置OPTION对象的内容
+                op.innerHTML = i;
+                //添加到天数select对象
+                this.selDay.appendChild(op);
+            }
+        }
+
+        // 处理年份和月份onchange事件的方法，它获取事件来源对象（即selYear或selMonth）
+        // 并调用它的Group对象（即DateSelector实例，请见构造函数）提供的InitDaySelect方法重新初始化天数
+        //参数e为event对象
+        DateSelector.Onchange = function (e) {
+            var selector = window.document.all != null ? e.srcElement : e.target;
+            selector.Group.InitDaySelect();
+        }
+
+        // 根据参数初始化下拉菜单选项
+        DateSelector.prototype.InitSelector = function (year, month, day) {
+            // 由于外部是可以调用这个方法，因此我们在这里也要将selYear和selMonth的选项清空掉
+            // 另外因为InitDaySelect方法已经有清空天数下拉菜单，因此这里就不用重复工作了
+            this.selYear.options.length = 0;
+            this.selMonth.options.length = 0;
+            // 初始化年、月
+            this.InitYearSelect();
+            this.InitMonthSelect();
+            // 设置年、月初始值
+            this.selYear.selectedIndex = this.MaxYear - year;
+            this.selMonth.selectedIndex = month - 1;
+            // 初始化天数
+            this.InitDaySelect();
+            // 设置天数初始值
+            this.selDay.selectedIndex = day - 1;
+        }
+    </script>
 </head>
-<style type="text/css">
-    .pagination {
-        padding: 40px 0;
-        display: inline-block;
-    }
-
-    .pagination li {
-        display: inline;
-    }
-
-    .pagination a {
-        display: inline-block;
-        height: 33px;
-        padding: 0px 13px;
-        background: #000;
-
-        line-height: 33px;
-        text-align: center;
-        min-width: 30px;
-        font-size: 16px;
-        color: #aaa;
-    }
-
-    .pagination a:hover, .pagination a.current {
-        background: #999;
-        color: #000;
-    }
-
-    ul.pagination li a.active {
-        background-color: #999;
-        color: #000;
-    }
-</style>
-<body>
-<div class="main">
-    <div class="main-content">
-        <div class="container-fluid">
-            <h1 class="page-title">销售情况查询</h1>
-            <div class="row">
-                <div class="panel-body" style="height: 560px; overflow-y:scroll">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">销售情况</h3>
-
-                        </div>
-
-                        <div class="panel-body">
-                            <table align="center">
-                                <tr>
-                                    <td width="150px">查询范围</td>
-                                    <td width="350px">
-                                        <form method="get" name="SearchSales" th:action="@{'/searchSales'}">
-                                            <select name="viewMethod">
-                                                <option value="today">today</option>
-                                                <option value="this week">this week</option>
-                                                <option value="this month">this month</option>
-                                            </select>
-                                            <input type="submit" value="Search">
-                                        </form>
-                                    <th th:text="${viewMethod}+'的销售情况'"></th>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>菜品ID</th>
-                                    <th>菜品名</th>
-                                    <th>销售数量</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="sale:${saleList}">
-                                    <td th:text="${sale.getFoodId()}"></td>
-                                    <td th:text="${sale.getFoodName()}"></td>
-                                    <td th:text="${sale.getAmount()}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div th:if="${hasFood}" aria-label="Page navigation" style="width:100%;text-align: center">
-                            <ul class="pagination">
-                                <li th:if="${hasStart}">
-                                    <a th:if="${hasStart}" th:href="@{/admin/salesView(pn=${startPage}-1)}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li th:each="page:${#numbers.sequence(startPage,endPage)}">
-                                    <a th:href="@{/admin/salesView(pn=${page})}" th:if="${page==currentPage}"
-                                       class="active"
-                                       th:text="${page}"></a>
-                                    <a th:href="@{/admin/salesView(pn=${page})}" th:if="${page!=currentPage}"
-                                       th:text="${page}"></a>
-                                </li>
-                                <li th:if="${hasEnd}">
-                                    <a th:if="${hasEnd}" th:href="@{/admin/salesView(pn=${endPage}+1)}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body style="background: #212121; overflow:hidden;">
+<div style="text-align: center;overflow: hidden;">
+    <h1 style="font-size: 30px; color:#ddd; overflow:hidden;">订单管理</h1>
+    <!--                查询部分-->
+    <form action="/admin/salesView" name="SearchSales"  id="scope" method="get" style="overflow:hidden;">
+        <!--        <span class="intelligent-label f-fl" style="color:#fff; vertical-align:middle; font-size:17px;"><b class="ftx04">*</b>查询范围:</span>-->
+        <span style="color:#fff; vertical-align:middle; font-size:20px;"><b class="ftx04">*</b>查询范围:</span>
+        <select id="selectState" style="background-color:#212121; color: whitesmoke; border-radious:3px; width:200px; margin:20px 30px; vertical-align: middle; height:30px;"
+                th:name="viewMethod"
+                th:value="${viewMethod}">
+            <option style="color: white;" value="today">今天</option>
+            <option style="color: white;" value="thisWeek">本周</option>
+            <option style="color: white;" value="thisMonth">本月</option>
+        </select>
+        <input class="buttonStyle" style="margin-top: 0px;vertical-align: middle;" type="submit" value="查询">
+    </form>
+    <!-- 			查询部分结束 -->
+    <div class="information" style="height:400px; overflow: auto;">
+        <table class="informationTable">
+            <thead>
+            <tr>
+                <th>菜品ID</th>
+                <th>菜品名</th>
+                <th>销售数量</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale:${saleList}">
+                <td th:text="${sale.getFoodId()}"></td>
+                <td th:text="${sale.getFoodName()}"></td>
+                <td th:text="${sale.getAmount()}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <div aria-label="Page navigation" style="width:100%;text-align: center;display:inline-flex; overflow:hidden;" th:if="${hasFood}">
+                <ul class="pagination" style="width:85%">
+                    <li th:if="${hasStart}">
+                        <a aria-label="Previous"
+                           th:href="@{/admin/salesView(pn=${startPage}-1,viewMethod=${viewMethod})}"
+                           th:if="${hasStart}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a class="active"
+                           th:href="@{/admin/salesView(pn=${page},viewMethod=${viewMethod})}"
+                           th:if="${page==currentPage}"
+                           th:text="${page}"></a>
+                        <a th:href="@{/admin/salesView(pn=${page},viewMethod=${viewMethod})}"
+                           th:if="${page!=currentPage}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:if="${hasEnd}">
+                        <a aria-label="Next" th:href="@{/admin/salesView(pn=${endPage}+1,viewMethod=${viewMethod})}"
+                           th:if="${hasEnd}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 </div>
 </body>
+<script th:inline="javascript" type="text/javascript">
+    var message = [[${message}]];
+    //等待页面加载
+    if (message != null)
+        alert(message);
+
+    window.onload = function () {
+        // 设置下拉框选项
+        var selected = [[${viewMethod}]];
+        // console.log(selected);
+
+        if (selected != null) {
+            var sel = document.getElementById("selectState");
+            for (var i = 0; i <= sel.options.length; i++) {
+                if (sel.options[i].value == selected) {
+                    sel.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+    };
+
+    /**
+     * 设定了一定时间后进行搜索的跳页函数,post方法
+     * @param pn
+     */
+    function searchWithDate(pn) {
+        if (pn == parseInt([[${currentPage}]])) {
+            return;
+        }
+        var selYear = [[${selYear}]];
+        var selMonth = [[${selMonth}]];
+        var selDay = [[${selDay}]];
+        var temp = document.createElement("form");
+
+        temp.action = "/searchOrders";
+        temp.method = "post";
+        temp.style.display = "none";
+
+        var opt = document.createElement("textarea");
+        opt.name = "selYear";
+        opt.value = selYear;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "selMonth";
+        opt.value = selMonth;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "selDay";
+        opt.value = selDay;
+        temp.appendChild(opt);
+        opt = document.createElement("textarea");
+        opt.name = "pn";
+        opt.value = pn;
+        temp.appendChild(opt);
+
+        document.body.appendChild(temp);
+        temp.submit();
+    }
+</script>
 </html>

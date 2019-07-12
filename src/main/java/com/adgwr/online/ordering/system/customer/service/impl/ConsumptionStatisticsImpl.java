@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,10 @@ public class ConsumptionStatisticsImpl implements ConsumptionStatisticsService {
     @Override
     public List<CustumerConsumption> getConsumptionWithScope(String cId, String scope) {
         if (scope.equals("all")) {
-            return customerMapper.getConsumptions(cId);
+            System.out.println(scope);
+            List<CustumerConsumption> consumptions = customerMapper.getConsumptions(cId);
+            Collections.sort(consumptions);
+            return consumptions;
         }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 设置时间格式
         return customerMapper.getConsumptionsWithScope(cId, getStartDateOfScope(scope), df.format(new Date()));
